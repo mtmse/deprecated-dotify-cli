@@ -40,6 +40,8 @@ jar.doFirst {
 		'Class-Path': configurations.compile.collect { it.getName() }.join(' ')			//'${core.classpath.attribute}'
 		)
 	}
+	from sourceSets.main.allJava
+	baseName = 'brailleUtils-ui'
 }
 
 repositories {
