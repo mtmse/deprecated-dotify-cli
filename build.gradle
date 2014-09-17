@@ -59,11 +59,9 @@ dependencies {
 	testCompile group: 'junit', name: 'junit', version: '4.7'
 }
 
-//uncomment when the actual move to this project takes place
-/*
 applicationDistribution.from(file('docs')) {
     into 'docs'
 }
 applicationDistribution.from(file('licenses')) {
 	into 'licenses'
-}*/
+}
