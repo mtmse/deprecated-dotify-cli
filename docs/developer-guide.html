@@ -1,0 +1,220 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title></title>
+</head>
+
+<body>
+<h1><a name="Introduction"></a>Introduction<a href="#Introduction"
+class="section_anchor"></a></h1>
+
+<p>The goal of this project is to provide core functionality needed to interact
+with PEF-files, to provide implementations for commonly used software/hardware
+related to PEF-files and to provide an easy way for others to extend the list
+of implementations. </p>
+
+<h1><a name="Main_Features"></a>Main Features<a href="#Main_Features"
+class="section_anchor"></a></h1>
+
+<p>The project contains code to: </p>
+<ul>
+  <li>Emboss a PEF-file </li>
+  <li>Validate a PEF-file </li>
+  <li>Collect meta data about a PEF-file </li>
+  <li>Convert from text to a PEF-file </li>
+  <li>Convert from a PEF-file to text </li>
+  <li>Implement embossers, tables and papers </li>
+</ul>
+
+<p>Soon the following features will be included too: </p>
+<ul>
+  <li>Split a PEF-file into one file/volume </li>
+  <li>Merge several PEF-files into one </li>
+</ul>
+
+<h1><a name="Design"></a>Design<a href="#Design"
+class="section_anchor"></a></h1>
+
+<p>The software should be: </p>
+<ul>
+  <li>Small </li>
+  <li>Extensible </li>
+  <li>Platform independent </li>
+  <li>Independent from third party libraries </li>
+  <li>Informative enough to build user friendly user interfaces on </li>
+  <li>Runnable as a Jar-file </li>
+</ul>
+
+<p>Code written for this project must work under Java SE 5. </p>
+
+<h2><a name="XSLT_and_XPath"></a>XSLT and XPath<a href="#XSLT_and_XPath"
+class="section_anchor"></a></h2>
+
+<p>Some operations are best handled using XSLT and XPath. Where these
+technologies have been used, only the versions directly supported by Java has
+been used, i.e. </p>
+<ul>
+  <li>XSLT 1.0 </li>
+  <li>XPath 1.0 </li>
+</ul>
+
+<p>Note that care must be taken not to use XSLT 2.0, since it is readily
+available in the coding environment. Saxon 8 is used for the validation
+functionality, but should not be used elsewhere. </p>
+
+<h2><a name="Jar_Libraries"></a>Jar Libraries<a href="#Jar_Libraries"
+class="section_anchor"></a></h2>
+
+<p>The goal to avoid using additional libraries if possible has been
+successful, except in validation and testing. Therefore, in order to use the
+PEF validator, the following libraries must be included in the class path: </p>
+<ul>
+  <li>isorelax.jar </li>
+  <li>jing.jar </li>
+  <li>saxon8.jar </li>
+  <li>xercesImpl.jar </li>
+  <li>xml-apis.jar </li>
+</ul>
+
+<p>To run unit tests using Ant, "junit-4.4.jar" must be in the class path. </p>
+
+<p><i>If validation is not needed, no jar-files have to be included in the
+distribution.</i> </p>
+
+<h2><a name="Javadoc"></a>Javadoc<a href="#Javadoc"
+class="section_anchor"></a></h2>
+
+<p>An online version of the Javadoc is available <a
+href="http://files.pef-format.org/javadoc/brailleUtils-1.1.0/index.html"
+rel="nofollow">here</a> (release 1.1.0). </p>
+
+<h2><a name="Services_API"></a>Services API<a href="#Services_API"
+class="section_anchor"></a></h2>
+
+<p>Java Services API is used for discovering implementations at runtime. The
+reason for using this technology instead of, for example, OSGi, is because the
+Services API is part of the JRE. </p>
+
+<p>All services that an implementation wants to provide as Java services must
+be published in the <tt>META-INF/services</tt> folder. That folder should
+contain one file for each interface having implementations that should be
+provided as Java services. The file name must equal the interface's canonical
+name. The contents of each file should be a list of canonical names of classes
+implementing the interface indicated by the file name. </p>
+
+<h3><a name="Services_Implementations"></a>Services Implementations<a
+href="#Services_Implementations" class="section_anchor"></a></h3>
+
+<p>The following interfaces have been constructed so that they can be
+discovered as Java services: </p>
+<ul>
+  <li>org.daisy.braille.embosser.EmbosserProvider </li>
+  <li>org.daisy.braille.embosser.EmbosserCatalog </li>
+  <li>org.daisy.braille.table.TableProvider </li>
+  <li>org.daisy.braille.table.TableCatalog </li>
+  <li>org.daisy.paper.PaperProvider </li>
+  <li>org.daisy.paper.PaperCatalog </li>
+  <li>org.daisy.validator.Validator </li>
+</ul>
+
+<p>All of these <i>may</i> be discovered by the Services API. However, in most
+cases, one of the following interfaces will provide a starting point for a
+developer who wishes to add functionality to the software: </p>
+<ul>
+  <li>org.daisy.braille.embosser.EmbosserProvider </li>
+  <li>org.daisy.braille.table.TableProvider </li>
+  <li>org.daisy.paper.PaperProvider </li>
+</ul>
+
+<h2><a name="Factory_Classes"></a>Factory Classes<a href="#Factory_Classes"
+class="section_anchor"></a></h2>
+
+<p>The classes in the org.daisy.factory package provides the foundation for the
+interfaces used elsewhere in the software to discover and create objects. At
+the top level is the <tt>Provider</tt> interface. Its sole purpose is to
+provide a collection of factories. The factories implement the <tt>Factory</tt>
+interface. </p>
+
+<p><i>Note that the objects created using a <tt>Factory</tt> implementation are
+not controlled by these interfaces.</i> </p>
+
+<p>Different factories creating the same type of objects can be combined in a
+<tt>FactoryCatalog</tt>. The catalog can then be used to extract a list of all
+factories that can be used to create a specific type of objects. </p>
+
+<h1><a name="Repository_Layout"></a>Repository Layout<a
+href="#Repository_Layout" class="section_anchor"></a></h1>
+
+<p>The trunk, tags, and branches directories live in the root directory of the
+repository, and the projects are placed in subdirectories beneath those. The
+main project (Braille Utils) is located in the "braille" subdirectory (<a
+href="https://brailleutils.googlecode.com/svn/trunk/braille"
+rel="nofollow">https://brailleutils.googlecode.com/svn/trunk/braille</a>).
+Additional projects may be added to the repository in the future. </p>
+
+<h2><a name="Braille_Utils_SVN_Layout"></a>Braille Utils SVN Layout<a
+href="#Braille_Utils_SVN_Layout" class="section_anchor"></a></h2>
+
+<p>The project contains three source folders: </p>
+<ul>
+  <li>src </li>
+  <li>catalog </li>
+  <li>tests </li>
+</ul>
+
+<p>Core functionality should be placed in the <tt>src</tt> folder. Interface
+implementations, such as embossers or papers, should generally be placed in the
+<tt>catalog</tt> folder. </p>
+
+<p>Unit tests should be placed in the <tt>tests</tt> folder, mirroring the
+structure of the other two source folders. The risk for naming conflicts in the
+<tt>tests</tt> folder have been minimized by using different naming schemes for
+<tt>src</tt> and <tt>catalog</tt>. </p>
+
+<h3><a name="Catalog_Layout"></a>Catalog Layout<a href="#Catalog_Layout"
+class="section_anchor"></a></h3>
+
+<p>The <tt>catalog</tt> folder has a relatively flat structure. Each folder in
+the <tt>catalog</tt> folder should contain <i>related implementation
+entities</i>. Each entity should be modelled on the domain of an organization
+using a two-part underscore separated string where the first part begins with
+the top level domain name of the organization and then the organization's
+domain. If possible, use the organization of the provider of the hardware (or
+software) that the implementations target. If this is not possible, use the
+organization of the provider of the implementations (your organization). </p>
+
+<p>Note that this does not imply ownership or responsibility for the code in
+the package, but merely serves as identification and a structuring aid. </p>
+
+<p>The classes in each of these folders should be considered package specific.
+Implementations may not rely on other packages in the catalog. If a
+functionality can be regarded as <i>generic</i>, it should be placed in the
+<tt>src</tt> folder instead. </p>
+
+<h1><a name="Testing"></a>Testing<a href="#Testing"
+class="section_anchor"></a></h1>
+
+<p>Unit tests can performed by running "build.xml" with Ant. </p>
+
+<h1><a name="Committing_code"></a>Committing code<a href="#Committing_code"
+class="section_anchor"></a></h1>
+
+<p>If applicable, add unit tests to verify your changes and make sure that all
+unit tests pass before committing code to the project. Also, remember to enter
+a descriptive commit comment, describing the key aspects of your work. </p>
+
+<h1><a name="Building_the_Project"></a>Building the Project<a
+href="#Building_the_Project" class="section_anchor"></a></h1>
+
+<p>The distribution is built by running "build.xml" with Ant. "build.xml" can
+also generate Javadoc and run unit tests. All files related to this process
+should be placed in the "ant-build" folder. Files created as a result of
+running "build.xml" should be placed in "ant-build/output" and should not be
+added to the repository. </p>
+
+<h2><a name="Publishing_the_Project_Build"></a>Publishing the Project Build<a
+href="#Publishing_the_Project_Build" class="section_anchor"></a></h2>
+
+<p>... </p>
+</body>
+</html>
