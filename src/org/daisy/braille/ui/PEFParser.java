@@ -28,6 +28,9 @@ import org.daisy.braille.facade.PEFConverterFacade;
 import org.daisy.braille.facade.PEFValidatorFacade;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.cli.AbstractUI;
+import org.daisy.cli.Argument;
+import org.daisy.cli.Definition;
+import org.daisy.cli.OptionalArgument;
 import org.daisy.cli.ShortFormResolver;
 
 /**

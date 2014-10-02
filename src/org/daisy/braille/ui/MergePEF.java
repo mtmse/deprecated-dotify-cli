@@ -27,6 +27,10 @@ import java.util.Map;
 import org.daisy.braille.pef.PEFFileMerger;
 import org.daisy.braille.pef.PEFFileMerger.SortType;
 import org.daisy.cli.AbstractUI;
+import org.daisy.cli.Argument;
+import org.daisy.cli.Definition;
+import org.daisy.cli.ExitCode;
+import org.daisy.cli.OptionalArgument;
 
 /**
  * Provides a UI for merging PEF-files. Not for public use. This class is a package class. Use BasicUI
