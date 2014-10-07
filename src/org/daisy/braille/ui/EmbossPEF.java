@@ -46,9 +46,9 @@ import org.daisy.braille.table.TableCatalog;
 import org.daisy.braille.tools.Length;
 import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
-import org.daisy.cli.Definition;
 import org.daisy.cli.ExitCode;
 import org.daisy.cli.OptionalArgument;
+import org.daisy.cli.SwitchArgument;
 import org.daisy.factory.Factory;
 import org.daisy.paper.PageFormat;
 import org.daisy.paper.Paper;
@@ -89,14 +89,16 @@ class EmbossPEF extends AbstractUI {
 	
 	public EmbossPEF() {
 		reqArgs = new ArrayList<Argument>();
-		ArrayList<Definition> options = new ArrayList<Definition>();
+		/*ArrayList<Definition> options = new ArrayList<Definition>();
 		options.add(new Definition("[path to file]", "Path to PEF-file"));
 		options.add(new Definition("-clear", "to clear settings"));
-		options.add(new Definition("-setup", "to change setup"));
-		reqArgs.add(new Argument("path_to_file", "Path to PEF-file or -clear or -setup", options));
+		options.add(new Definition("-setup", "to change setup"));*/
+		reqArgs.add(new Argument("path_to_file", "Path to PEF-file"));
 		optionalArgs = new ArrayList<OptionalArgument>();
 		optionalArgs.add(new OptionalArgument(KEY_RANGE, "Emboss a range of pages", "1-"));
 		optionalArgs.add(new OptionalArgument(KEY_COPIES, "Set copies", "1"));
+		parser.addSwitch(new SwitchArgument("clear", "settings", "clear", "To clear settings"));
+		parser.addSwitch(new SwitchArgument("setup", "settings", "setup", "To change setup"));
 	}
 	
 	protected void readSetup(boolean verify) {
@@ -205,17 +207,19 @@ class EmbossPEF extends AbstractUI {
 		Map<String, String> p = ui.parser.parse(args).toMap(ARG_PREFIX);
 		String firstArg = p.remove(ARG_PREFIX+0);
 
-		if ("-clear".equalsIgnoreCase(firstArg)) {
+		if ("clear".equalsIgnoreCase(p.get("settings"))) {
 			InputHelper h = new InputHelper(ui.getClass());
 			h.clearSettings();
 			System.out.println("Settings have been cleared.");
 			System.exit(ExitCode.OK.ordinal());
 		}
 
-		if ("-setup".equalsIgnoreCase(firstArg)) {
+		if ("setup".equalsIgnoreCase(p.get("settings"))) {
 			ui.readSetup(true);
 			ui.listCurrentSettings(System.out);
-			System.exit(ExitCode.OK.ordinal());
+			if (firstArg==null) {
+				System.exit(ExitCode.OK.ordinal());
+			}
 		} else {
 			ui.readSetup(false);
 		}
