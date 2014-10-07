@@ -28,6 +28,7 @@ import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
 import org.daisy.cli.ExitCode;
 import org.daisy.cli.OptionalArgument;
+import org.daisy.cli.SwitchArgument;
 
 /**
  * Provides a UI for generating PEF-files. Not for public use.
@@ -44,10 +45,12 @@ class GeneratePEF extends AbstractUI {
 		optionalArgs = new ArrayList<OptionalArgument>();
 		optionalArgs.add(newOptionalArgument(PEFGenerator.KEY_VOLUMES, "Number of volumes to generate"));
 		optionalArgs.add(newOptionalArgument(PEFGenerator.KEY_PPV, "Number of pages in each volume"));
-		optionalArgs.add(newOptionalArgument(PEFGenerator.KEY_EIGHT_DOT, "Set to true to generate 8-dot braille"));
+		//optionalArgs.add(newOptionalArgument(PEFGenerator.KEY_EIGHT_DOT, "Set to true to generate 8-dot braille"));
+		parser.addSwitch(new SwitchArgument('f', "full-range", PEFGenerator.KEY_EIGHT_DOT, "true", "Use the full range of braille patterns, i.e. including eight dot patterns"));
 		optionalArgs.add(newOptionalArgument(PEFGenerator.KEY_ROWS, "Maximum number of rows on a page"));
 		optionalArgs.add(newOptionalArgument(PEFGenerator.KEY_COLS, "Maximum number of cols on a row"));
-		optionalArgs.add(newOptionalArgument(PEFGenerator.KEY_DUPLEX, "Set the duplex property"));
+		//optionalArgs.add(newOptionalArgument(PEFGenerator.KEY_DUPLEX, "Set the duplex property"));
+		parser.addSwitch(new SwitchArgument('s', "simplex", PEFGenerator.KEY_DUPLEX, "false", "Create single sided PEF-files"));
 	}
 
 	private OptionalArgument newOptionalArgument(String key, String desc) {
@@ -62,7 +65,7 @@ class GeneratePEF extends AbstractUI {
 			ui.displayHelp(System.out);
 			System.exit(-ExitCode.MISSING_ARGUMENT.ordinal());
 		}
-		Map<String, String> p = ui.toMap(args);
+		Map<String, String> p = ui.parser.parse(args).toMap(ARG_PREFIX);
 		// remove required argument
 		File output = new File(""+p.remove(ARG_PREFIX+0));
 		// pass the optional arguments to the generator

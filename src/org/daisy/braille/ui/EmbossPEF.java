@@ -202,7 +202,7 @@ class EmbossPEF extends AbstractUI {
 			System.exit(-ExitCode.MISSING_ARGUMENT.ordinal());
 		}
 
-		Map<String, String> p = ui.toMap(args);
+		Map<String, String> p = ui.parser.parse(args).toMap(ARG_PREFIX);
 		String firstArg = p.remove(ARG_PREFIX+0);
 
 		if ("-clear".equalsIgnoreCase(firstArg)) {

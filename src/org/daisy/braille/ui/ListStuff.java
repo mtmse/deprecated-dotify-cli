@@ -12,6 +12,7 @@ import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
+import org.daisy.cli.CommandParserResult;
 import org.daisy.cli.Definition;
 import org.daisy.cli.ExitCode;
 import org.daisy.cli.OptionalArgument;
@@ -70,9 +71,10 @@ class ListStuff extends AbstractUI {
 		String separator;
 		Mode mode = Mode.NAME;
 		{
-			Map<String, String> p = ui.toMap(args);
+			CommandParserResult cp = ui.parser.parse(args);
+			Map<String, String> p = cp.toMap(ARG_PREFIX);
 			type = p.remove(ARG_PREFIX+0);
-			Map<String, String> op = ui.getOptional(args);
+			Map<String, String> op = cp.getOptional();
 			prefix = replaceNullWithEmpty(op.get(prefixKey));
 			postfix = replaceNullWithEmpty(op.get(postfixKey));
 			separator = replaceNullWithEmpty(op.get(separatorKey));

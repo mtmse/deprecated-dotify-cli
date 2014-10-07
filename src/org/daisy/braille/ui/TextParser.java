@@ -30,6 +30,7 @@ import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
 import org.daisy.cli.OptionalArgument;
 import org.daisy.cli.ShortFormResolver;
+import org.daisy.cli.SwitchArgument;
 
 /**
  * Reads an ASCII file and parses it into a basic PEF file.
@@ -58,7 +59,8 @@ class TextParser extends AbstractUI {
 		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_AUTHOR, "the author of the publication", "[undefined]"));
 		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_TITLE, "the title of the publication", "[undefined]"));
 		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_LANGUAGE, "set the publications language (as defined by IETF RFC 3066)", "[undefined]"));
-		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_DUPLEX, "set the document's duplex property", "true"));
+		//optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_DUPLEX, "set the document's duplex property", "true"));
+		parser.addSwitch(new SwitchArgument('s', "simplex", PEFConverterFacade.KEY_DUPLEX, "false", "create single sided PEF-files"));
 	}
 
 	/**
@@ -71,7 +73,7 @@ class TextParser extends AbstractUI {
 			ui.displayHelp(System.out);
 		} else {
 			try {
-				Map<String, String> p = ui.toMap(args);
+				Map<String, String> p = ui.parser.parse(args).toMap(ARG_PREFIX);
 
 				// remove required argument
 				File input = new File(""+p.remove(ARG_PREFIX+0));

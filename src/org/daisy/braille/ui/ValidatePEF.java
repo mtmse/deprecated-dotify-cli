@@ -50,7 +50,7 @@ class ValidatePEF extends AbstractUI {
 		}
 		Mode m = Mode.values()[0];
 		if (args.length>1) {
-			Map<String, String> p = ui.toMap(args);
+			Map<String, String> p = ui.parser.parse(args).toMap(ARG_PREFIX);
 			String mode = p.remove("mode");
 			if (mode!=null) {
 				try {

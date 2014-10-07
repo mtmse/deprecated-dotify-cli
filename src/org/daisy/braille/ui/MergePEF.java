@@ -56,7 +56,7 @@ class MergePEF extends AbstractUI {
 		SortType sort = SortType.STANDARD;
 		
 		if (args.length>3) {
-			Map<String, String> p = ui.toMap(args);
+			Map<String, String> p = ui.parser.parse(args).toMap(ARG_PREFIX);
 			String sortString = p.remove("sort");
 			if (sortString.equalsIgnoreCase("alpha")) {
 				sort = SortType.STANDARD;

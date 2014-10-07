@@ -84,7 +84,7 @@ class PEFParser extends AbstractUI {
 			ui.displayHelp(System.out);
 		} else {
 			try {
-				Map<String, String> p = ui.toMap(args);
+				Map<String, String> p = ui.parser.parse(args).toMap(ARG_PREFIX);
 				// remove required argument
 				File input = new File(""+p.remove(ARG_PREFIX+0));
 				File output = new File(""+p.remove(ARG_PREFIX+1));
