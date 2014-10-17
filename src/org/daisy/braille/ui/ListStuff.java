@@ -17,6 +17,8 @@ import org.daisy.cli.Definition;
 import org.daisy.cli.ExitCode;
 import org.daisy.cli.OptionalArgument;
 import org.daisy.factory.Factory;
+import org.daisy.factory.FactoryPropertiesComparator;
+import org.daisy.factory.FactoryPropertiesComparator.By;
 import org.daisy.paper.Paper;
 import org.daisy.paper.PaperCatalog;
 
@@ -132,17 +134,11 @@ class ListStuff extends AbstractUI {
 	}
 	
 	private static void sortById(Factory[] f) {
-		Arrays.sort(f, new Comparator<Factory>(){
-			public int compare(Factory o1, Factory o2) {
-				return o1.getIdentifier().compareTo(o2.getIdentifier());
-		}});
+		Arrays.sort(f, new FactoryPropertiesComparator().by(By.IDENTIFIER));
 	}
 	
 	private static void sortByName(Factory[] f) {
-		Arrays.sort(f, new Comparator<Factory>(){
-			public int compare(Factory o1, Factory o2) {
-				return o1.getDisplayName().compareTo(o2.getDisplayName());
-		}});
+		Arrays.sort(f, new FactoryPropertiesComparator().by(By.DISPLAY_NAME));
 	}
 
 	@Override

@@ -49,7 +49,8 @@ import org.daisy.cli.Argument;
 import org.daisy.cli.ExitCode;
 import org.daisy.cli.OptionalArgument;
 import org.daisy.cli.SwitchArgument;
-import org.daisy.factory.Factory;
+import org.daisy.factory.FactoryProperties;
+import org.daisy.factory.FactoryPropertiesComparator;
 import org.daisy.paper.PageFormat;
 import org.daisy.paper.Paper;
 import org.daisy.paper.PaperCatalog;
@@ -88,6 +89,7 @@ class EmbossPEF extends AbstractUI {
 	private PageFormat pageFormat;
 	
 	public EmbossPEF() {
+		super();
 		reqArgs = new ArrayList<Argument>();
 		/*ArrayList<Definition> options = new ArrayList<Definition>();
 		options.add(new Definition("[path to file]", "Path to PEF-file"));
@@ -112,8 +114,8 @@ class EmbossPEF extends AbstractUI {
 		System.out.println("Using device: " + deviceName);
 		
 		EmbosserCatalog ec = EmbosserCatalog.newInstance();
-		ArrayList<Factory> sorted = new ArrayList<Factory>(ec.list());
-		Collections.sort(sorted);
+		ArrayList<FactoryProperties> sorted = new ArrayList<FactoryProperties>(ec.list());
+		Collections.sort(sorted, new FactoryPropertiesComparator());
 		String embosserType = input.select(EMBOSSER_TYPE, sorted, "embosser", verify);
 		type = ec.get(embosserType);
 		System.out.println("Embosser: " + type.getDisplayName());
@@ -132,7 +134,7 @@ class EmbossPEF extends AbstractUI {
 		TableCatalog tablef = TableCatalog.newInstance();
 		Collection<Table> supportedTables = tablef.list(type.getTableFilter());
 		if (supportedTables.size()>1) {
-			String tableType = input.select(TABLE_TYPE, new ArrayList<Factory>(supportedTables), "table", verify);
+			String tableType = input.select(TABLE_TYPE, new ArrayList<FactoryProperties>(supportedTables), "table", verify);
 			table = tablef.get(tableType);
 			System.out.println("Table: " + table.getDisplayName());
 		} else {
@@ -142,8 +144,8 @@ class EmbossPEF extends AbstractUI {
 		boolean ok = false;
 		do {
 			PaperCatalog pc = PaperCatalog.newInstance();
-			sorted = new ArrayList<Factory>(pc.list(new EmbosserPaperFilter(type)));
-			Collections.sort(sorted);
+			sorted = new ArrayList<FactoryProperties>(pc.list(new EmbosserPaperFilter(type)));
+			Collections.sort(sorted, new FactoryPropertiesComparator());
 			String paperSize = input.select(PAPER_SIZE, sorted, "paper", verify);
 			paper = pc.get(paperSize);
 			
@@ -195,6 +197,17 @@ class EmbossPEF extends AbstractUI {
 		return type;
 	}
 	
+	void clearSettings()  throws BackingStoreException {
+		InputHelper h = new InputHelper(getClass());
+		h.clearSettings();
+		System.out.println("Settings have been cleared.");
+	}
+	
+	void setup() {
+		readSetup(true);
+		listCurrentSettings(System.out);
+	}
+	
 	public static void main(String[] args) throws BackingStoreException {
 		EmbossPEF ui = new EmbossPEF();
 		if (args.length<1) {
@@ -208,15 +221,12 @@ class EmbossPEF extends AbstractUI {
 		String firstArg = p.remove(ARG_PREFIX+0);
 
 		if ("clear".equalsIgnoreCase(p.get("settings"))) {
-			InputHelper h = new InputHelper(ui.getClass());
-			h.clearSettings();
-			System.out.println("Settings have been cleared.");
+			ui.clearSettings();
 			System.exit(ExitCode.OK.ordinal());
 		}
 
 		if ("setup".equalsIgnoreCase(p.get("settings"))) {
-			ui.readSetup(true);
-			ui.listCurrentSettings(System.out);
+			ui.setup();
 			if (firstArg==null) {
 				System.exit(ExitCode.OK.ordinal());
 			}

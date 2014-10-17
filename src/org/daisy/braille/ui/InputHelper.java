@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
-import org.daisy.factory.Factory;
+import org.daisy.factory.FactoryProperties;
 
 /**
  * Provides a command line input helper for setting arguments interactively and 
@@ -121,12 +121,12 @@ public class InputHelper {
 	 * @param verify if true, and no value is found, lets user select a value
 	 * @return returns the value for the key.
 	 */
-	public String select(String key, List<Factory> select, String name, boolean verify) {
+	public String select(String key, List<FactoryProperties> select, String name, boolean verify) {
 		String value = getKey(key);
 		if (value!=null) {
 			// check value
 			boolean ok = false;
-			for (Factory s : select) {
+			for (FactoryProperties s : select) {
 				if (value.equals(s.getIdentifier())) {
 					ok = true;
 					break;
@@ -141,7 +141,7 @@ public class InputHelper {
 			// ask user
 			System.out.println("Choose " + name + ": ");
 			int i = 1;
-			for (Factory s : select) {
+			for (FactoryProperties s : select) {
 				System.out.print(i + ". " + s.getDisplayName());
 				if (value!=null && s.getIdentifier().equals(value)) {
 					System.out.print(" (current value, hit enter to keep this value)");
