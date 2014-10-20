@@ -132,7 +132,7 @@ class EmbossPEF extends AbstractUI {
 		}
 
 		TableCatalog tablef = TableCatalog.newInstance();
-		Collection<Table> supportedTables = tablef.list(type.getTableFilter());
+		Collection<FactoryProperties> supportedTables = tablef.list(type.getTableFilter());
 		if (supportedTables.size()>1) {
 			String tableType = input.select(TABLE_TYPE, new ArrayList<FactoryProperties>(supportedTables), "table", verify);
 			table = tablef.get(tableType);
