@@ -18,10 +18,13 @@
 package org.daisy.braille.ui;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.daisy.braille.tools.FileTools;
@@ -45,11 +48,16 @@ public class BasicUI extends AbstractUI {
 	public final static String merge = "merge";
 	public final static String generate = "generate";
 	public final static String list = "list";
-	enum Mode {EMBOSS, TEXT2PEF, PEF2TEXT, VALIDATE, SPLIT, MERGE, GENERATE, LIST};
+	//public final static String clear = "clear";
+	//public final static String setup = "setup";
+	public final static String help = "help";
+	public final static String inspect = "inspect";
 
 	private final String[] args;
-	private final Mode m;
 	private final Logger logger;
+	
+	private final Map<String, Class<? extends AbstractUI>> commands;
+	private final List<Definition> values;
 	
 	/**
 	 * Creates a new Basic UI
@@ -59,22 +67,32 @@ public class BasicUI extends AbstractUI {
 		logger = Logger.getLogger(BasicUI.class.getCanonicalName());
 		logger.fine(System.getProperties().toString());
 		this.args = args;
-		if (args.length<1) {
-			System.out.println("Expected at least one argument.");
-			System.out.println();
-			displayHelp(System.out);
-			System.exit(-ExitCode.MISSING_ARGUMENT.ordinal());
-		}
-		Mode m2;
-		try {
-			m2 = Mode.valueOf(args[0].toUpperCase());
-		} catch (IllegalArgumentException e) {
-			m2 = null;
-			System.out.println("Unknown argument '" + args[0] + "'");
-			displayHelp(System.out);
-			System.exit(-ExitCode.UNKNOWN_ARGUMENT.ordinal());
-		}
-		m = m2;
+		this.values = new ArrayList<Definition>();
+		this.commands = new HashMap<String, Class<? extends AbstractUI>>();
+		
+		values.add(new Definition(help, "Without additional arguments, this text is displayed. To get help on a specific command, type help <command>"));
+		putCommand(emboss, "emboss a PEF-file", EmbossPEF.class);
+		putCommand(text2pef, "convert text to pef", TextParser.class);
+		putCommand(pef2text, "convert pef to text", PEFParser.class);
+		putCommand(validate, "validate a PEF-file", ValidatePEF.class);
+		putCommand(split, "split a PEF-file into several single volume files", SplitPEF.class);
+		putCommand(merge, "merge several single volume PEF-files into one", MergePEF.class);
+		putCommand(generate, "generate a random PEF-file for testing", GeneratePEF.class);
+		putCommand(list, "lists stuff", ListStuff.class);
+		//
+		putCommand(inspect, "lists metadata about a PEF-book", PEFInfo.class);
+		/*
+ 			values.add(new Definition(clear, "clear settings"));
+			values.add(new Definition(setup, "setup"));
+			values.add(new Definition(help, "help"));
+			case CLEAR: { EmbossPEF ui = new EmbossPEF(); ui.clearSettings(); break; }
+			case SETUP: { EmbossPEF ui = new EmbossPEF(); ui.setup(); break; }
+		}*/
+	}
+	
+	protected void putCommand(String cmd, String desc, Class<? extends AbstractUI> c) {
+		values.add(new Definition(cmd, desc));
+		commands.put(cmd, c);
 	}
 	
 	/**
@@ -99,42 +117,37 @@ public class BasicUI extends AbstractUI {
 	 * @throws Exception if something bad happens
 	 */
 	public void run() throws Exception {
+		if (args.length<1) {
+			System.out.println("Expected at least one argument.");
+			System.out.println();
+			displayHelp(System.out);
+			System.exit(-ExitCode.MISSING_ARGUMENT.ordinal());
+		}
 		setPluginsDir(new File("plugins"));
-		switch (m) {
-			case EMBOSS:
-				logger.fine("Starting embossing application...");
-				EmbossPEF.main(getArgsSubList(1));
-				break;
-			case VALIDATE:
-				logger.fine("Starting validating application...");
-				ValidatePEF.main(getArgsSubList(1));
-				break;
-			case PEF2TEXT:
-				logger.fine("Starting pef to text application...");
-				PEFParser.main(getArgsSubList(1));
-				break;
-			case TEXT2PEF:
-				logger.fine("Starting text to pef application...");
-				TextParser.main(getArgsSubList(1));
-				break;
-			case SPLIT:
-				logger.fine("Starting file splitter application...");
-				SplitPEF.main(getArgsSubList(1));
-				break;
-			case MERGE:
-				logger.fine("Starting file merger application...");
-				MergePEF.main(getArgsSubList(1));
-				break;
-			case GENERATE:
-				logger.fine("Starting generator application...");
-				GeneratePEF.main(getArgsSubList(1));
-				break;
-			case LIST:
-				logger.fine("Starting list application...");
-				ListStuff.main(getArgsSubList(1));
-				break;
-			default:
-				throw new RuntimeException("Coding error");
+		if (help.equalsIgnoreCase(args[0])) {
+			if (args.length>=2) {
+				Class<? extends AbstractUI> clazz = commands.get(args[1]);
+				if (clazz!=null) {
+					AbstractUI ui = clazz.newInstance();
+					ui.displayHelp(System.out);
+					exitWithCode(ExitCode.OK);
+				} else {
+					System.out.println("Unknown argument '" + args[1] + "'");
+					displayHelp(System.out);
+					System.exit(-ExitCode.UNKNOWN_ARGUMENT.ordinal());
+				}
+			}
+			displayHelp(System.out);
+		} else {
+			Class<? extends Object> clazz = commands.get(args[0]);
+			if (clazz!=null) {
+				Method method = clazz.getMethod("main", new Class[]{String[].class});
+				method.invoke(null, (Object)getArgsSubList(1));
+			} else {
+				System.out.println("Unknown argument '" + args[0] + "'");
+				displayHelp(System.out);
+				System.exit(-ExitCode.UNKNOWN_ARGUMENT.ordinal());
+			}
 		}
 	}
 	
@@ -163,22 +176,13 @@ public class BasicUI extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return "BasicUI";
+		return "braille-utils";
 	}
 
 	@Override
 	public List<Argument> getRequiredArguments() {
 		ArrayList<Argument> ret = new ArrayList<Argument>();
-		ArrayList<Definition> values = new ArrayList<Definition>();
-		values.add(new Definition(emboss, "emboss a PEF-file"));
-		values.add(new Definition(text2pef, "convert text to pef"));
-		values.add(new Definition(pef2text, "convert pef to text"));
-		values.add(new Definition(validate, "validate a PEF-file"));
-		values.add(new Definition(split, "split a PEF-file into several single volume files"));
-		values.add(new Definition(merge, "merge several single volume PEF-files into one"));
-		values.add(new Definition(generate, "generate a random PEF-file for testing"));
-		values.add(new Definition(list, "lists stuff"));
-		ret.add(new Argument("app_to_run", "the application to run", values));
+		ret.add(new Argument("command", "the command to run", values));
 		return ret;
 	}
 
