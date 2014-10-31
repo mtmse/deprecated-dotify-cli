@@ -2,7 +2,6 @@ package org.daisy.braille.ui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +15,7 @@ import org.daisy.cli.CommandParserResult;
 import org.daisy.cli.Definition;
 import org.daisy.cli.ExitCode;
 import org.daisy.cli.OptionalArgument;
-import org.daisy.factory.Factory;
+import org.daisy.factory.FactoryProperties;
 import org.daisy.factory.FactoryPropertiesComparator;
 import org.daisy.factory.FactoryPropertiesComparator.By;
 import org.daisy.paper.Paper;
@@ -111,33 +110,33 @@ class ListStuff extends AbstractUI {
 		}
 	}
 	
-	private static void printList(Factory[] f, Mode mode, String prefix, String separator, String postfix) {
+	private static void printList(FactoryProperties[] f, Mode mode, String prefix, String separator, String postfix) {
 		switch (mode) {
 			case NAME:
 				sortByName(f);
-				for (Factory p : f) {
+				for (FactoryProperties p : f) {
 					System.out.println(prefix + p.getDisplayName() + postfix);
 				}
 				break;
 			case IDENTIFIER:
 				sortById(f);
-				for (Factory p : f) {
+				for (FactoryProperties p : f) {
 					System.out.println(prefix + p.getIdentifier() + postfix);
 				}
 				break;
 			case NAME_IDENTIFIER:
 				sortByName(f);
-				for (Factory p : f) {
+				for (FactoryProperties p : f) {
 					System.out.println(prefix + p.getDisplayName() + separator + p.getIdentifier() + postfix);
 				}
 		}
 	}
 	
-	private static void sortById(Factory[] f) {
+	private static void sortById(FactoryProperties[] f) {
 		Arrays.sort(f, new FactoryPropertiesComparator().by(By.IDENTIFIER));
 	}
 	
-	private static void sortByName(Factory[] f) {
+	private static void sortByName(FactoryProperties[] f) {
 		Arrays.sort(f, new FactoryPropertiesComparator().by(By.DISPLAY_NAME));
 	}
 
