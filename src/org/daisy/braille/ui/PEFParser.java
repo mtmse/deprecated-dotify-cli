@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.daisy.braille.embosser.EmbosserCatalog;
 import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.facade.PEFConverterFacade;
 import org.daisy.braille.facade.PEFValidatorFacade;
@@ -32,6 +33,7 @@ import org.daisy.cli.Argument;
 import org.daisy.cli.Definition;
 import org.daisy.cli.OptionalArgument;
 import org.daisy.cli.ShortFormResolver;
+import org.daisy.validator.ValidatorFactory;
 
 /**
  * Reads a PEF-file and outputs a text file.
@@ -90,7 +92,7 @@ class PEFParser extends AbstractUI {
 				File output = new File(""+p.remove(ARG_PREFIX+1));
 				
 				// validate input
-				boolean ok = PEFValidatorFacade.validate(input, System.out);
+				boolean ok = new PEFValidatorFacade(ValidatorFactory.newInstance()).validate(input, System.out);
 				if (!ok) {
 					System.out.println("Validation failed, exiting...");
 					System.exit(-1);
@@ -102,7 +104,7 @@ class PEFParser extends AbstractUI {
 				
 				// run
 				FileOutputStream os = new FileOutputStream(output);
-				PEFConverterFacade.parsePefFile(input, os, null, p);
+				new PEFConverterFacade(EmbosserCatalog.newInstance()).parsePefFile(input, os, null, p);
 				os.close();
 				System.out.println("Done!");
 			} catch (Exception e) {

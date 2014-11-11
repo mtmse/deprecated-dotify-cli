@@ -61,6 +61,7 @@ import org.daisy.paper.SheetPaperFormat;
 import org.daisy.paper.SheetPaperFormat.Orientation;
 import org.daisy.paper.TractorPaperFormat;
 import org.daisy.printing.PrinterDevice;
+import org.daisy.validator.ValidatorFactory;
 import org.xml.sax.SAXException;
 
 /**
@@ -267,7 +268,7 @@ class EmbossPEF extends AbstractUI {
 			throw new RuntimeException("Cannot find input file: " + firstArg);
 		}
 		try {
-			boolean ok = PEFValidatorFacade.validate(input, System.out);
+			boolean ok = new PEFValidatorFacade(ValidatorFactory.newInstance()).validate(input, System.out);
 			if (!ok) {
 				System.out.println("Validation failed, exiting...");
 				System.exit(-ExitCode.FAILED_TO_READ.ordinal());
@@ -280,7 +281,7 @@ class EmbossPEF extends AbstractUI {
 					builder.range(Range.parseRange(range));
 				}
 				PEFHandler ph = builder.build();
-				PEFConverterFacade.parsePefFile(input, ph);
+				new PEFConverterFacade(EmbosserCatalog.newInstance()).parsePefFile(input, ph);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

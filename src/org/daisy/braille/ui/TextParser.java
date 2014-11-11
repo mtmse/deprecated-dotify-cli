@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.daisy.braille.facade.PEFConverterFacade;
+import org.daisy.braille.facade.TextConverterFacade;
 import org.daisy.braille.facade.PEFValidatorFacade;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.cli.AbstractUI;
@@ -31,6 +31,7 @@ import org.daisy.cli.Argument;
 import org.daisy.cli.OptionalArgument;
 import org.daisy.cli.ShortFormResolver;
 import org.daisy.cli.SwitchArgument;
+import org.daisy.validator.ValidatorFactory;
 
 /**
  * Reads an ASCII file and parses it into a basic PEF file.
@@ -53,14 +54,14 @@ class TextParser extends AbstractUI {
 		TableCatalog tableCatalog = TableCatalog.newInstance();
 		tableSF = new ShortFormResolver(tableCatalog.list());
 		optionalArgs = new ArrayList<OptionalArgument>();
-		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_MODE, "input braille code", getDefinitionList(tableCatalog, tableSF), ""));
-		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_IDENTIFIER, "the publications unique identifier", "[generated]"));
-		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_DATE, "set the publication date using the form \"yyyy-MM-dd\"", "[today's date]"));
-		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_AUTHOR, "the author of the publication", "[undefined]"));
-		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_TITLE, "the title of the publication", "[undefined]"));
-		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_LANGUAGE, "set the publications language (as defined by IETF RFC 3066)", "[undefined]"));
-		//optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_DUPLEX, "set the document's duplex property", "true"));
-		parser.addSwitch(new SwitchArgument('s', "simplex", PEFConverterFacade.KEY_DUPLEX, "false", "create single sided PEF-files"));
+		optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_MODE, "input braille code", getDefinitionList(tableCatalog, tableSF), ""));
+		optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_IDENTIFIER, "the publications unique identifier", "[generated]"));
+		optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_DATE, "set the publication date using the form \"yyyy-MM-dd\"", "[today's date]"));
+		optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_AUTHOR, "the author of the publication", "[undefined]"));
+		optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_TITLE, "the title of the publication", "[undefined]"));
+		optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_LANGUAGE, "set the publications language (as defined by IETF RFC 3066)", "[undefined]"));
+		//optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_DUPLEX, "set the document's duplex property", "true"));
+		parser.addSwitch(new SwitchArgument('s', "simplex", TextConverterFacade.KEY_DUPLEX, "false", "create single sided PEF-files"));
 	}
 
 	/**
@@ -79,11 +80,11 @@ class TextParser extends AbstractUI {
 				File input = new File(""+p.remove(ARG_PREFIX+0));
 				File output = new File(""+p.remove(ARG_PREFIX+1));
 				// remap
-				ui.expandShortForm(p, PEFConverterFacade.KEY_MODE, ui.tableSF);
+				ui.expandShortForm(p, TextConverterFacade.KEY_MODE, ui.tableSF);
 				// run
-				PEFConverterFacade.parseTextFile(input, output, p);
+				new TextConverterFacade().parseTextFile(input, output, p);
 				System.out.println("Validating result...");
-				boolean ok = PEFValidatorFacade.validate(output, System.out);
+				boolean ok = new PEFValidatorFacade(ValidatorFactory.newInstance()).validate(output, System.out);
 				if (!ok) {
 					System.out.println("Warning: Validation failed for " + output);
 				}
