@@ -31,6 +31,7 @@ import org.daisy.cli.Argument;
 import org.daisy.cli.Definition;
 import org.daisy.cli.ExitCode;
 import org.daisy.cli.OptionalArgument;
+import org.daisy.validator.ValidatorFactory;
 
 /**
  * Provides a UI for merging PEF-files. Not for public use. This class is a package class. Use BasicUI
@@ -50,7 +51,7 @@ class MergePEF extends AbstractUI {
 			ui.displayHelp(System.out);
 			System.exit(-ExitCode.MISSING_ARGUMENT.ordinal());
 		}
-		PEFFileMerger merger = new PEFFileMerger();
+		PEFFileMerger merger = new PEFFileMerger(ValidatorFactory.newInstance());
 		File input = new File(args[0]);
 		File output = new File(args[1]);
 		SortType sort = SortType.STANDARD;

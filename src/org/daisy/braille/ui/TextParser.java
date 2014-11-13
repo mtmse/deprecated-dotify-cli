@@ -82,7 +82,7 @@ class TextParser extends AbstractUI {
 				// remap
 				ui.expandShortForm(p, TextConverterFacade.KEY_MODE, ui.tableSF);
 				// run
-				new TextConverterFacade().parseTextFile(input, output, p);
+				new TextConverterFacade(TableCatalog.newInstance()).parseTextFile(input, output, p);
 				System.out.println("Validating result...");
 				boolean ok = new PEFValidatorFacade(ValidatorFactory.newInstance()).validate(output, System.out);
 				if (!ok) {

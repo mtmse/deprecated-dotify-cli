@@ -26,6 +26,7 @@ import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
 import org.daisy.cli.ExitCode;
 import org.daisy.cli.OptionalArgument;
+import org.daisy.validator.ValidatorFactory;
 
 /**
  * Provides a UI for splitting a PEF-file. Not for public use. 
@@ -47,7 +48,7 @@ class SplitPEF extends AbstractUI {
 		}
 		File input = new File(args[0]);
 		File output = new File(args[1]);
-		PEFFileSplitter splitter = new PEFFileSplitter();
+		PEFFileSplitter splitter = new PEFFileSplitter(ValidatorFactory.newInstance());
 		splitter.split(input, output);
 	}
 
