@@ -5,9 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.daisy.braille.embosser.Embosser;
 import org.daisy.braille.embosser.EmbosserCatalog;
-import org.daisy.braille.table.Table;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
@@ -18,7 +16,6 @@ import org.daisy.cli.OptionalArgument;
 import org.daisy.factory.FactoryProperties;
 import org.daisy.factory.FactoryPropertiesComparator;
 import org.daisy.factory.FactoryPropertiesComparator.By;
-import org.daisy.paper.Paper;
 import org.daisy.paper.PaperCatalog;
 
 class ListStuff extends AbstractUI {
@@ -89,15 +86,15 @@ class ListStuff extends AbstractUI {
 		System.out.println();
 		if (embossersKey.equalsIgnoreCase(type)) {
 			EmbosserCatalog ec = EmbosserCatalog.newInstance();
-			Embosser[] ea = ec.list().toArray(new Embosser[]{});
+			FactoryProperties[] ea = ec.list().toArray(new FactoryProperties[]{});
 			printList(ea, mode, prefix, separator, postfix);
 		} else if (tablesKey.equalsIgnoreCase(type)) {
 			TableCatalog tc = TableCatalog.newInstance();
-			Table[] ta = tc.list().toArray(new Table[]{});
+			FactoryProperties[] ta = tc.list().toArray(new FactoryProperties[]{});
 			printList(ta, mode, prefix, separator, postfix);
 		} else if (papersKey.equalsIgnoreCase(type)) {
 			PaperCatalog pc = PaperCatalog.newInstance();
-			Paper[] pa = pc.list().toArray(new Paper[]{});
+			FactoryProperties[] pa = pc.list().toArray(new FactoryProperties[]{});
 			printList(pa, mode, prefix, separator, postfix);
 		}
 	}
