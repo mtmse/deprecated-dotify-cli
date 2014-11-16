@@ -75,6 +75,12 @@ class MergePEF extends AbstractUI {
 	public String getName() {
 		return BasicUI.merge;
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Merges several PEF files into one. The purpose is to facilitating the " +
+				"use of PEF-files with braille editors that do not support multi volume files.";
+	}
 
 	@Override
 	public List<Argument> getRequiredArguments() {

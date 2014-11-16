@@ -335,6 +335,11 @@ class EmbossPEF extends AbstractUI {
 	public String getName() {
 		return BasicUI.emboss;
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Sends a PEF-file to an embosser for embossing.";
+	}
 
 	@Override
 	public List<Argument> getRequiredArguments() {

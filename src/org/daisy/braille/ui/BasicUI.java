@@ -178,6 +178,11 @@ public class BasicUI extends AbstractUI {
 	public String getName() {
 		return "braille-utils";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Provides tools for managing PEF-files.";
+	}
 
 	@Override
 	public List<Argument> getRequiredArguments() {

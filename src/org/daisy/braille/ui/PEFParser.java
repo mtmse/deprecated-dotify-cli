@@ -117,6 +117,11 @@ class PEFParser extends AbstractUI {
 	public String getName() {
 		return BasicUI.pef2text;
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Converts a PEF-file document into a text braille file.";
+	}
 
 	@Override
 	public List<Argument> getRequiredArguments() {

@@ -90,5 +90,10 @@ class GeneratePEF extends AbstractUI {
 	public String getName() {
 		return BasicUI.generate;
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Generates a random PEF-file for testing purposes.";
+	}
 
 }

@@ -85,6 +85,11 @@ class ValidatePEF extends AbstractUI {
 	public String getName() {
 		return BasicUI.validate;
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Validates a PEF-file.";
+	}
 
 	@Override
 	public List<Argument> getRequiredArguments() {

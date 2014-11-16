@@ -151,5 +151,10 @@ class ListStuff extends AbstractUI {
 	public String getName() {
 		return BasicUI.list;
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Lists available implementations of a specific type.";
+	}
 
 }

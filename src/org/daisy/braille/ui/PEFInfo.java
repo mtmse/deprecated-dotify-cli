@@ -113,5 +113,10 @@ class PEFInfo extends AbstractUI {
 	public String getName() {
 		return BasicUI.inspect;
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Displays meta data and summary detailjs about a PEF-file.";
+	}
 
 }

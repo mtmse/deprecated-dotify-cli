@@ -56,6 +56,12 @@ class SplitPEF extends AbstractUI {
 	public String getName() {
 		return BasicUI.split;
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Splits a PEF file into several files, one file per volume. The purpose is to facilitating the " +
+				"use of PEF-files with braille editors that do not support multi volume files.";
+	}
 
 	@Override
 	public List<Argument> getRequiredArguments() {
