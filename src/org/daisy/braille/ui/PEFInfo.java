@@ -28,6 +28,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.daisy.braille.pef.PEFBook;
+import org.daisy.braille.ui.pefinfo.DetailSet;
+import org.daisy.braille.ui.pefinfo.PEFBookInfo;
 import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
 import org.daisy.cli.ExitCode;
@@ -69,34 +71,16 @@ class PEFInfo extends AbstractUI {
 		ps.println();
 		
 		String m = p.get("metadata");
-		if (m!=null && m.equals("full")) {
-			for (String key : book.getMetadataKeys()) {
-				ui.printIterable(ps, key, book.getMetadata(key));
-			}
+		boolean meta = m!=null && m.equals("full");
+		
+		PEFBookInfo pbi;
+		if (meta) {
+			pbi = new PEFBookInfo(DetailSet.FULL);
 		} else {
-			ui.printIterable(ps, "Title", book.getTitle());
-			ui.printIterable(ps, "Authors", book.getAuthors());
-			ui.printIterable(ps, "Description", book.getMetadata("description"));
+			pbi = new PEFBookInfo();
 		}
-		ui.printItem(ps, "Dimensions", book.getMaxWidth() + "x" + book.getMaxHeight());
-		ui.printItem(ps, "Volumes", ""+book.getVolumes());
-		ui.printItem(ps, "Pages", ""+book.getPages());
-	}
-	
-	private void printIterable(PrintStream ps, String title, Iterable<String> items) {
-		if (items==null) {
-			return;
-		} else {
-			ps.println(title);
-			for (String s : items) {
-				ps.println("\t" +s);
-			}
-		}
-	}
-	
-	private void printItem(PrintStream ps, String key, String value) {
-		ps.println(key);
-		ps.println("\t" + value);
+		
+		pbi.print(book, ps);
 	}
 
 	@Override
