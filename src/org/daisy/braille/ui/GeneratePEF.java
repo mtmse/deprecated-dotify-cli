@@ -44,6 +44,7 @@ class GeneratePEF extends AbstractUI {
 		reqArgs.add(new Argument("path_to_file", "Path to the output file"));
 		optionalArgs = new ArrayList<OptionalArgument>();
 		optionalArgs.add(newOptionalArgument(PEFGenerator.KEY_VOLUMES, "Number of volumes to generate"));
+		optionalArgs.add(newOptionalArgument(PEFGenerator.KEY_SPV, "Number of sections in each volume"));
 		optionalArgs.add(newOptionalArgument(PEFGenerator.KEY_PPV, "Number of pages in each volume"));
 		//optionalArgs.add(newOptionalArgument(PEFGenerator.KEY_EIGHT_DOT, "Set to true to generate 8-dot braille"));
 		parser.addSwitch(new SwitchArgument('f', "full-range", PEFGenerator.KEY_EIGHT_DOT, "true", "Use the full range of braille patterns, i.e. including eight dot patterns"));
