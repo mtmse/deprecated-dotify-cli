@@ -324,7 +324,7 @@ class EmbossPEF extends AbstractUI {
 				this.emb = emb;
 			}
 			
-			//jvm1.6@Override
+			@Override
 			public boolean accept(Paper object) {
 				return emb.supportsPaper(object);
 			}
