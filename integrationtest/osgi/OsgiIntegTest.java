@@ -39,8 +39,8 @@ public class OsgiIntegTest {
 
 		return options(
 			mavenBundle().groupId("org.apache.felix").artifactId("org.apache.felix.scr").version("1.6.2"),
-			mavenBundle().groupId("org.daisy.braille").artifactId("brailleUtils-core").version("2.0-SNAPSHOT"),
-			mavenBundle().groupId("org.daisy.braille").artifactId("brailleUtils-catalog").version("2.0-SNAPSHOT"),
+			mavenBundle().groupId("org.daisy.braille").artifactId("brailleUtils-core").version("2.0.0-SNAPSHOT"),
+			mavenBundle().groupId("org.daisy.braille").artifactId("brailleUtils-catalog").version("2.0.0-SNAPSHOT"),
 			mavenBundle().groupId("org.daisy.libs").artifactId("jing").version("20120724.0.0"),
 			mavenBundle().groupId("org.daisy.libs").artifactId("saxon-he").version("9.5.1.5"),
 			junitBundles()
