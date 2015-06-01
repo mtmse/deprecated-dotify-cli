@@ -48,6 +48,14 @@ sourceSets {
 	}
 }
 
+// required for gradle build outside of Eclipse
+task copyTestResources(type: Copy) {
+    from "${projectDir}/integrationtest"
+    into "${buildDir}/classes/test"
+}
+processTestResources.dependsOn copyTestResources
+//
+
 jar.doFirst {
 	manifest {
     	attributes ('Built-By': '',				//'${user.name}'
