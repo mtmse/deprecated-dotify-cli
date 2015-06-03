@@ -20,6 +20,7 @@ package org.daisy.braille.ui;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,9 @@ import org.daisy.cli.Argument;
 import org.daisy.cli.Definition;
 import org.daisy.cli.OptionalArgument;
 import org.daisy.cli.ShortFormResolver;
+import org.daisy.factory.Factory;
+import org.daisy.factory.FactoryCatalog;
+import org.daisy.factory.FactoryProperties;
 
 /**
  * Reads a PEF-file and outputs a text file.
@@ -54,7 +58,9 @@ class PEFParser extends AbstractUI {
 		optionalArgs = new ArrayList<OptionalArgument>();
 		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_RANGE, "output a range of pages", "1-"));
 		TableCatalog tableCatalog = TableCatalog.newInstance();
-		tableSF = new ShortFormResolver(tableCatalog.list());
+		Collection<String> idents = new ArrayList<String>();
+		for (FactoryProperties p : tableCatalog.list()) { idents.add(p.getIdentifier()); }
+		tableSF = new ShortFormResolver(idents);
 		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_TABLE, "braille code table", getDefinitionList(tableCatalog, tableSF), ""));
 		/*
 		EmbosserCatalog embosserCatalog = EmbosserCatalog.newInstance();
@@ -131,6 +137,21 @@ class PEFParser extends AbstractUI {
 	@Override
 	public List<OptionalArgument> getOptionalArguments() {
 		return optionalArgs;
+	}
+	
+	
+	/**
+	 * Creates a list of definitions based on the contents of the supplied FactoryCatalog.
+	 * @param catalog the catalog to create definitions for
+	 * @param resolver 
+	 * @return returns a list of definitions
+	 */
+	List<Definition> getDefinitionList(FactoryCatalog<? extends Factory, ? extends FactoryProperties> catalog, ShortFormResolver resolver) {
+		List<Definition> ret = new ArrayList<Definition>();
+		for (String key : resolver.getShortForms()) {
+			ret.add(new Definition(key, catalog.get(resolver.resolve(key)).getDescription()));
+		}
+		return ret;
 	}
 
 }

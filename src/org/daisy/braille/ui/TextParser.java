@@ -20,6 +20,7 @@ package org.daisy.braille.ui;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -29,9 +30,13 @@ import org.daisy.braille.facade.TextConverterFacade;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
+import org.daisy.cli.Definition;
 import org.daisy.cli.OptionalArgument;
 import org.daisy.cli.ShortFormResolver;
 import org.daisy.cli.SwitchArgument;
+import org.daisy.factory.Factory;
+import org.daisy.factory.FactoryCatalog;
+import org.daisy.factory.FactoryProperties;
 
 /**
  * Reads an ASCII file and parses it into a basic PEF file.
@@ -52,7 +57,9 @@ class TextParser extends AbstractUI {
 		reqArgs.add(new Argument("input", "path to the input file"));
 		reqArgs.add(new Argument("output", "path to the output file"));
 		TableCatalog tableCatalog = TableCatalog.newInstance();
-		tableSF = new ShortFormResolver(tableCatalog.list());
+		Collection<String> idents = new ArrayList<String>();
+		for (FactoryProperties p : tableCatalog.list()) { idents.add(p.getIdentifier()); }
+		tableSF = new ShortFormResolver(idents);
 		optionalArgs = new ArrayList<OptionalArgument>();
 		optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_MODE, "input braille code", getDefinitionList(tableCatalog, tableSF), ""));
 		optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_IDENTIFIER, "the publications unique identifier", "[generated]"));
@@ -112,6 +119,21 @@ class TextParser extends AbstractUI {
 	@Override
 	public List<OptionalArgument> getOptionalArguments() {
 		return optionalArgs;
+	}
+	
+	
+	/**
+	 * Creates a list of definitions based on the contents of the supplied FactoryCatalog.
+	 * @param catalog the catalog to create definitions for
+	 * @param resolver 
+	 * @return returns a list of definitions
+	 */
+	List<Definition> getDefinitionList(FactoryCatalog<? extends Factory, ? extends FactoryProperties> catalog, ShortFormResolver resolver) {
+		List<Definition> ret = new ArrayList<Definition>();
+		for (String key : resolver.getShortForms()) {
+			ret.add(new Definition(key, catalog.get(resolver.resolve(key)).getDescription()));
+		}
+		return ret;
 	}
 
 }
