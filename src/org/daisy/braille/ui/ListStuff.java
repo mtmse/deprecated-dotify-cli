@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.daisy.braille.api.factory.FactoryProperties;
+import org.daisy.braille.api.factory.FactoryPropertiesComparator;
+import org.daisy.braille.api.factory.FactoryPropertiesComparator.By;
 import org.daisy.braille.consumer.paper.PaperCatalog;
 import org.daisy.braille.embosser.EmbosserCatalog;
 import org.daisy.braille.table.TableCatalog;
@@ -14,9 +17,6 @@ import org.daisy.cli.CommandParserResult;
 import org.daisy.cli.Definition;
 import org.daisy.cli.ExitCode;
 import org.daisy.cli.OptionalArgument;
-import org.daisy.factory.FactoryProperties;
-import org.daisy.factory.FactoryPropertiesComparator;
-import org.daisy.factory.FactoryPropertiesComparator.By;
 
 class ListStuff extends AbstractUI {
 	enum Mode {

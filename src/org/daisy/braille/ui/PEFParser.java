@@ -24,6 +24,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.daisy.braille.api.factory.Factory;
+import org.daisy.braille.api.factory.FactoryCatalog;
+import org.daisy.braille.api.factory.FactoryProperties;
 import org.daisy.braille.consumer.validator.ValidatorFactory;
 import org.daisy.braille.embosser.EmbosserCatalog;
 import org.daisy.braille.embosser.StandardLineBreaks;
@@ -35,9 +38,6 @@ import org.daisy.cli.Argument;
 import org.daisy.cli.Definition;
 import org.daisy.cli.OptionalArgument;
 import org.daisy.cli.ShortFormResolver;
-import org.daisy.factory.Factory;
-import org.daisy.factory.FactoryCatalog;
-import org.daisy.factory.FactoryProperties;
 
 /**
  * Reads a PEF-file and outputs a text file.

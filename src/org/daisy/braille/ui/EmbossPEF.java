@@ -30,6 +30,8 @@ import java.util.prefs.BackingStoreException;
 import javax.print.PrintService;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.daisy.braille.api.factory.FactoryProperties;
+import org.daisy.braille.api.factory.FactoryPropertiesComparator;
 import org.daisy.braille.api.paper.Length;
 import org.daisy.braille.api.paper.PageFormat;
 import org.daisy.braille.api.paper.Paper;
@@ -59,8 +61,6 @@ import org.daisy.cli.Argument;
 import org.daisy.cli.ExitCode;
 import org.daisy.cli.OptionalArgument;
 import org.daisy.cli.SwitchArgument;
-import org.daisy.factory.FactoryProperties;
-import org.daisy.factory.FactoryPropertiesComparator;
 import org.daisy.printing.PrinterDevice;
 import org.xml.sax.SAXException;
 
