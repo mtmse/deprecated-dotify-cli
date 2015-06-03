@@ -8,7 +8,7 @@ import static org.ops4j.pax.exam.CoreOptions.options;
 
 import javax.inject.Inject;
 
-import org.daisy.braille.tools.Length;
+import org.daisy.paper.Length;
 import org.daisy.paper.Paper;
 import org.daisy.paper.PaperCatalogService;
 import org.junit.Test;

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import org.daisy.braille.tools.Length;
+import org.daisy.paper.Length;
 import org.daisy.paper.Paper;
 import org.daisy.paper.PaperCatalog;
 import org.junit.Test;
