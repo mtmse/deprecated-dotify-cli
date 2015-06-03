@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.daisy.braille.consumer.validator.ValidatorFactory;
 import org.daisy.braille.pef.PEFFileMerger;
 import org.daisy.braille.pef.PEFFileMerger.SortType;
 import org.daisy.cli.AbstractUI;
@@ -31,7 +32,6 @@ import org.daisy.cli.Argument;
 import org.daisy.cli.Definition;
 import org.daisy.cli.ExitCode;
 import org.daisy.cli.OptionalArgument;
-import org.daisy.validator.ValidatorFactory;
 
 /**
  * Provides a UI for merging PEF-files. Not for public use. This class is a package class. Use BasicUI

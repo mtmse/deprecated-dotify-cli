@@ -7,8 +7,8 @@ import static org.ops4j.pax.exam.CoreOptions.options;
 
 import javax.inject.Inject;
 
-import org.daisy.validator.Validator;
-import org.daisy.validator.ValidatorFactoryService;
+import org.daisy.braille.api.validator.Validator;
+import org.daisy.braille.api.validator.ValidatorFactoryService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.daisy.braille.consumer.validator.ValidatorFactory;
 import org.daisy.braille.embosser.EmbosserCatalog;
 import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.facade.PEFConverterFacade;
@@ -33,7 +34,6 @@ import org.daisy.cli.Argument;
 import org.daisy.cli.Definition;
 import org.daisy.cli.OptionalArgument;
 import org.daisy.cli.ShortFormResolver;
-import org.daisy.validator.ValidatorFactory;
 
 /**
  * Reads a PEF-file and outputs a text file.

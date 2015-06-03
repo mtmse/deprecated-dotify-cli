@@ -23,15 +23,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.daisy.braille.facade.TextConverterFacade;
+import org.daisy.braille.consumer.validator.ValidatorFactory;
 import org.daisy.braille.facade.PEFValidatorFacade;
+import org.daisy.braille.facade.TextConverterFacade;
 import org.daisy.braille.table.TableCatalog;
 import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
 import org.daisy.cli.OptionalArgument;
 import org.daisy.cli.ShortFormResolver;
 import org.daisy.cli.SwitchArgument;
-import org.daisy.validator.ValidatorFactory;
 
 /**
  * Reads an ASCII file and parses it into a basic PEF file.

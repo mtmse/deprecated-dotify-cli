@@ -30,6 +30,7 @@ import java.util.prefs.BackingStoreException;
 import javax.print.PrintService;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.daisy.braille.consumer.validator.ValidatorFactory;
 import org.daisy.braille.embosser.Embosser;
 import org.daisy.braille.embosser.EmbosserCatalog;
 import org.daisy.braille.embosser.EmbosserFeatures;
@@ -61,7 +62,6 @@ import org.daisy.paper.SheetPaperFormat;
 import org.daisy.paper.SheetPaperFormat.Orientation;
 import org.daisy.paper.TractorPaperFormat;
 import org.daisy.printing.PrinterDevice;
-import org.daisy.validator.ValidatorFactory;
 import org.xml.sax.SAXException;
 
 /**

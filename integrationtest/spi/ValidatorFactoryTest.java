@@ -3,8 +3,8 @@ package spi;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import org.daisy.validator.Validator;
-import org.daisy.validator.ValidatorFactory;
+import org.daisy.braille.api.validator.Validator;
+import org.daisy.braille.consumer.validator.ValidatorFactory;
 import org.junit.Test;
 
 public class ValidatorFactoryTest {
