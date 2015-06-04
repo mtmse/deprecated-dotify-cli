@@ -8,9 +8,9 @@ import static org.ops4j.pax.exam.CoreOptions.options;
 
 import javax.inject.Inject;
 
-import org.daisy.braille.table.BrailleConverter;
-import org.daisy.braille.table.Table;
-import org.daisy.braille.table.TableCatalogService;
+import org.daisy.braille.api.table.BrailleConverter;
+import org.daisy.braille.api.table.Table;
+import org.daisy.braille.api.table.TableCatalogService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
@@ -49,7 +49,7 @@ public class TableCatalogTest {
 	@Test
 	public void testTable() {
 		assertNotNull(tableCatalog);
-		Table t = tableCatalog.newTable("org.daisy.braille.table.DefaultTableProvider.TableType.EN_US");
+		Table t = tableCatalog.newTable("org.daisy.braille.api.table.DefaultTableProvider.TableType.EN_US");
 		assertNotNull(t);
 		BrailleConverter bc = t.newBrailleConverter();
 		assertEquals("⠁⠃⠉", bc.toBraille("ABC"));
