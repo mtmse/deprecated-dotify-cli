@@ -5,8 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
-import org.daisy.braille.embosser.Embosser;
-import org.daisy.braille.embosser.EmbosserCatalog;
+import org.daisy.braille.api.embosser.Embosser;
+import org.daisy.braille.consumer.embosser.EmbosserCatalog;
 import org.junit.Test;
 
 public class EmbosserCatalogTest {

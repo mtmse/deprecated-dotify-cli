@@ -24,15 +24,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.daisy.braille.api.embosser.StandardLineBreaks;
 import org.daisy.braille.api.factory.Factory;
 import org.daisy.braille.api.factory.FactoryCatalog;
 import org.daisy.braille.api.factory.FactoryProperties;
+import org.daisy.braille.consumer.embosser.EmbosserCatalog;
+import org.daisy.braille.consumer.table.TableCatalog;
 import org.daisy.braille.consumer.validator.ValidatorFactory;
-import org.daisy.braille.embosser.EmbosserCatalog;
-import org.daisy.braille.embosser.StandardLineBreaks;
 import org.daisy.braille.facade.PEFConverterFacade;
 import org.daisy.braille.facade.PEFValidatorFacade;
-import org.daisy.braille.consumer.table.TableCatalog;
 import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
 import org.daisy.cli.Definition;

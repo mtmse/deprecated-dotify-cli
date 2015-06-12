@@ -9,8 +9,8 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-import org.daisy.braille.embosser.Embosser;
-import org.daisy.braille.embosser.EmbosserCatalogService;
+import org.daisy.braille.api.embosser.Embosser;
+import org.daisy.braille.api.embosser.EmbosserCatalogService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
