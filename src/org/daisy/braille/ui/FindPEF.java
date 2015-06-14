@@ -144,7 +144,7 @@ class FindPEF extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return "find";//BasicUI.find;
+		return BasicUI.find;
 	}
 	
 	@Override

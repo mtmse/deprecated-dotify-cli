@@ -48,6 +48,7 @@ public class BasicUI extends AbstractUI {
 	public final static String merge = "merge";
 	public final static String generate = "generate";
 	public final static String list = "list";
+	public final static String find = "find";
 	//public final static String clear = "clear";
 	//public final static String setup = "setup";
 	public final static String help = "help";
@@ -81,6 +82,7 @@ public class BasicUI extends AbstractUI {
 		putCommand(list, "lists stuff", ListStuff.class);
 		//
 		putCommand(inspect, "lists metadata about a PEF-book", PEFInfo.class);
+		putCommand(find, "finds PEF-books", FindPEF.class);
 		/*
  			values.add(new Definition(clear, "clear settings"));
 			values.add(new Definition(setup, "setup"));
