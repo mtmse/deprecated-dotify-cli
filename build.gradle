@@ -78,7 +78,7 @@ repositories {
 }
 
 dependencies {
-	compile group: group, name:'brailleUtils-core', version:'2.0.0-SNAPSHOT'
+	compile group: group, name:'braille-utils.api', version:'2.0.0-SNAPSHOT'
 	compile group: group, name:'brailleUtils-catalog', version:'2.0.0-SNAPSHOT'
 	compile 'org.daisy.braille:common-cli:1.0.0-SNAPSHOT'
 	compile 'org.daisy.braille:braille-utils.pef-tools:1.0.0-SNAPSHOT'
