@@ -22,7 +22,7 @@ public class TableCatalogTest {
 	public void testTable() {
 		TableCatalog tableCatalog = TableCatalog.newInstance();
 		assertNotNull(tableCatalog);
-		Table t = tableCatalog.newTable("org.daisy.braille.api.table.DefaultTableProvider.TableType.EN_US");
+		Table t = tableCatalog.newTable("org.daisy.braille.impl.table.DefaultTableProvider.TableType.EN_US");
 		assertNotNull(t);
 		BrailleConverter bc = t.newBrailleConverter();
 		assertEquals("⠁⠃⠉", bc.toBraille("ABC"));
