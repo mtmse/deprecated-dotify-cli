@@ -54,6 +54,7 @@ import org.daisy.braille.consumer.validator.ValidatorFactory;
 import org.daisy.braille.pef.PEFConverterFacade;
 import org.daisy.braille.pef.PEFHandler;
 import org.daisy.braille.pef.PEFValidatorFacade;
+import org.daisy.braille.pef.PrinterDevice;
 import org.daisy.braille.pef.Range;
 import org.daisy.braille.pef.UnsupportedWidthException;
 import org.daisy.cli.AbstractUI;
@@ -61,7 +62,6 @@ import org.daisy.cli.Argument;
 import org.daisy.cli.ExitCode;
 import org.daisy.cli.OptionalArgument;
 import org.daisy.cli.SwitchArgument;
-import org.daisy.printing.PrinterDevice;
 import org.xml.sax.SAXException;
 
 /**
