@@ -80,7 +80,7 @@ repositories {
 dependencies {
 	compile 'org.daisy.braille:braille-utils.api:2.0.0'
 	compile group: group, name:'brailleUtils-catalog', version:'2.0.0-SNAPSHOT'
-	compile 'org.daisy.braille:common-cli:1.0.0-SNAPSHOT'
+	compile 'org.daisy.braille:braille-utils.basic-cli:1.0.0-SNAPSHOT'
 	compile 'org.daisy.braille:braille-utils.pef-tools:1.0.0-SNAPSHOT'
 	
 	testCompile group: 'junit', name: 'junit', version: "$versions.junit"

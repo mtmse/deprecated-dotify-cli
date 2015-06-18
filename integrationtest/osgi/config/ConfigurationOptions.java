@@ -15,7 +15,7 @@ public abstract class ConfigurationOptions {
 		return composite(
 				mavenBundle().groupId("org.daisy.libs").artifactId("jing").version("20120724.0.0"),
 				mavenBundle().groupId("org.daisy.libs").artifactId("saxon-he").version("9.5.1.5"),
-				mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.api").version("2.0.0-SNAPSHOT"),
+				mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.api").version("2.0.0"),
 				mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.pef-tools").version("1.0.0-SNAPSHOT")
 				);
 	}
