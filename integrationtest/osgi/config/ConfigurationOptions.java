@@ -16,12 +16,12 @@ public abstract class ConfigurationOptions {
 				mavenBundle().groupId("org.daisy.libs").artifactId("jing").version("20120724.0.0"),
 				mavenBundle().groupId("org.daisy.libs").artifactId("saxon-he").version("9.5.1.5"),
 				mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.api").version("2.0.0"),
-				mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.pef-tools").version("1.0.0-SNAPSHOT")
+				mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.pef-tools").version("1.0.0")
 				);
 	}
 	
 	public static Option brailleUtilsCatalog() {
-		return mavenBundle().groupId("org.daisy.braille").artifactId("brailleUtils-catalog").version("2.0.0-SNAPSHOT");
+		return mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.impl").version("2.0.0");
 	}
 	
 }
