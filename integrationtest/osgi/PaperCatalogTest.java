@@ -1,17 +1,11 @@
 package osgi;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
 import static org.ops4j.pax.exam.CoreOptions.options;
 
 import javax.inject.Inject;
 
-import org.daisy.braille.api.paper.Length;
-import org.daisy.braille.api.paper.Paper;
 import org.daisy.braille.api.paper.PaperCatalogService;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
@@ -21,10 +15,11 @@ import org.ops4j.pax.exam.spi.reactors.PerClass;
 import org.ops4j.pax.exam.util.Filter;
 
 import osgi.config.ConfigurationOptions;
+import base.PaperCatalogTestbase;
 
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerClass.class)
-public class PaperCatalogTest {
+public class PaperCatalogTest extends PaperCatalogTestbase {
 
 	@Configuration 
 	public Option[] configure() {
@@ -40,19 +35,9 @@ public class PaperCatalogTest {
 	@Inject @Filter(timeout=5000)
 	PaperCatalogService paperCatalog;
 
-	@Test
-	public void testPaperCatalog() {
-		assertNotNull(paperCatalog);
-		assertTrue(paperCatalog.list().size()>=22);
-	}
-
-	@Test
-	public void testPaper() {
-		assertNotNull(paperCatalog);
-		Paper p = paperCatalog.get("org_daisy.ISO216PaperProvider.PaperSize.A4");
-		assertNotNull(p);
-		assertEquals(Length.newMillimeterValue(297), p.asSheetPaper().getPageHeight());
-		assertEquals(Length.newMillimeterValue(210), p.asSheetPaper().getPageWidth());
+	@Override
+	public PaperCatalogService getPaperCS() {
+		return paperCatalog;
 	}
 
 }

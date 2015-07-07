@@ -1,30 +1,14 @@
 package spi;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import org.daisy.braille.api.table.BrailleConverter;
-import org.daisy.braille.api.table.Table;
+import org.daisy.braille.api.table.TableCatalogService;
 import org.daisy.braille.consumer.table.TableCatalog;
-import org.junit.Test;
 
-public class TableCatalogTest {
+import base.TableCatalogTestbase;
 
-	@Test
-	public void testTableCatalog() {
-		TableCatalog tableCatalog = TableCatalog.newInstance();
-		assertNotNull(tableCatalog);
-		assertTrue(tableCatalog.list().size()>=24);
-	}
+public class TableCatalogTest extends TableCatalogTestbase{
 
-	@Test
-	public void testTable() {
-		TableCatalog tableCatalog = TableCatalog.newInstance();
-		assertNotNull(tableCatalog);
-		Table t = tableCatalog.newTable("org.daisy.braille.impl.table.DefaultTableProvider.TableType.EN_US");
-		assertNotNull(t);
-		BrailleConverter bc = t.newBrailleConverter();
-		assertEquals("⠁⠃⠉", bc.toBraille("ABC"));
+	@Override
+	public TableCatalogService getTableCS() {
+		return TableCatalog.newInstance();
 	}
 }
