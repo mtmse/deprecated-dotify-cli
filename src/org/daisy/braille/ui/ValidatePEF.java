@@ -72,12 +72,12 @@ class ValidatePEF extends AbstractUI {
 		System.out.println("Validation was " + (ok ? "succcessful" : "unsuccessful"));
 		if (!ok) {
 			System.out.println("Messages returned by the validator:");
-			InputStreamReader report = new InputStreamReader(pv.getReportStream());
-			int c;
-			while ((c = report.read()) != -1) {
-				System.out.print((char)c);
-			}
-			report.close();
+                    try (InputStreamReader report = new InputStreamReader(pv.getReportStream())) {
+                        int c;
+                        while ((c = report.read()) != -1) {
+                            System.out.print((char)c);
+                        }
+                    }
 		}
 	}
 

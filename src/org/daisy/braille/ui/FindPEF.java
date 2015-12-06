@@ -92,19 +92,13 @@ class FindPEF extends AbstractUI {
 		for (File f : PEFLibrary.listFiles(dir, recursive)) {
 			try {
 				search.add(loader.load(f));
-			} catch (XPathExpressionException e) {
-				//e.printStackTrace();
-			} catch (ParserConfigurationException e) {
-				//e.printStackTrace();
-			} catch (SAXException e) {
-				//e.printStackTrace();
-			} catch (IOException e) {
+			} catch (XPathExpressionException | ParserConfigurationException | SAXException | IOException e) {
 				//e.printStackTrace();
 			}
     		System.out.print(".");
 		}
 		System.out.println();
-		Collection<Detail> c = new ArrayList<Detail>();
+		Collection<Detail> c = new ArrayList<>();
 		c.add(new URIDetail());
 		c.addAll(DetailSet.DEFAULT.newDetailSet());
 		PEFBookInfo pbi = new PEFBookInfo(c);

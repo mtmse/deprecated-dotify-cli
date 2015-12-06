@@ -56,6 +56,7 @@ public class InputHelper {
 		// ca[1] is this class
 		// ca[2] is the calling class
 		this((new SecurityManager() { @SuppressWarnings("rawtypes")
+                @Override
 			   public Class[] getClassContext() { return super.getClassContext(); }}.getClassContext())[2]
 		);
 	}

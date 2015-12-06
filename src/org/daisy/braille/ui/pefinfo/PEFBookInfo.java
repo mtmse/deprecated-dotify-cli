@@ -25,7 +25,7 @@ public class PEFBookInfo {
 	}
 	
 	public PEFBookInfo(Collection<Detail> data) {
-		infos = new ArrayList<Detail>(data);
+		infos = new ArrayList<>(data);
 	}
 
 	public void print(PEFBook book, PrintStream ps) {

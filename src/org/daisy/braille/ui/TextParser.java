@@ -57,7 +57,7 @@ class TextParser extends AbstractUI {
 		reqArgs.add(new Argument("input", "path to the input file"));
 		reqArgs.add(new Argument("output", "path to the output file"));
 		TableCatalog tableCatalog = TableCatalog.newInstance();
-		Collection<String> idents = new ArrayList<String>();
+		Collection<String> idents = new ArrayList<>();
 		for (FactoryProperties p : tableCatalog.list()) { idents.add(p.getIdentifier()); }
 		tableSF = new ShortFormResolver(idents);
 		optionalArgs = new ArrayList<OptionalArgument>();

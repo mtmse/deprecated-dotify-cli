@@ -107,7 +107,7 @@ class EmbossPEF extends AbstractUI {
 	protected void readSetup(boolean verify) {
 		// Check setup
 		InputHelper input = new InputHelper();
-		ArrayList<String> str = new ArrayList<String>();
+		ArrayList<String> str = new ArrayList<>();
 		for (PrintService ps : PrinterDevice.getDevices()) {
 			str.add(ps.getName());
 		}
@@ -283,13 +283,7 @@ class EmbossPEF extends AbstractUI {
 				PEFHandler ph = builder.build();
 				new PEFConverterFacade(EmbosserCatalog.newInstance()).parsePefFile(input, ph);
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (UnsupportedWidthException e) {
+		} catch (IOException | ParserConfigurationException | SAXException | UnsupportedWidthException e) {
 			e.printStackTrace();
 		}
 	}

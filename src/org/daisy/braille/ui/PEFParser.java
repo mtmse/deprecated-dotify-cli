@@ -58,7 +58,7 @@ class PEFParser extends AbstractUI {
 		optionalArgs = new ArrayList<OptionalArgument>();
 		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_RANGE, "output a range of pages", "1-"));
 		TableCatalog tableCatalog = TableCatalog.newInstance();
-		Collection<String> idents = new ArrayList<String>();
+		Collection<String> idents = new ArrayList<>();
 		for (FactoryProperties p : tableCatalog.list()) { idents.add(p.getIdentifier()); }
 		tableSF = new ShortFormResolver(idents);
 		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_TABLE, "braille code table", getDefinitionList(tableCatalog, tableSF), ""));
@@ -108,10 +108,10 @@ class PEFParser extends AbstractUI {
 				//ui.expandShortForm(p, PEFConverterFacade.KEY_EMBOSSER, ui.embosserSF);
 				ui.expandShortForm(p, PEFConverterFacade.KEY_TABLE, ui.tableSF);
 				
-				// run
-				FileOutputStream os = new FileOutputStream(output);
-				new PEFConverterFacade(EmbosserCatalog.newInstance()).parsePefFile(input, os, null, p);
-				os.close();
+                            try ( // run
+                                    FileOutputStream os = new FileOutputStream(output)) {
+                                new PEFConverterFacade(EmbosserCatalog.newInstance()).parsePefFile(input, os, null, p);
+                            }
 				System.out.println("Done!");
 			} catch (Exception e) {
 				e.printStackTrace();

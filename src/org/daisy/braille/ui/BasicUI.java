@@ -69,7 +69,7 @@ public class BasicUI extends AbstractUI {
 		logger.fine(System.getProperties().toString());
 		this.args = args;
 		this.values = new ArrayList<Definition>();
-		this.commands = new HashMap<String, Class<? extends AbstractUI>>();
+		this.commands = new HashMap<>();
 		
 		values.add(new Definition(help, "Without additional arguments, this text is displayed. To get help on a specific command, type help <command>"));
 		putCommand(emboss, "emboss a PEF-file", EmbossPEF.class);
