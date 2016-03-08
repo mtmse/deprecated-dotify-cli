@@ -121,3 +121,7 @@ task xsltdoc() << {
 }
 
 javadoc.dependsOn(xsltdoc)
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.11'
+}
