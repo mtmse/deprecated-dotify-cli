@@ -97,3 +97,7 @@ applicationDistribution.from(file('docs')) {
 applicationDistribution.from(file('licenses')) {
 	into 'licenses'
 }
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.11'
+}
