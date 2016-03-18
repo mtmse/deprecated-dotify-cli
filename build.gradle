@@ -1,5 +1,6 @@
 apply plugin: 'application'
 apply plugin: 'maven'
+apply plugin: "signing"
 
 mainClassName = "org.daisy.braille.ui.BasicUI"
 startScripts.applicationName = 'brailleutils'
@@ -10,9 +11,10 @@ javadoc {
 	options.encoding = 'UTF-8'
 	options.links('http://docs.oracle.com/javase/7/docs/api/');
 }
-
 sourceCompatibility = '1.7'
 targetCompatibility = '1.7'
+
+def repoRevision = System.getenv("REPO_REVISION")!=null?System.getenv("REPO_REVISION"):repositoryRevision
 
 group = "org.daisy.braille"
 
@@ -53,7 +55,7 @@ jar.doFirst {
     	attributes ('Built-By': System.getProperty("user.name"),
     	'Main-Class': mainClassName,
 		'Built-On': new Date().format('yyyy-MM-dd'),
-		'Repository-Revision': "$repositoryRevision",
+		'Repository-Revision': "$repoRevision",
 		'Implementation-Title': "$releaseName",
 		'Implementation-Version': version,
 		'Implementation-URL': "$repositoryURL",
@@ -96,6 +98,68 @@ applicationDistribution.from(file('docs')) {
 }
 applicationDistribution.from(file('licenses')) {
 	into 'licenses'
+}
+
+task javadocJar(type: Jar) {
+	classifier = 'javadoc'
+	from javadoc
+}
+
+task sourcesJar(type: Jar) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+artifacts {
+	archives javadocJar, sourcesJar
+}
+
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+
+signing {
+	required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
+	sign configurations.archives
+}
+
+uploadArchives {
+	//Only upload if a git hash is supplied. On Travis only upload snapshots.
+	enabled = repoRevision.size()==40 && (System.getenv("TRAVIS_BUILD_ID")==null || version.endsWith("SNAPSHOT"))
+	repositories {
+		mavenDeployer {
+			if (isReleaseVersion) {
+				beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+			}
+			repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+				authentication(userName: sonatypeUsername, password: sonatypePassword)
+			}
+			snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+				authentication(userName: sonatypeUsername, password: sonatypePassword)
+			}
+            pom.project {
+				name 'braille-utils.ui'
+				packaging 'jar'
+				description 'Braille Utils CLI'
+				url "$repositoryURL"
+				scm {
+					connection "$repositorySCM"
+					developerConnection "$repositorySCM"
+					url "$repositoryURL"
+				}
+                licenses {
+					license {
+						name 'LGPL'
+						url 'http://www.gnu.org/licenses/lgpl.html'
+					}
+                }
+				developers {
+					developer {
+						id 'joel'
+						name 'Joel Håkansson'
+					}
+				}
+			}
+		}
+	}
 }
 
 task wrapper(type: Wrapper) {
