@@ -13,7 +13,7 @@ public abstract class ConfigurationOptions {
 	}
 
 	static Option dotifyApi() {
-		return mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.api").version("2.4.0");
+		return mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.api").version("2.5.0");
 	}
 	
 	static Option dotifyCommon() {
@@ -43,7 +43,7 @@ public abstract class ConfigurationOptions {
 	public static Option dotifyTranslator() {
 		return composite(
 				dotifyHyphenator(),
-				mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.translator.impl").version("2.1.1")
+				mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.translator.impl").version("2.3.0")
 				);
 	}
 	
@@ -59,8 +59,16 @@ public abstract class ConfigurationOptions {
 		return mavenBundle().groupId("org.daisy.libs").artifactId("saxon-he").version("9.5.1.5");
 	}
 	
+	static Option stax2() {
+		return mavenBundle().groupId("org.codehaus.woodstox").artifactId("stax2-api").version("3.1.4");
+	}
+	
 	static Option wstx() {
-		return mavenBundle().groupId("com.fasterxml.woodstox").artifactId("woodstox-core").version("5.0.2");
+		return composite(
+				stax2(),
+				mavenBundle().groupId("com.fasterxml.woodstox").artifactId("woodstox-core").version("5.0.2")
+			);
+				
 	}
 	
 	public static Option dotifyFormatter() {
@@ -69,7 +77,7 @@ public abstract class ConfigurationOptions {
 				dotifyHyphenator(), 
 				dotifyTranslator(),
 				wstx(),
-				mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.formatter.impl").version("2.1.0"));
+				mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.formatter.impl").version("2.2.0"));
 	}
 	
 	public static Option dotifyTasks() {
@@ -79,7 +87,7 @@ public abstract class ConfigurationOptions {
 					dotifyCommon(),
 					jing(),
 					saxon(),
-					mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.task.impl").version("2.1.0")
+					mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.task.impl").version("2.2.0")
 				);
 	}
 	
