@@ -24,11 +24,12 @@ public abstract class Integer2TextFactoryTestbase {
 	}
 
 	@Test
-	public void testSwedishInt2Text() throws Integer2TextConfigurationException {
+	public void testSwedishInt2Text() throws Integer2TextConfigurationException, IntegerOutOfRange {
 		//Setup
 		Integer2Text sv = getInteger2TextFMS().newInteger2Text("sv-SE");
 		//Test
 		assertNotNull(sv);
+		assertEquals("ett", sv.intToText(1));
 	}
 
 	@Test
