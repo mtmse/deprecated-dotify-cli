@@ -1,3 +1,11 @@
 <dtbook xmlns="http://www.daisy.org/z3986/2005/dtbook/" xml:lang="sv">
 <!-- This is not really a dtbook, but it will work for the existing test -->
+<book>
+<bodymatter>
+<level1>
+<h1>test</h1>
+<p>test</p>
+</level1>
+</bodymatter>
+</book>
 </dtbook>

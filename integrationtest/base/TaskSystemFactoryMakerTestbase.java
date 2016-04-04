@@ -61,7 +61,7 @@ public abstract class TaskSystemFactoryMakerTestbase {
 	public void runFactoryForSwedish() throws TaskSystemFactoryException, TaskSystemException, IOException {
 		//Setup
 		TaskSystemFactoryMakerService factory = getTaskSystemFMS();
-		TaskSystem tf = factory.newTaskSystem("sv-SE", "obfl");
+		TaskSystem tf = factory.newTaskSystem("sv-SE", "pef");
 		assertNotNull(tf);
 		HashMap<String, Object> options = new HashMap<String, Object>();
 
