@@ -77,7 +77,8 @@ public abstract class ConfigurationOptions {
 				dotifyHyphenator(), 
 				dotifyTranslator(),
 				wstx(),
-				mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.formatter.impl").version("2.2.0"));
+				saxon(),
+				mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.formatter.impl").version("2.2.1"));
 	}
 	
 	public static Option dotifyTasks() {
