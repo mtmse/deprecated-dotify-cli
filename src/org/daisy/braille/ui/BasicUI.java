@@ -156,6 +156,7 @@ public class BasicUI extends AbstractUI {
 	/**
 	 * Command line entry point
 	 * @param args the application arguments
+	 * @throws Exception if something goes wrong
 	 */
 	public static void main(String[] args) throws Exception {
 		BasicUI ui = new BasicUI(args);

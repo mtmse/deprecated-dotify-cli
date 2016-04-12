@@ -180,6 +180,7 @@ public class InputHelper {
 	 * Gets a integer from user. The assumption is that this value should be a non-zero
 	 * positive integer, that is the user selects a value from a list starting with one.
 	 * If the input is an empty string, 0 is returned. If an IO error occurs, -1 is returned.
+	 * @param allowEnter set to true to return 0 if input is empty, false to retry if input is empty
 	 * @return returns the integer value suppled by the user on the command line.
 	 * @throws IOException if IO fails.
 	 */

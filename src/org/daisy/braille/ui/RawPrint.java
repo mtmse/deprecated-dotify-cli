@@ -33,9 +33,9 @@ public class RawPrint {
 	
 	/**
 	 * Executes the application.
-	 * @param args
-	 * @throws FileNotFoundException
-	 * @throws PrintException
+	 * @param args program arguments
+	 * @throws FileNotFoundException if printing fails
+	 * @throws PrintException if printing fails
 	 */
 	public static void main(String[] args) throws FileNotFoundException, PrintException {
 		if (args.length != 2) {
