@@ -13,7 +13,7 @@ public abstract class ConfigurationOptions {
 	}
 
 	static Option dotifyApi() {
-		return mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.api").version("2.5.0");
+		return mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.api").version("2.7.0");
 	}
 	
 	static Option dotifyCommon() {
@@ -78,7 +78,8 @@ public abstract class ConfigurationOptions {
 				dotifyTranslator(),
 				wstx(),
 				saxon(),
-				mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.formatter.impl").version("2.2.1"));
+				//mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.formatter.impl").version("2.3.0"));
+				sonatypeStaging("org.daisy.dotify", "dotify.formatter.impl", "2.3.0"));
 	}
 	
 	public static Option dotifyTasks() {
@@ -88,7 +89,8 @@ public abstract class ConfigurationOptions {
 					dotifyCommon(),
 					jing(),
 					saxon(),
-					mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.task.impl").version("2.2.0")
+					//mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.task.impl").version("2.4.0")
+					sonatypeStaging("org.daisy.dotify", "dotify.task.impl", "2.4.0")
 				);
 	}
 	
