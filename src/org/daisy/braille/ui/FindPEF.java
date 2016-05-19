@@ -64,7 +64,7 @@ class FindPEF extends AbstractUI {
 		optionalArgs = new ArrayList<OptionalArgument>();
 		optionalArgs.add(new OptionalArgument(FOLDER_KEY, "Folder path", (new File("")).getAbsolutePath()));
 		parser.addSwitch(new SwitchArgument('r', RECURSIVE_KEY, "true", "Include subfolders in the scan."));
-		parser.addSwitch(new SwitchArgument('i', INTERACTIVE_KEY, "true", "Starts an interactive for repeated queries."));
+		parser.addSwitch(new SwitchArgument('i', INTERACTIVE_KEY, "true", "Starts an interactive shell for repeated queries."));
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {
