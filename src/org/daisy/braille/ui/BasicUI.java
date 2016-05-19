@@ -30,9 +30,11 @@ import java.util.logging.Logger;
 import org.daisy.braille.pef.FileTools;
 import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
+import org.daisy.cli.CommandParserResult;
 import org.daisy.cli.Definition;
 import org.daisy.cli.ExitCode;
 import org.daisy.cli.OptionalArgument;
+import org.daisy.cli.SwitchArgument;
 
 /**
  * Provides a basic command line UI for core functionality in
@@ -53,12 +55,19 @@ public class BasicUI extends AbstractUI {
 	//public final static String setup = "setup";
 	public final static String help = "help";
 	public final static String inspect = "inspect";
+	
+	protected final static String META_KEY = "meta";
+	private final static String VERSION_KEY = "version";
 
 	private final String[] args;
 	private final Logger logger;
 	
 	private final Map<String, Class<? extends AbstractUI>> commands;
 	private final List<Definition> values;
+	
+	private static final ManifestRetriever retriever = new ManifestRetriever(BasicUI.class);
+	private static final String BUILD_IDENTIFIER = retriever.getManifest().getMainAttributes().getValue("Repository-Revision");
+	private static final String SYSTEM_VERSION = retriever.getManifest().getMainAttributes().getValue("Implementation-Version");
 	
 	/**
 	 * Creates a new Basic UI
@@ -83,6 +92,7 @@ public class BasicUI extends AbstractUI {
 		//
 		putCommand(inspect, "lists metadata about a PEF-book", PEFInfo.class);
 		putCommand(find, "finds PEF-books", FindPEF.class);
+		parser.addSwitch(new SwitchArgument('v', VERSION_KEY, META_KEY, VERSION_KEY, "Displays version information."));
 		/*
  			values.add(new Definition(clear, "clear settings"));
 			values.add(new Definition(setup, "setup"));
@@ -141,6 +151,13 @@ public class BasicUI extends AbstractUI {
 			}
 			displayHelp(System.out);
 		} else {
+			CommandParserResult result = parser.parse(args);
+			if (result.getRequired().isEmpty() && VERSION_KEY.equals(result.getOptional().get(META_KEY))) {
+				System.out.println("--- " + getName() + " ---");
+				System.out.println("Version: " + (getVersion()!=null?getVersion():"N/A"));
+				System.out.println("Build: " + (getBuildIdentifier()!=null?getBuildIdentifier():"N/A"));
+				BasicUI.exitWithCode(ExitCode.OK);
+			}
 			Class<? extends Object> clazz = commands.get(args[0]);
 			if (clazz!=null) {
 				Method method = clazz.getMethod("main", new Class[]{String[].class});
@@ -199,4 +216,11 @@ public class BasicUI extends AbstractUI {
 		return null;
 	}
 
+	public String getVersion() {
+		return SYSTEM_VERSION;
+	}
+	
+	public String getBuildIdentifier() {
+		return BUILD_IDENTIFIER;
+	}
 }
