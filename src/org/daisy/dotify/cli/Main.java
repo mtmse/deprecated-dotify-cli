@@ -51,10 +51,9 @@ public class Main extends AbstractUI {
 	private final static Logger logger = Logger.getLogger(Main.class.getCanonicalName());
 	//private final static String DEFAULT_TEMPLATE = "A4-w32";
 	private final static String DEFAULT_LOCALE = Locale.getDefault().toString().replaceAll("_", "-");
-	private final static String META_KEY = "meta";
-	private final static String VERSION_KEY = "version";
 	private final static String CONFIG_KEY = "configs";
 	private final static String WATCH_KEY = "watch";
+	protected final static String META_KEY = "meta";
 	
 	private final static int DEFAULT_POLL_TIME = 5000;
 	private final static int MIN_POLL_TIME = 250;
@@ -115,7 +114,6 @@ public class Main extends AbstractUI {
 		tableSF = new ShortFormResolver(idents);
 		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_TABLE, "If specified, an ASCII-braille file (.brl) is generated in addition to the PEF-file using the specified braille code table", getDefinitionList(tableCatalog, tableSF), ""));
 		parser.addSwitch(new SwitchArgument('w', WATCH_KEY, WATCH_KEY, "" + DEFAULT_POLL_TIME, "Keeps the conversion in sync by watching the input file for changes and rerunning the conversion automatically when the input is modified."));
-		parser.addSwitch(new SwitchArgument('v', VERSION_KEY, META_KEY, VERSION_KEY, "Displays the version of Dotify."));
 		parser.addSwitch(new SwitchArgument('c', CONFIG_KEY, META_KEY, CONFIG_KEY, "Lists known configurations."));
 	}
 
@@ -130,12 +128,7 @@ public class Main extends AbstractUI {
 		Main m = new Main();
 		CommandParserResult result = m.parser.parse(args);
 		if (args.length<3) {
-			if (VERSION_KEY.equals(result.getOptional().get(META_KEY))) {
-				System.out.println("About " + SystemProperties.SYSTEM_NAME);
-				System.out.println("Version: "+ SystemProperties.SYSTEM_RELEASE);
-				System.out.println("Build: "+ SystemProperties.SYSTEM_BUILD);
-				Main.exitWithCode(ExitCode.OK);
-			} else if (CONFIG_KEY.equals(result.getOptional().get(META_KEY))) {
+			if (CONFIG_KEY.equals(result.getOptional().get(META_KEY))) {
 				ArrayList<TranslatorSpecification> s = new ArrayList<TranslatorSpecification>();
 				s.addAll(BrailleTranslatorFactoryMaker.newInstance().listSpecifications());
 				Collections.sort(s);

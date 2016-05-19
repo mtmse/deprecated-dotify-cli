@@ -1,6 +1,7 @@
 package org.daisy.dotify.cli;
 
 import org.daisy.braille.ui.BasicUI;
+import org.daisy.dotify.SystemProperties;
 
 public class DotifyCLI extends BasicUI {
 
@@ -18,6 +19,16 @@ public class DotifyCLI extends BasicUI {
 	@Override
 	public String getDescription() {
 		return "Provides translation and formatting of documents into braille as well as tools for managing PEF-files.";
+	}
+
+	@Override
+	public String getVersion() {
+		return SystemProperties.SYSTEM_RELEASE;
+	}
+	
+	@Override
+	public String getBuildIdentifier() {
+		return SystemProperties.SYSTEM_BUILD;
 	}
 	
 	public static void main(String[] args) throws Exception {

@@ -1,10 +1,6 @@
 package org.daisy.dotify;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.jar.Attributes;
-import java.util.jar.Manifest;
+import org.daisy.braille.ui.ManifestRetriever;
 
 /**
  * Provides common property values of the system
@@ -12,52 +8,24 @@ import java.util.jar.Manifest;
  *
  */
 public final class SystemProperties {
+	private static final ManifestRetriever retriever = new ManifestRetriever(SystemProperties.class);
 	/**
 	 * Defines the system name
 	 */
-	public static final String SYSTEM_NAME;
+	public static final String SYSTEM_NAME = getWithDefault(retriever.getManifest().getMainAttributes().getValue("Implementation-Title"), "Dotify");
 	/**
 	 * Defines the system build
 	 */
-	public static final String SYSTEM_BUILD;
+	public static final String SYSTEM_BUILD = retriever.getManifest().getMainAttributes().getValue("Repository-Revision");
 	/**
 	 * Defines the system release
 	 */
-	public static final String SYSTEM_RELEASE;
-	
+	public static final String SYSTEM_RELEASE = retriever.getManifest().getMainAttributes().getValue("Implementation-Version");
+
 	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
 	
-	static {
-		Class<SystemProperties> clazz = SystemProperties.class;
-		String className = clazz.getSimpleName() + ".class";
-		String classPath = clazz.getResource(className).toString();
-		boolean failed = false;
-		Attributes attr = null;
-		if (!classPath.startsWith("jar")) {
-		  // Class not from JAR
-			failed = true;
-		} else {
-			String manifestPath = classPath.substring(0, classPath.lastIndexOf("!") + 1) + 
-			    "/META-INF/MANIFEST.MF";
-			Manifest manifest;
-			try {
-				manifest = new Manifest(new URL(manifestPath).openStream());
-				attr = manifest.getMainAttributes();
-			} catch (MalformedURLException e) {
-				failed = true;
-			} catch (IOException e) {
-				failed = true;
-			}
-		}
-		if (failed || attr == null) {
-			SYSTEM_NAME = "Dotify";
-			SYSTEM_BUILD = "N/A";
-			SYSTEM_RELEASE = "N/A";
-		} else {
-			SYSTEM_NAME = attr.getValue("Implementation-Title");
-			SYSTEM_RELEASE = attr.getValue("Implementation-Version");
-			SYSTEM_BUILD = attr.getValue("Repository-Revision");
-		}
+	private final static String getWithDefault(String val, String def) {
+		return (val!=null?val:def);
 	}
 
 }

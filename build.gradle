@@ -52,7 +52,7 @@ jar.doFirst {
     	'Built-On': new Date().format("yyyy-MM-dd"),
 		'Repository-Revision': "$repositoryRevision",
 		'Implementation-Title': "$releaseName",
-		'Implementation-Version': "$releaseVersion",
+		'Implementation-Version': version,
 		'Implementation-URL': "$releaseURL",
 		'Class-Path': configurations.runtime.collect { it.getName() }.join(' ')			//'${core.classpath.attribute}'
 		)
