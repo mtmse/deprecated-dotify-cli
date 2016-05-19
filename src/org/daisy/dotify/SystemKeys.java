@@ -61,4 +61,10 @@ public interface SystemKeys {
 	 * Corresponding value should be a string containing a file path
 	 */
 	public final static String TEMP_FILES_DIRECTORY = "tempFilesDirectory";
+	
+	/**
+	 * Defines a key for listing the conversion options.
+	 * 
+	 */
+	public final static String LIST_OPTIONS = "listOptions";
 }

@@ -26,6 +26,7 @@ public class TaskGroupFactoryMakerTest extends TaskGroupFactoryMakerTestbase {
 		return options(
 			ConfigurationOptions.felixDS(),
 			ConfigurationOptions.dotifyTasks(),
+			ConfigurationOptions.dotifyFormatter(),
 			junitBundles()
 		);
 	}

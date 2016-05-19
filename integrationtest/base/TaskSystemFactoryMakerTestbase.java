@@ -14,7 +14,6 @@ import org.daisy.dotify.api.tasks.TaskSystem;
 import org.daisy.dotify.api.tasks.TaskSystemException;
 import org.daisy.dotify.api.tasks.TaskSystemFactoryException;
 import org.daisy.dotify.api.tasks.TaskSystemFactoryMakerService;
-import org.daisy.dotify.common.io.TempFileHandler;
 import org.daisy.dotify.tasks.runner.TaskRunnerCore;
 import org.junit.Test;
 
@@ -70,8 +69,9 @@ public abstract class TaskSystemFactoryMakerTestbase {
 		List<InternalTask> tasks = tf.compile(options);
 
 		File out = File.createTempFile(this.getClass().getName(), ".tmp");
-		try (TempFileHandler fj = new TempFileHandler(new File("integrationtest/base/resource-files/dtbook.xml"), out)) {
-			TaskRunnerCore core = new TaskRunnerCore(fj);
+		File f = new File("integrationtest/base/resource-files/dtbook.xml");
+
+		try (TaskRunnerCore core = new TaskRunnerCore(f, out)) {
 			for (InternalTask task : tasks) {
 				core.runTask(task);
 			}

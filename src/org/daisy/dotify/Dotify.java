@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -11,12 +13,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import org.daisy.dotify.api.tasks.InternalTask;
 import org.daisy.dotify.api.tasks.InternalTaskException;
 import org.daisy.dotify.api.tasks.TaskGroupSpecification;
+import org.daisy.dotify.api.tasks.TaskOption;
+import org.daisy.dotify.api.tasks.TaskOptionValue;
 import org.daisy.dotify.api.tasks.TaskSystem;
 import org.daisy.dotify.api.tasks.TaskSystemException;
 import org.daisy.dotify.api.tasks.TaskSystemFactoryException;
@@ -28,6 +34,7 @@ import org.daisy.dotify.config.ConfigurationsCatalog;
 import org.daisy.dotify.consumer.tasks.TaskGroupFactoryMaker;
 import org.daisy.dotify.consumer.tasks.TaskSystemFactoryMaker;
 import org.daisy.dotify.tasks.runner.DefaultTempFileWriter;
+import org.daisy.dotify.tasks.runner.RunnerResult;
 import org.daisy.dotify.tasks.runner.TaskRunner;
 
 /**
@@ -37,6 +44,7 @@ import org.daisy.dotify.tasks.runner.TaskRunner;
  *
  */
 public class Dotify {
+	private static final Logger logger = Logger.getLogger(Dotify.class.getCanonicalName());
 	private final static HashMap<String, String> extensionBindings;
 	static {
 		extensionBindings = new HashMap<String, String>();
@@ -68,7 +76,6 @@ public class Dotify {
 	 * @throws InternalTaskException if there is a problem with running the task system
 	 */
 	public static void run(File input, File output, FilterLocale context, Map<String, String> params) throws IOException, InternalTaskException {
-		Logger logger = Logger.getLogger(Dotify.class.getCanonicalName());
 		Dotify d = new Dotify(params);
 
 		String cols = params.get("cols");
@@ -158,12 +165,14 @@ public class Dotify {
 		String setup = map.remove("preset");
 		Map<String, Object> rp = d.loadSetup(map, setup);
 
+		boolean shouldPrintOptions = "true".equalsIgnoreCase(map.getOrDefault(SystemKeys.LIST_OPTIONS, "false"));
 		// Run tasks
 		try {
 			TaskSystem ts = TaskSystemFactoryMaker.newInstance().newTaskSystem(context.toString(), outputformat);
 			try {
 				logger.info("About to run with parameters " + rp);
-				TaskRunner.withName(ts.getName())
+				List<InternalTask> tl = ts.compile(rp);
+				TaskRunner.Builder builder = TaskRunner.withName(ts.getName())
 						.writeTempFiles(d.writeTempFiles)
 						.keepTempFiles(d.keepTempFilesOnSuccess)
 						.tempFileWriter(
@@ -171,8 +180,11 @@ public class Dotify {
 								.prefix("Dotify")
 								.tempFilesFolder(tempFilesDirectory)
 								.build()
-						).build()
-						.runTasks(input, output, ts.compile(rp));
+						);
+				List<RunnerResult> res = builder.build().runTasks(input, output, tl);
+				if (shouldPrintOptions) {
+					logOptions(ts, res);
+				}
 			} catch (TaskSystemException e) {
 				throw new RuntimeException("Unable to run '" +ts.getName() + "' with parameters " + rp, e);
 			}
@@ -234,6 +246,49 @@ public class Dotify {
 				throw new RuntimeException("'"+ setup + "' is not a known configuration nor a valid URL.", e1);
 			}
 		}
+	}
+	
+	private static void logOptions(TaskSystem ts, List<RunnerResult> res) {
+		StringWriter sw = new StringWriter();
+		try (PrintWriter pw = new PrintWriter(sw)) {
+			pw.println("Printing additional options.");
+			printOptions("Options for " + ts.getName(), ts.getOptions(), pw);
+			for (RunnerResult r : res) {
+				printOptions("Options for " + r.getTask().getName(), r.getTask().getOptions(), pw);
+			}
+		}
+		if (sw.toString().length()>0) {
+			logger.info(sw.toString());
+		}
+	}
+	
+	private static void printOptions(String title, List<TaskOption> options, PrintWriter out) {
+		if (options==null || options.isEmpty()) {
+			return;
+		}
+		out.println("=== "+title+" ===");
+		for (TaskOption to : options) {
+			out.print("--"+to.getKey()+"=<value>");
+			if (to.getValues()==null && to.getDefaultValue()!=null && !"".equals(to.getDefaultValue())) {
+				out.print(" ("+to.getDefaultValue()+")");
+			}
+			out.println();
+			out.println("\t" + to.getDescription());
+			List<TaskOptionValue> values = to.getValues();
+			if (values!=null) {
+				for (TaskOptionValue tov : values) {
+					out.print("\t\t" + tov.getName());
+					if (tov.getName().equals(to.getDefaultValue())) {
+						out.print(" (default)");
+					}
+					out.println();
+					if (tov.getDescription()!=null && !"".equals(tov.getDescription())) {
+						out.println("\t\t\t" + tov.getDescription());
+					}
+				}
+			} 
+		}
+		out.println();
 	}
 
 	public static String getDefaultDate(String dateFormat) {
