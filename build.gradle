@@ -75,9 +75,9 @@ repositories {
 dependencies {
 	compile 'org.daisy.braille:braille-utils.api:2.0.0'
 	compile 'org.daisy.braille:braille-utils.basic-cli:1.0.0'
-	compile 'org.daisy.braille:braille-utils.pef-tools:1.0.0'
+	compile 'org.daisy.braille:braille-utils.pef-tools:2.0.0-alpha'
 	
-	runtime 'org.daisy.braille:braille-utils.impl:2.0.0'
+	runtime 'org.daisy.braille:braille-utils.impl:3.0.0-beta'
 	
 	testCompile group: 'junit', name: 'junit', version: "$versions.junit"
 	
