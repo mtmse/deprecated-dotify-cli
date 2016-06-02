@@ -1,5 +1,6 @@
 apply plugin: 'application'
 apply plugin: 'maven'
+apply plugin: "signing"
 
 mainClassName = "org.daisy.dotify.cli.DotifyCLI"
 startScripts.applicationName = 'dotify'
@@ -11,8 +12,9 @@ javadoc.options.encoding = 'UTF-8'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
+def repoRevision = System.getenv("REPO_REVISION")!=null?System.getenv("REPO_REVISION"):repositoryRevision
+
 group = "org.daisy.dotify"
-version = "3.0-SNAPSHOT"
 
 ext {
 	versions = [
@@ -49,11 +51,11 @@ jar.doFirst {
 	manifest {
     	attributes ('Built-By': System.getProperty("user.name"),
     	'Main-Class': mainClassName,
-    	'Built-On': new Date().format("yyyy-MM-dd"),
-		'Repository-Revision': "$repositoryRevision",
+    	'Built-On': new Date().format('yyyy-MM-dd'),
+		'Repository-Revision': "$repoRevision",
 		'Implementation-Title': "$releaseName",
 		'Implementation-Version': version,
-		'Implementation-URL': "$releaseURL",
+		'Implementation-URL': "$repositoryURL",
 		'Class-Path': configurations.runtime.collect { it.getName() }.join(' ')			//'${core.classpath.attribute}'
 		)
 	}
@@ -124,6 +126,68 @@ task xsltdoc() << {
 }
 
 javadoc.dependsOn(xsltdoc)
+
+task javadocJar(type: Jar) {
+	classifier = 'javadoc'
+	from javadoc
+}
+
+task sourcesJar(type: Jar) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+artifacts {
+	archives javadocJar, sourcesJar
+}
+
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+
+signing {
+	required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
+	sign configurations.archives
+}
+
+uploadArchives {
+	//Only upload if a git hash is supplied. On Travis only upload snapshots.
+	enabled = repoRevision.size()==40 && System.getenv("TRAVIS_BUILD_ID")!=null
+	repositories {
+		mavenDeployer {
+			if (isReleaseVersion) {
+				beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+			}
+			repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+				authentication(userName: sonatypeUsername, password: sonatypePassword)
+			}
+			snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+				authentication(userName: sonatypeUsername, password: sonatypePassword)
+			}
+            pom.project {
+				name 'dotify-cli'
+				packaging 'jar'
+				description 'Dotify CLI'
+				url "$repositoryURL"
+				scm {
+					connection "$repositorySCM"
+					developerConnection "$repositorySCM"
+					url "$repositoryURL"
+				}
+                licenses {
+					license {
+						name 'LGPL'
+						url 'http://www.gnu.org/licenses/lgpl.html'
+					}
+                }
+				developers {
+					developer {
+						id 'joel'
+						name 'Joel Håkansson'
+					}
+				}
+			}
+		}
+	}
+}
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.11'
