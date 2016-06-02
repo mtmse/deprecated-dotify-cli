@@ -63,21 +63,21 @@ jar.doFirst {
 
 repositories {
 	mavenCentral()
-	maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+	//maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 	//mavenLocal()
 }
 
 dependencies {
-	compile 'org.daisy.braille:braille-utils.ui:2.0.0-SNAPSHOT'
-	compile ('org.daisy.braille:braille-utils.pef-tools:2.0.0-SNAPSHOT') {
+	compile 'org.daisy.braille:braille-utils.ui:2.0.0-beta1'
+	compile ('org.daisy.braille:braille-utils.pef-tools:2.0.0-alpha') {
 		exclude module: 'Saxon-HE'
 	}
-	compile 'org.daisy.dotify:dotify.api:2.7.0'
+	compile 'org.daisy.dotify:dotify.api:2.8.0'
 	compile 'org.daisy.dotify:dotify.common:2.0.2'
 	compile 'org.daisy.dotify:dotify.task-runner:1.0.1'
 	
 
-	runtime 'org.daisy.dotify:dotify.formatter.impl:2.3.0'
+	runtime 'org.daisy.dotify:dotify.formatter.impl:2.4.0'
 	runtime 'org.daisy.dotify:dotify.hyphenator.impl:2.0.1'
 	runtime 'org.daisy.dotify:dotify.text.impl:2.0.0'
 	runtime 'org.daisy.dotify:dotify.translator.impl:2.3.0'
