@@ -16,11 +16,11 @@ public final class SystemProperties {
 	/**
 	 * Defines the system build
 	 */
-	public static final String SYSTEM_BUILD = retriever.getManifest().getMainAttributes().getValue("Repository-Revision");
+	public static final String SYSTEM_BUILD = getWithDefault(retriever.getManifest().getMainAttributes().getValue("Repository-Revision"), "N/A");
 	/**
 	 * Defines the system release
 	 */
-	public static final String SYSTEM_RELEASE = retriever.getManifest().getMainAttributes().getValue("Implementation-Version");
+	public static final String SYSTEM_RELEASE = getWithDefault(retriever.getManifest().getMainAttributes().getValue("Implementation-Version"), "N/A");
 
 	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
 	
