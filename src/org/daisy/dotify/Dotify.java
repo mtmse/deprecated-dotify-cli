@@ -54,8 +54,8 @@ public class Dotify {
 		keepTempFilesOnSuccess = !("false".equals(params.get(SystemKeys.KEEP_TEMP_FILES_ON_SUCCESS)));
 	}
 	
-	public static void run(File input, File output, String setup, String locale, Map<String, String> params) throws IOException, InternalTaskException {
-		run(input, output, setup, FilterLocale.parse(locale), params);
+	public static void run(File input, File output, String locale, Map<String, String> params) throws IOException, InternalTaskException {
+		run(input, output, FilterLocale.parse(locale), params);
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class Dotify {
 	 * @throws IOException
 	 * @throws InternalTaskException
 	 */
-	public static void run(File input, File output, String setup, FilterLocale context, Map<String, String> params) throws IOException, InternalTaskException {
+	public static void run(File input, File output, FilterLocale context, Map<String, String> params) throws IOException, InternalTaskException {
 		Logger logger = Logger.getLogger(Dotify.class.getCanonicalName());
 		Dotify d = new Dotify(params);
 
@@ -156,7 +156,8 @@ public class Dotify {
 		}
 
 		// Load setup
-		Map<String, Object> rp = d.loadSetup(map, setup, outputformat, context);
+		String setup = map.remove("preset");
+		Map<String, Object> rp = d.loadSetup(map, setup);
 
 		// Run tasks
 		try {
@@ -181,30 +182,12 @@ public class Dotify {
 		}
 	}
 	
-	private Map<String, Object> loadSetup(Map<String, String> guiParams, String setup, String outputformat, FilterLocale context) {
-		ConfigurationsCatalog cm = ConfigurationsCatalog.newInstance();
+	private Map<String, Object> loadSetup(Map<String, String> guiParams, String setup) {
 		Properties p0;
-		try {
-			p0 = cm.getConfiguration(setup);
-		} catch (ResourceLocatorException e) {
-			//try as file
-			p0 = new Properties();
-			URL configURL;
-			try {
-				configURL = new URL(setup);
-				try {
-					p0.loadFromXML(configURL.openStream());
-				} catch (FileNotFoundException e2) {
-					throw new RuntimeException("Configuration file not found: " + configURL, e2);
-				} catch (InvalidPropertiesFormatException e2) {
-					throw new RuntimeException("Configuration file could not be parsed: " + configURL, e2);
-				} catch (IOException e2) {
-					throw new RuntimeException("IOException while reading configuration file: " + configURL, e2);
-				}
-			} catch (MalformedURLException e1) {
-				throw new RuntimeException("'"+ setup + "' is not a known configuration nor a valid URL.", e1);
-			}
-
+		if (setup==null) {
+			p0 = getDefaultConfiguration();
+		} else {
+			p0 = loadConfiguration(setup);
 		}
 		Map<String, Object> ret = new HashMap<String, Object>();
 		for (Object key : p0.keySet()) {
@@ -215,6 +198,43 @@ public class Dotify {
 		ret.putAll(guiParams);
 
 		return ret;
+	}
+	
+	private Properties getDefaultConfiguration() {
+		Properties p0 = new Properties();
+		p0.setProperty("rows", "29");
+		p0.setProperty("cols", "28");
+		p0.setProperty("inner-margin", "2");
+		p0.setProperty("outer-margin", "2");
+		p0.setProperty("rowgap", "0");
+		p0.setProperty("splitterMax", "50");
+		return p0;
+	}
+	
+	private Properties loadConfiguration(String setup) {
+		try {
+			ConfigurationsCatalog cm = ConfigurationsCatalog.newInstance();
+			return cm.getConfiguration(setup);
+		} catch (ResourceLocatorException e) {
+			//try as file
+			Properties p0 = new Properties();
+			URL configURL;
+			try {
+				configURL = new URL(setup);
+				try {
+					p0.loadFromXML(configURL.openStream());
+					return p0;
+				} catch (FileNotFoundException e2) {
+					throw new RuntimeException("Configuration file not found: " + configURL, e2);
+				} catch (InvalidPropertiesFormatException e2) {
+					throw new RuntimeException("Configuration file could not be parsed: " + configURL, e2);
+				} catch (IOException e2) {
+					throw new RuntimeException("IOException while reading configuration file: " + configURL, e2);
+				}
+			} catch (MalformedURLException e1) {
+				throw new RuntimeException("'"+ setup + "' is not a known configuration nor a valid URL.", e1);
+			}
+		}
 	}
 
 	public static String getDefaultDate(String dateFormat) {

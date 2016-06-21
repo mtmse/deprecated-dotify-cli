@@ -68,15 +68,6 @@ public class Main extends AbstractUI {
 		this.reqArgs = new ArrayList<Argument>();
 		reqArgs.add(new Argument("path_to_input", "Path to the input file"));
 		reqArgs.add(new Argument("path_to_output", "Path to the output file"));
-		{
-			ArrayList<Definition> vals = new ArrayList<Definition>();
-			ConfigurationsCatalog c = ConfigurationsCatalog.newInstance();
-			for (String o : c.getKeys()) {
-				vals.add(new Definition(o, c.getConfigurationDescription(o)));
-			}
-			vals.add(new Definition("[other]", "Path to setup file"));
-			reqArgs.add(new Argument("setup", "The formatting setup to use", vals));
-		}
 		/*
 		{
 			ArrayList<Definition> vals = new ArrayList<Definition>();
@@ -88,7 +79,15 @@ public class Main extends AbstractUI {
 		}*/
 		
 		this.optionalArgs = new ArrayList<OptionalArgument>();
-		
+		{
+			ArrayList<Definition> vals = new ArrayList<Definition>();
+			ConfigurationsCatalog c = ConfigurationsCatalog.newInstance();
+			for (String o : c.getKeys()) {
+				vals.add(new Definition(o, c.getConfigurationDescription(o)));
+			}
+			vals.add(new Definition("[other]", "Path to setup file"));
+			optionalArgs.add(new OptionalArgument("preset", "A preset to use", vals, null));
+		}
 		optionalArgs.add(new OptionalArgument("locale", "The target locale for the result", DEFAULT_LOCALE));
 		
 		{
@@ -127,7 +126,7 @@ public class Main extends AbstractUI {
 	public static void main(String[] args) throws InternalTaskException, IOException, TaskSystemFactoryException {
 		Main m = new Main();
 		CommandParserResult result = m.parser.parse(args);
-		if (args.length<3) {
+		if (args.length<2) {
 			if (CONFIG_KEY.equals(result.getOptional().get(META_KEY))) {
 				ArrayList<TranslatorSpecification> s = new ArrayList<TranslatorSpecification>();
 				s.addAll(BrailleTranslatorFactoryMaker.newInstance().listSpecifications());
@@ -138,7 +137,7 @@ public class Main extends AbstractUI {
 				}
 				Main.exitWithCode(ExitCode.OK);
 			} else {
-				System.out.println("Expected at least three arguments");
+				System.out.println("Expected at least two arguments");
 				
 				System.out.println();
 				m.displayHelp(System.out);
@@ -157,7 +156,6 @@ public class Main extends AbstractUI {
 		
 		final File output = new File(p.get(1)).getAbsoluteFile();
 
-		final String setup = p.get(2);
 		final String context;
 		{
 			String s = result.getOptional().get("locale");
@@ -200,7 +198,7 @@ public class Main extends AbstractUI {
 				//es.execute(new Runnable() {
 					//public void run() {
 						try {
-					m.runDotify(f, new File(output, f.getName() + "." + ext), setup, context, props);
+					m.runDotify(f, new File(output, f.getName() + "." + ext), context, props);
 						} catch (InternalTaskException e) {
 							logger.log(Level.WARNING, "Failed to process " + f, e);
 						} catch (IOException e) {
@@ -233,7 +231,7 @@ public class Main extends AbstractUI {
 						try {
 							//delete the output so that it is not there if something goes wrong
 							output.delete();
-							m.runDotify(input, output, setup, context, props);
+							m.runDotify(input, output, context, props);
 						} catch (Exception e) { 
 							logger.log(Level.SEVERE, "A severe error occurred.", e);
 						}
@@ -245,16 +243,16 @@ public class Main extends AbstractUI {
 					}
 				}
 			} else {
-				m.runDotify(input, output, setup, context, props);
+				m.runDotify(input, output, context, props);
 			}
 		}
 	}
 	
-	private void runDotify(File input, File output, String setup, String context, HashMap<String, String> props) throws InternalTaskException, IOException {
+	private void runDotify(File input, File output, String context, HashMap<String, String> props) throws InternalTaskException, IOException {
 		if (!input.exists()) {
 			Main.exitWithCode(ExitCode.MISSING_RESOURCE, "Cannot find input file: " + input);
 		}
-		Dotify.run(input, output, setup, FilterLocale.parse(context), props);
+		Dotify.run(input, output, FilterLocale.parse(context), props);
 		int i = output.getName().lastIndexOf(".");
 		String format = "";
 		if (output.getName().length()>i) {
