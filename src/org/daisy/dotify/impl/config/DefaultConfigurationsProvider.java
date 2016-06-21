@@ -91,7 +91,7 @@ public class DefaultConfigurationsProvider extends AbstractResourceLocator imple
 			}
 			
 		}
-		return descs.getProperty(identifier);
+		return descs.getProperty(identifier).replaceAll("\\s+", " ");
 	}
 
 }
