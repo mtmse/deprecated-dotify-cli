@@ -18,10 +18,10 @@ import org.daisy.dotify.consumer.writer.PagedMediaWriterFactoryMaker;
 public class FormatterCLI {
 
 	/**
-	 * @param args
-	 * @throws LayoutEngineException
-	 * @throws FileNotFoundException
-	 * @throws PagedMediaWriterConfigurationException 
+	 * @param args the arguments
+	 * @throws LayoutEngineException if there is a layout enging problem
+	 * @throws FileNotFoundException if the input or output file doesn't exist
+	 * @throws PagedMediaWriterConfigurationException if the paged media writer cannot be configured
 	 */
 	public static void main(String[] args) throws FileNotFoundException, LayoutEngineException, PagedMediaWriterConfigurationException {
 		if (args.length != 4) {

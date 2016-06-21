@@ -35,7 +35,6 @@ import org.daisy.dotify.Dotify;
 import org.daisy.dotify.SystemKeys;
 import org.daisy.dotify.SystemProperties;
 import org.daisy.dotify.api.tasks.InternalTaskException;
-import org.daisy.dotify.api.tasks.TaskSystemFactoryException;
 import org.daisy.dotify.api.translator.TranslatorSpecification;
 import org.daisy.dotify.common.text.FilterLocale;
 import org.daisy.dotify.config.ConfigurationsCatalog;
@@ -119,11 +118,10 @@ public class Main extends AbstractUI {
 	/**
 	 * Provides a entry point for Dotify from the command line.
 	 * @param args command line arguments
-	 * @throws IOException 
-	 * @throws InternalTaskException 
-	 * @throws TaskSystemFactoryException 
+	 * @throws IOException if there is an i/o exception
+	 * @throws InternalTaskException if there is a problem with running the tasks
 	 */
-	public static void main(String[] args) throws InternalTaskException, IOException, TaskSystemFactoryException {
+	public static void main(String[] args) throws InternalTaskException, IOException {
 		Main m = new Main();
 		CommandParserResult result = m.parser.parse(args);
 		if (args.length<2) {

@@ -62,11 +62,10 @@ public class Dotify {
 	 * Runs Dotify with the supplied parameters.
 	 * @param input the input file
 	 * @param output the output file
-	 * @param setup the setup
 	 * @param context the language/region context
 	 * @param params additional parameters
-	 * @throws IOException
-	 * @throws InternalTaskException
+	 * @throws IOException if there is an i/o error
+	 * @throws InternalTaskException if there is a problem with running the task system
 	 */
 	public static void run(File input, File output, FilterLocale context, Map<String, String> params) throws IOException, InternalTaskException {
 		Logger logger = Logger.getLogger(Dotify.class.getCanonicalName());
