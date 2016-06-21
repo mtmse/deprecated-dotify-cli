@@ -272,9 +272,7 @@ public class Main extends AbstractUI {
 					expandShortForm(p, PEFConverterFacade.KEY_TABLE, tableSF);
 					File f = new File(output.getParentFile(), output.getName() + ".brl");
 					logger.info("Writing brl to " + f.getAbsolutePath());
-					FileOutputStream os = null;
-					try {
-						os = new FileOutputStream(f);
+					try (FileOutputStream os = new FileOutputStream(f)) {
 						new PEFConverterFacade(EmbosserCatalog.newInstance()).parsePefFile(output, os, null, p);
 					} catch (ParserConfigurationException e) {
 						logger.log(Level.FINE, "Parse error when converting to brl", e);
@@ -286,10 +284,6 @@ public class Main extends AbstractUI {
 						logger.log(Level.FINE, "Number format error when converting to brl", e);
 					} catch (EmbosserFactoryException e) {
 						logger.log(Level.FINE, "Embosser error when converting to brl", e);
-					} finally {
-						if (os != null) {
-							os.close();
-						}
 					}
 				}
 			}

@@ -70,14 +70,11 @@ public abstract class TaskSystemFactoryMakerTestbase {
 		List<InternalTask> tasks = tf.compile(options);
 
 		File out = File.createTempFile(this.getClass().getName(), ".tmp");
-		try {
-			File f = new File("integrationtest/base/resource-files/dtbook.xml");
-			TempFileHandler fj = new TempFileHandler(f, out);
+		try (TempFileHandler fj = new TempFileHandler(new File("integrationtest/base/resource-files/dtbook.xml"), out)) {
 			TaskRunnerCore core = new TaskRunnerCore(fj);
 			for (InternalTask task : tasks) {
 				core.runTask(task);
 			}
-			fj.close();
 		} finally {
 			if (!out.delete()) {
 				out.deleteOnExit();
