@@ -1,5 +1,4 @@
-
-=== Braille Utils ===
+# Braille Utils #
 Contributors: Joel Håkansson, Bert Frees
 Code license: GNU Lesser GPL
 Language: Java
@@ -7,13 +6,13 @@ Platform: Cross platform
 Code URL: https://github.com/brailleapps/braille-utils-cli
 
 
-== Contents ==
+## Contents ##
 1	Description
 2	Installation
 3	Help Resources
 
 
-== 1 Description ==
+## 1 Description ##
 Braille Utils is a cross platform utility package for embossing and converting 
 PEF-files.
 
@@ -23,13 +22,13 @@ also supported.
 
 The package is a command line interface is written in Java.
 
-= Main Features =
+### Main Features ###
  * Emboss PEF-files
  * Convert to or from PEF-files
  * Split or merge PEF-files
  * Validate PEF-files
 
-= Supported embossers =
+### Supported embossers ###
 The package supports the following embosser families:
  * Braillo
  * Cidat
@@ -41,7 +40,7 @@ The package supports the following embosser families:
 For details, see the complete list of supported embossers by typing the following command:
   brailleutils list embossers
 
-== 2 Installation ==
+## 2 Installation ##
 You can download a ready-to-run binary variant of this library from
   https://github.com/brailleapps/braille-utils-cli
 
@@ -53,6 +52,6 @@ Compilation is done just by
 in the source directory. The built library can be found under build/distributions/.
 
 
-== 3 Help Resources ==
+## 3 Help Resources ##
 See the latest version of the written documentation on
   https://github.com/brailleapps/braille-utils-cli/wiki
