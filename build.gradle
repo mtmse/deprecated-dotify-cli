@@ -107,6 +107,11 @@ dependencies {
 	testCompile("org.osgi:org.osgi.core:$versions.osgi")
 	testCompile("org.osgi:org.osgi.compendium:$versions.osgi")
 }
+
+applicationDistribution.from(file('docs')) {
+    into 'docs'
+}
+
 task xsltdoc() << {
 	ant {
 		xslt (
