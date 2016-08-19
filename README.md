@@ -15,6 +15,10 @@ Application
   * Split a PEF-file into one file per volume
   * Merge several PEF-files into one
 
+## Using ##
+Download the [latest release](https://github.com/brailleapps/braille-utils-cli/releases) and unpack it. For more information see, the user guide
+in the `docs` folder.
+
 ## Building ##
 Build with `gradlew build` (Windows) or `./gradlew build` (Mac/Linux)
 
