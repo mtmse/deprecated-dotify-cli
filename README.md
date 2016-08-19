@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/brailleapps/braille-utils-cli.svg?branch=master)](https://travis-ci.org/brailleapps/braille-utils-cli)
-[![Type](https://img.shields.io/badge/type-application-blue.svg)](https://github.com/brailleapps/wiki/wiki/Types)
+[![Type](https://img.shields.io/badge/type-application-blue.svg)](https://github.com/brailleapps/wiki/wiki/Badges)
 
 # BrailleUtils #
 BrailleUtils provides a cross platform Java API for embossing and converting braille in PEF-format. Conversion to and from commonly used "braille" text formats is also supported.
