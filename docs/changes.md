@@ -1,3 +1,5 @@
+[Table of Contents](toc.md)
+
 # 3.0.0-beta1 (unreleased) #
   * Moved to Java 8
   * Added support for tables

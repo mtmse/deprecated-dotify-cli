@@ -1,3 +1,5 @@
+[Table of Contents](toc.md)
+
 # Introduction #
 Dotify is a braille translator written in Java.
 
