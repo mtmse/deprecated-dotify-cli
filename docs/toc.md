@@ -10,6 +10,6 @@
     * [merge](MergePef.md)
     * [generate](GeneratePef.md)
   * [Plugins](Plugins.md)
-  * [Changes](Changes.md)
+  * [Changes](changes.md)
   * Appendices
     * [Unicode Braille Patterns](UnicodeBraillePatterns.md)

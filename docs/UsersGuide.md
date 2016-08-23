@@ -10,13 +10,13 @@ On the command line, navigate to the extracted folder and type:
 `java -jar brailleUtils-ui.jar`. Press enter.
 
 This will bring up a list of applications (or features):
-  * [emboss](Emboss)
-  * [text2pef](TextToPef)
-  * [pef2text](PefToText)
-  * [validate](ValidatePef)
-  * [split](SplitPef)
-  * [merge](MergePef)
-  * [generate](GeneratePef)
+  * [emboss](Emboss.md)
+  * [text2pef](TextToPef.md)
+  * [pef2text](PefToText.md)
+  * [validate](ValidatePef.md)
+  * [split](SplitPef.md)
+  * [merge](MergePef.md)
+  * [generate](GeneratePef.md)
 
 These are explained in detail in separate sections.
 To start one of them, append their name as the first argument, for example:
