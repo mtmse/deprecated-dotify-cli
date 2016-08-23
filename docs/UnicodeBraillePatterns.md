@@ -1,3 +1,6 @@
+[Table of Contents](toc.md)
+
+#Unicode Braille Patterns#
 Below is a list of braille patterns in Unicode order:
 ```
 2800 BLANK

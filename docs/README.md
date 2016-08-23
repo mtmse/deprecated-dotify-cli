@@ -54,4 +54,4 @@ in the source directory. The built library can be found under build/distribution
 
 ## 3 Help Resources ##
 See the latest version of the written documentation on
-  https://github.com/brailleapps/braille-utils-cli/wiki
+  https://github.com/brailleapps/braille-utils-cli
