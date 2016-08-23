@@ -2,7 +2,7 @@
 
 # Changes #
 
-# 1.x.y #
+## 1.x.y ##
 Fixed a problem when optional arguments are placed before required.
 
 ## 1.2.3 ##
