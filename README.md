@@ -26,3 +26,6 @@ Tests are run with `gradlew test` (Windows) or `./gradlew test` (Mac/Linux).
 ## Requirements & Compatibility ##
 * Requires Java 8
 * Compatible with SPI
+
+## More information ##
+See the [common wiki](https://github.com/brailleapps/wiki/wiki) for more information.
