@@ -21,7 +21,7 @@ in the `docs` folder.
 Build with `gradlew build` (Windows) or `./gradlew build` (Mac/Linux)
 
 ## Testing ##
-Tests are run with `gradlew test` (Windows) or `./gradlew test` (Mac/Linux).
+Tests are run with `gradlew test` (Windows) or `./gradlew test` (Mac/Linux)
 
 ## Requirements & Compatibility ##
 * Requires Java 8
