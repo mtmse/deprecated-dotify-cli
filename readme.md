@@ -4,11 +4,19 @@
 # Dotify
 Dotify Braille Translation System is an open source Braille translator written in Java.  Dotify is designed for collaborative, open source braille software development.
 
+## Main Features ##
+  * Translates and formats braille
+  * Includes all features of [Braille Utils](https://github.com/brailleapps/braille-utils-cli)
+
+## Using ##
+<strike>Download the [latest release](https://github.com/brailleapps/dotify-cli/releases) and unpack it.</strike> For more information see, the user guide
+in the `docs` folder.
+
 ## Building ##
 Build with `gradlew build` (Windows) or `./gradlew build` (Mac/Linux)
 
 ## Testing ##
-Tests are run with `gradlew test` (Windows) or `./gradlew test` (Mac/Linux).
+Tests are run with `gradlew test` (Windows) or `./gradlew test` (Mac/Linux)
 
 ## Requirements & Compatibility ##
 * Requires Java 8
