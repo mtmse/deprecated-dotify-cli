@@ -8,6 +8,11 @@ Dotify Braille Translation System is an open source Braille translator written i
   * Translates and formats braille
   * Includes all features of [Braille Utils](https://github.com/brailleapps/braille-utils-cli)
 
+### Performance ###
+Less than 10 seconds/book or over 70 braille pages/second (based on a selection of novels) utilizing a single core of a modern PC and including startup activites. Startup activites account for up to 4 seconds of the total processing time in this example. The performance is thus even better when running in a server environment (e.g. as part of a Daisy Pipeline 2 installation), since the startup activites rarely have to be repeated. 
+
+Performance could be improved further by utilizing more than one core.
+
 ## Using ##
 <strike>Download the [latest release](https://github.com/brailleapps/dotify-cli/releases) and unpack it.</strike> For more information see, the user guide
 in the `docs` folder.
