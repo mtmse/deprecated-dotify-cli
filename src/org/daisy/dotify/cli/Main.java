@@ -124,7 +124,8 @@ public class Main extends AbstractUI {
 	public static void main(String[] args) throws InternalTaskException, IOException {
 		Main m = new Main();
 		CommandParserResult result = m.parser.parse(args);
-		if (args.length<2) {
+		List<String> p = result.getRequired();
+		if (args.length<2 || p.size()<2) {
 			if (CONFIG_KEY.equals(result.getOptional().get(META_KEY))) {
 				ArrayList<TranslatorSpecification> s = new ArrayList<TranslatorSpecification>();
 				s.addAll(BrailleTranslatorFactoryMaker.newInstance().listSpecifications());
@@ -141,9 +142,12 @@ public class Main extends AbstractUI {
 				m.displayHelp(System.out);
 				Main.exitWithCode(ExitCode.MISSING_ARGUMENT);
 			}
+		} else if (p.size()>2) { 
+			System.out.println("Unknown argument(s): " + p.subList(2, p.size()));
+			System.out.println();
+			m.displayHelp(System.out);
+			Main.exitWithCode(ExitCode.UNKNOWN_ARGUMENT);
 		}
-
-		List<String> p = result.getRequired();
 		// remove required arguments
 		File input = new File(p.get(0));
 		//File input = new File(args[0]);
