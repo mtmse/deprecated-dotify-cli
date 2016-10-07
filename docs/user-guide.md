@@ -11,10 +11,9 @@ On the command line, navigate to the `bin` folder inside the extracted folder an
 This will bring up the embedded help for the `convert` command. The options are explained in detail below.
 
 ## Required Arguments ##
-Dotify requires three arguments to run:
+Dotify requires two arguments to run:
   * path to an input file
   * path to the output file
-  * name of a formatting style
 
 ### Input File Requirements ###
 The input file should, of course, be something that Dotify understands. Because Dotify has been developed for and funded by [Swedish Agency for Accessible Media, MTM](http://www.mtm.se), the current capabilities may seem odd to an average user. Dotify supports:
@@ -47,11 +46,9 @@ Text produces a plain text file.
 
 OBFL is the intermediary format used by Dotify, and is likely only of interest to developers.
 
-### Formatting Style (setup) ###
-The formatting style specifies some key properties of the finished product, such as row spacing, characters/line, rows/page and sheets/volume.
-
 ## Optional Arguments ##
 The following optional arguments are available:
+  * preset
   * locale
   * outputFormat
   * identifier
@@ -62,8 +59,18 @@ The following optional arguments are available:
   * table
   * watch
 
+### preset ###
+The preset specifies some key properties of the finished product, such as row spacing, characters/line, rows/page and sheets/volume. Each of these can be set
+manually, or they can be included in a file using the XML flavor of [Java properties](https://docs.oracle.com/javase/tutorial/essential/environment/properties.html).
+The path to this file can be passed a the value to this option.
+
+For example:
+`--preset=/path/to/file.xml`
+
 ### locale ###
-The locale is very important, because it determines the fall-back language used for braille translation and hyphenation. Depending on the system settings, changing this might be necessary to produce a result, due to the limited set of braille translators available.
+The locale is very important, because it determines the fall-back language used for braille translation and hyphenation. 
+
+**Note: Depending on the system settings, changing this might be necessary to produce a result, due to the limited set of braille translators available.**
 
 ### outputFormat ###
 If specified, the output format is determined by the value of this parameter, instead of from the file name extension.
@@ -88,6 +95,11 @@ If specified, an ASCII-braille file is generated in addition to the PEF-file (re
 
 ### watch ###
 If present, watches the input file for changes and runs the conversion when changes occur
+
+### listOptions ##
+If present, lists additional options available in the context of the current job. Due to the dynamic
+design of the system, the options are listed *after* the conversion has finished running. To use these options,
+append them to the options list of the job just finished and run again. 
 
 ### configs ###
 If present, lists the available combinations of locale and braille translators 

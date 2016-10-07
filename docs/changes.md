@@ -1,6 +1,10 @@
 [Table of Contents](toc.md)
 
-# 3.0.0-beta1 (unreleased) #
+# 3.0.0-beta2 #
+  * List advanced options with -o
+  * Improved epub 3/html support
+
+# 3.0.0-beta1 #
   * Moved to Java 8
   * Added support for tables
   * Added support for margin markers
