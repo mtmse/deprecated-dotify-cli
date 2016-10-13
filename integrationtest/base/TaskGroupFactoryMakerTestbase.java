@@ -36,7 +36,7 @@ public abstract class TaskGroupFactoryMakerTestbase {
 		assertTrue(specs.contains(new TaskGroupSpecification("text", "obfl", "sv-SE")));
 		assertTrue(specs.contains(new TaskGroupSpecification("xml", "obfl", "sv-SE")));
 		assertTrue(specs.contains(new TaskGroupSpecification("txt", "obfl", "sv-SE")));
-		assertTrue(specs.contains(new TaskGroupSpecification("epub", "obfl", "sv-SE")));
+		assertTrue(specs.contains(new TaskGroupSpecification("epub", "html", "sv-SE")));
 		assertTrue(specs.contains(new TaskGroupSpecification("html", "obfl", "sv-SE")));
 		assertTrue(specs.contains(new TaskGroupSpecification("obfl", "obfl", "sv-SE")));
 
@@ -47,7 +47,7 @@ public abstract class TaskGroupFactoryMakerTestbase {
 		assertTrue(specs.contains(new TaskGroupSpecification("text", "obfl", "en-US")));
 		assertTrue(specs.contains(new TaskGroupSpecification("xml", "obfl", "en-US")));
 		assertTrue(specs.contains(new TaskGroupSpecification("txt", "obfl", "en-US")));
-		assertTrue(specs.contains(new TaskGroupSpecification("epub", "obfl", "en-US")));
+		assertTrue(specs.contains(new TaskGroupSpecification("epub", "html", "en-US")));
 		assertTrue(specs.contains(new TaskGroupSpecification("html", "obfl", "en-US")));
 		assertTrue(specs.contains(new TaskGroupSpecification("obfl", "obfl", "en-US")));
 	}
