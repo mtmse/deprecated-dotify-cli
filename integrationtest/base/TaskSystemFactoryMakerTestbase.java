@@ -83,6 +83,32 @@ public abstract class TaskSystemFactoryMakerTestbase {
 	}
 	
 	@Test
+	public void runFactoryForSwedishEpub() throws TaskSystemFactoryException, TaskSystemException, IOException {
+		//Setup
+		TaskSystemFactoryMakerService factory = getTaskSystemFMS();
+		TaskSystem tf = factory.newTaskSystem("sv-SE", "pef");
+		assertNotNull(tf);
+		HashMap<String, Object> options = new HashMap<String, Object>();
+
+		//This test shows how this code has to improve...
+		options.put(SystemKeys.INPUT_FORMAT, "epub");
+		List<InternalTask> tasks = tf.compile(options);
+
+		File out = File.createTempFile(this.getClass().getName(), ".tmp");
+		File f = new File("integrationtest/base/resource-files/epub.epub");
+
+		try (TaskRunnerCore core = new TaskRunnerCore(f, out)) {
+			for (InternalTask task : tasks) {
+				core.runTask(task);
+			}
+		} finally {
+			if (!out.delete()) {
+				out.deleteOnExit();
+			}
+		}
+	}
+	
+	@Test
 	public void testGetFactoryForEnglish() throws TaskSystemFactoryException {
 		//Setup
 		TaskSystemFactoryMakerService factory = getTaskSystemFMS();
