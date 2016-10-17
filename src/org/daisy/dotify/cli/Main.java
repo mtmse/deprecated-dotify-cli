@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -17,11 +16,7 @@ import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.daisy.braille.api.embosser.EmbosserFactoryException;
-import org.daisy.braille.api.factory.Factory;
-import org.daisy.braille.api.factory.FactoryCatalog;
-import org.daisy.braille.api.factory.FactoryProperties;
 import org.daisy.braille.consumer.embosser.EmbosserCatalog;
-import org.daisy.braille.consumer.table.TableCatalog;
 import org.daisy.braille.pef.PEFConverterFacade;
 import org.daisy.braille.pef.PEFValidator;
 import org.daisy.braille.pef.UnsupportedWidthException;
@@ -31,7 +26,6 @@ import org.daisy.cli.CommandParserResult;
 import org.daisy.cli.Definition;
 import org.daisy.cli.ExitCode;
 import org.daisy.cli.OptionalArgument;
-import org.daisy.cli.ShortFormResolver;
 import org.daisy.cli.SwitchArgument;
 import org.daisy.dotify.Dotify;
 import org.daisy.dotify.SystemKeys;
@@ -63,45 +57,13 @@ public class Main extends AbstractUI {
 
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;
-
-	private final ShortFormResolver tableSF;
+	private final BrailleUtilsInfo brailleInfo;
 
 	public Main() {
-		this.reqArgs = new ArrayList<Argument>();		
+		this.brailleInfo = new BrailleUtilsInfo();
+		//Use lazy loading of argument details
+		this.reqArgs = new ArrayList<Argument>();
 		this.optionalArgs = new ArrayList<OptionalArgument>();
-		{
-			ArrayList<Definition> vals = new ArrayList<Definition>();
-			ConfigurationsCatalog c = ConfigurationsCatalog.newInstance();
-			for (String o : c.getKeys()) {
-				vals.add(new Definition(o, c.getConfigurationDescription(o)));
-			}
-			vals.add(new Definition("[other]", "Path to setup file"));
-			optionalArgs.add(new OptionalArgument("preset", "A preset to use", vals, null));
-		}
-		optionalArgs.add(new OptionalArgument("locale", "The target locale for the result", DEFAULT_LOCALE));
-		
-		{
-			ArrayList<Definition> vals = new ArrayList<Definition>();
-			vals.add(new Definition(SystemKeys.PEF_FORMAT, "write result in PEF-format"));
-			vals.add(new Definition(SystemKeys.TEXT_FORMAT, "write result as text"));
-			//vals.add(new Definition(SystemKeys.OBFL_FORMAT, "write result in OBFL-format (bypass formatter)"));
-			optionalArgs.add(new OptionalArgument(SystemKeys.OUTPUT_FORMAT, "Specifies output format", vals, "[detect]"));
-		}
-		optionalArgs.add(new OptionalArgument(SystemKeys.IDENTIFIER, "Sets identifier in meta data (if available)", "[generated value]"));
-		{
-			ArrayList<Definition> vals = new ArrayList<Definition>();
-			vals.add(new Definition("true", "outputs temp files"));
-			vals.add(new Definition("false", "does not output temp files"));
-			optionalArgs.add(new OptionalArgument(SystemKeys.WRITE_TEMP_FILES, "Writes temp files", vals, "false"));
-		}
-		optionalArgs.add(new OptionalArgument(SystemKeys.TEMP_FILES_DIRECTORY, "Path to temp files directory", DefaultTempFileWriter.TEMP_DIR));
-		optionalArgs.add(new OptionalArgument(SystemKeys.DATE, "Sets date in meta data (if available)", Dotify.getDefaultDate(SystemProperties.DEFAULT_DATE_FORMAT)));
-		optionalArgs.add(new OptionalArgument(SystemKeys.DATE_FORMAT, "Date format in meta data (if available and date is not specified)", SystemProperties.DEFAULT_DATE_FORMAT));
-		TableCatalog tableCatalog = TableCatalog.newInstance();
-		Collection<String> idents = new ArrayList<String>();
-		for (FactoryProperties p : tableCatalog.list()) { idents.add(p.getIdentifier()); }
-		tableSF = new ShortFormResolver(idents);
-		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_TABLE, "If specified, an ASCII-braille file (.brl) is generated in addition to the PEF-file using the specified braille code table", getDefinitionList(tableCatalog, tableSF), ""));
 		parser.addSwitch(new SwitchArgument('w', WATCH_KEY, WATCH_KEY, "" + DEFAULT_POLL_TIME, "Keeps the conversion in sync by watching the input file for changes and rerunning the conversion automatically when the input is modified."));
 		parser.addSwitch(new SwitchArgument('o', SystemKeys.LIST_OPTIONS, SystemKeys.LIST_OPTIONS, "true", "Lists additional options as the conversion runs."));
 		parser.addSwitch(new SwitchArgument('c', CONFIG_KEY, META_KEY, CONFIG_KEY, "Lists known configurations."));
@@ -263,7 +225,7 @@ public class Main extends AbstractUI {
 					// create brl
 					HashMap<String, String> p = new HashMap<String, String>();
 					p.put(PEFConverterFacade.KEY_TABLE, props.get(PEFConverterFacade.KEY_TABLE));
-					expandShortForm(p, PEFConverterFacade.KEY_TABLE, tableSF);
+					expandShortForm(p, PEFConverterFacade.KEY_TABLE, brailleInfo.getShortFormResolver());
 					File f = new File(output.getParentFile(), output.getName() + ".brl");
 					logger.info("Writing brl to " + f.getAbsolutePath());
 					try (FileOutputStream os = new FileOutputStream(f)) {
@@ -312,22 +274,38 @@ public class Main extends AbstractUI {
 
 	@Override
 	public List<OptionalArgument> getOptionalArguments() {
-		return optionalArgs;
-	}
-	
-	
-	/**
-	 * Creates a list of definitions based on the contents of the supplied FactoryCatalog.
-	 * @param catalog the catalog to create definitions for
-	 * @param resolver 
-	 * @return returns a list of definitions
-	 */
-	List<Definition> getDefinitionList(FactoryCatalog<? extends Factory> catalog, ShortFormResolver resolver) {
-		List<Definition> ret = new ArrayList<Definition>();
-		for (String key : resolver.getShortForms()) {
-			ret.add(new Definition(key, catalog.get(resolver.resolve(key)).getDescription()));
+		if (optionalArgs.isEmpty()) {
+			{
+				ArrayList<Definition> vals = new ArrayList<Definition>();
+				ConfigurationsCatalog c = ConfigurationsCatalog.newInstance();
+				for (String o : c.getKeys()) {
+					vals.add(new Definition(o, c.getConfigurationDescription(o)));
+				}
+				vals.add(new Definition("[other]", "Path to setup file"));
+				optionalArgs.add(new OptionalArgument("preset", "A preset to use", vals, null));
+			}
+			optionalArgs.add(new OptionalArgument("locale", "The target locale for the result", DEFAULT_LOCALE));
+			
+			{
+				ArrayList<Definition> vals = new ArrayList<Definition>();
+				vals.add(new Definition(SystemKeys.PEF_FORMAT, "write result in PEF-format"));
+				vals.add(new Definition(SystemKeys.TEXT_FORMAT, "write result as text"));
+				//vals.add(new Definition(SystemKeys.OBFL_FORMAT, "write result in OBFL-format (bypass formatter)"));
+				optionalArgs.add(new OptionalArgument(SystemKeys.OUTPUT_FORMAT, "Specifies output format", vals, "[detect]"));
+			}
+			optionalArgs.add(new OptionalArgument(SystemKeys.IDENTIFIER, "Sets identifier in meta data (if available)", "[generated value]"));
+			{
+				ArrayList<Definition> vals = new ArrayList<Definition>();
+				vals.add(new Definition("true", "outputs temp files"));
+				vals.add(new Definition("false", "does not output temp files"));
+				optionalArgs.add(new OptionalArgument(SystemKeys.WRITE_TEMP_FILES, "Writes temp files", vals, "false"));
+			}
+			optionalArgs.add(new OptionalArgument(SystemKeys.TEMP_FILES_DIRECTORY, "Path to temp files directory", DefaultTempFileWriter.TEMP_DIR));
+			optionalArgs.add(new OptionalArgument(SystemKeys.DATE, "Sets date in meta data (if available)", Dotify.getDefaultDate(SystemProperties.DEFAULT_DATE_FORMAT)));
+			optionalArgs.add(new OptionalArgument(SystemKeys.DATE_FORMAT, "Date format in meta data (if available and date is not specified)", SystemProperties.DEFAULT_DATE_FORMAT));
+			optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_TABLE, "If specified, an ASCII-braille file (.brl) is generated in addition to the PEF-file using the specified braille code table", brailleInfo.getDefinitionList(), ""));
 		}
-		return ret;
+		return optionalArgs;
 	}
 
 }
