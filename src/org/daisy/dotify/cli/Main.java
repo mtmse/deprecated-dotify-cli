@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,9 +37,11 @@ import org.daisy.dotify.Dotify;
 import org.daisy.dotify.SystemKeys;
 import org.daisy.dotify.SystemProperties;
 import org.daisy.dotify.api.tasks.InternalTaskException;
+import org.daisy.dotify.api.tasks.TaskGroupSpecification;
 import org.daisy.dotify.api.translator.TranslatorSpecification;
 import org.daisy.dotify.common.text.FilterLocale;
 import org.daisy.dotify.config.ConfigurationsCatalog;
+import org.daisy.dotify.consumer.tasks.TaskGroupFactoryMaker;
 import org.daisy.dotify.consumer.translator.BrailleTranslatorFactoryMaker;
 import org.daisy.dotify.tasks.runner.DefaultTempFileWriter;
 import org.xml.sax.SAXException;
@@ -63,20 +67,7 @@ public class Main extends AbstractUI {
 	private final ShortFormResolver tableSF;
 
 	public Main() {
-
-		this.reqArgs = new ArrayList<Argument>();
-		reqArgs.add(new Argument("path_to_input", "Path to the input file"));
-		reqArgs.add(new Argument("path_to_output", "Path to the output file"));
-		/*
-		{
-			ArrayList<Definition> vals = new ArrayList<Definition>();
-			InputManagerFactoryMaker m = InputManagerFactoryMaker.newInstance();
-			for (String o : m.listSupportedLocales()) {
-				vals.add(new Definition(o, "A context locale"));
-			}
-			reqArgs.add(new Argument("locale", "The target locale for the result", vals));
-		}*/
-		
+		this.reqArgs = new ArrayList<Argument>();		
 		this.optionalArgs = new ArrayList<OptionalArgument>();
 		{
 			ArrayList<Definition> vals = new ArrayList<Definition>();
@@ -305,6 +296,17 @@ public class Main extends AbstractUI {
 
 	@Override
 	public List<Argument> getRequiredArguments() {
+		if (reqArgs.isEmpty()) {
+			Set<TaskGroupSpecification> specs = TaskGroupFactoryMaker.newInstance().listSupportedSpecifications();
+			Set<String> inputFormats = new HashSet<>();
+			Set<String> outputFormats = new HashSet<>();
+			for (TaskGroupSpecification spec : specs) {
+				inputFormats.add(spec.getInputFormat());
+				outputFormats.add(spec.getOutputFormat());
+			}
+			reqArgs.add(new Argument("path_to_input", "Path to the input file " + inputFormats));
+			reqArgs.add(new Argument("path_to_output", "Path to the output file " + outputFormats));
+		}
 		return reqArgs;
 	}
 
