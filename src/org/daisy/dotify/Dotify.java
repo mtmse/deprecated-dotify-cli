@@ -49,9 +49,7 @@ public class Dotify {
 	private final static HashMap<String, String> extensionBindings;
 	static {
 		extensionBindings = new HashMap<String, String>();
-		extensionBindings.put(".pef", SystemKeys.PEF_FORMAT);
-		extensionBindings.put(".txt", SystemKeys.TEXT_FORMAT);
-		extensionBindings.put(".obfl", SystemKeys.OBFL_FORMAT);
+		extensionBindings.put("txt", SystemKeys.TEXT_FORMAT);
 	}
 	
 	private final boolean writeTempFiles;
@@ -83,6 +81,8 @@ public class Dotify {
 		if (cols==null || "".equals(cols)) {
 			params.remove("cols");
 		}
+		
+		Set<TaskGroupSpecification> specs = TaskGroupFactoryMaker.newInstance().listSupportedSpecifications();
 
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.putAll(params);
@@ -93,7 +93,7 @@ public class Dotify {
 		String inputFormat = "";
 		if (inx>-1) {
 			inputFormat = inp.substring(inx + 1);		
-			if (!supportsInputFormat(inputFormat)) {
+			if (!supportsInputFormat(inputFormat, specs)) {
 				logger.fine("No input factory for " + inputFormat);
 				// attempt to detect a supported type
 				try {
@@ -115,7 +115,12 @@ public class Dotify {
 		if (outputformat==null || "".equals(outputformat)) {
 			int indx = output.getName().lastIndexOf('.');
 			if (indx>-1) {
-				outputformat = extensionBindings.get(output.getName().substring(indx).toLowerCase());
+				String ext = output.getName().substring(indx+1).toLowerCase();
+				if (supportsOutputFormat(ext, specs)) {
+					outputformat = ext;
+				} else {
+					outputformat = extensionBindings.get(ext);
+				}
 			}
 			if (outputformat==null) {
 				throw new IllegalArgumentException("Cannot detect file format for output file. Please specify output format.");
@@ -193,10 +198,18 @@ public class Dotify {
 		}
 	}
 	
-	private static boolean supportsInputFormat(String inputFormat) {
-		Set<TaskGroupSpecification> specs = TaskGroupFactoryMaker.newInstance().listSupportedSpecifications();
+	private static boolean supportsInputFormat(String inputFormat, Set<TaskGroupSpecification> specs) {
 		for (TaskGroupSpecification s : specs) {
 			if (s.getInputFormat().equals(inputFormat)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private static boolean supportsOutputFormat(String outputFormat, Set<TaskGroupSpecification> specs) {
+		for (TaskGroupSpecification s : specs) {
+			if (s.getOutputFormat().equals(outputFormat)) {
 				return true;
 			}
 		}
