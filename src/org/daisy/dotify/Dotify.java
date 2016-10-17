@@ -16,6 +16,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import org.daisy.dotify.api.tasks.InternalTask;
@@ -91,9 +92,8 @@ public class Dotify {
 		int inx = inp.lastIndexOf('.');
 		String inputFormat = "";
 		if (inx>-1) {
-			inputFormat = inp.substring(inx + 1);
-			TaskGroupFactoryMaker imfm = TaskGroupFactoryMaker.newInstance();
-			if (!imfm.listSupportedSpecifications().contains(new TaskGroupSpecification(inputFormat, "obfl", context.toString()))) {
+			inputFormat = inp.substring(inx + 1);		
+			if (!supportsInputFormat(inputFormat)) {
 				logger.fine("No input factory for " + inputFormat);
 				// attempt to detect a supported type
 				try {
@@ -191,6 +191,16 @@ public class Dotify {
 		} catch (TaskSystemFactoryException e) {
 			throw new RuntimeException("Unable to retrieve a TaskSystem", e);
 		}
+	}
+	
+	private static boolean supportsInputFormat(String inputFormat) {
+		Set<TaskGroupSpecification> specs = TaskGroupFactoryMaker.newInstance().listSupportedSpecifications();
+		for (TaskGroupSpecification s : specs) {
+			if (s.getInputFormat().equals(inputFormat)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	private Map<String, Object> loadSetup(Map<String, String> guiParams, String setup) {
