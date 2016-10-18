@@ -24,7 +24,7 @@ public final class SystemProperties {
 
 	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
 	
-	private final static String getWithDefault(String val, String def) {
+	private static final String getWithDefault(String val, String def) {
 		return (val!=null?val:def);
 	}
 

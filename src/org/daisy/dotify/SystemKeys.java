@@ -8,63 +8,63 @@ public interface SystemKeys {
 	/**
 	 * Defines a key for the system name 
 	 */
-	public final static String SYSTEM_NAME = "systemName";
+	public static final String SYSTEM_NAME = "systemName";
 	/**
 	 * Defines a key for the system build
 	 */
-	public final static String SYSTEM_BUILD = "systemBuild";
+	public static final String SYSTEM_BUILD = "systemBuild";
 	/**
 	 * Defines a key for the system release 
 	 */
-	public final static String SYSTEM_RELEASE = "systemRelease";
+	public static final String SYSTEM_RELEASE = "systemRelease";
 	/**
 	 * Defines a key for the input file path 
 	 */
-	public final static String INPUT = "input";
+	public static final String INPUT = "input";
 	
-	public final static String INPUT_FORMAT = "inputFormat";
+	public static final String INPUT_FORMAT = "inputFormat";
 	/**
 	 * Defines a key for the input uri 
 	 */
-	public final static String INPUT_URI = "input-uri";
+	public static final String INPUT_URI = "input-uri";
 	/**
 	 * Defines a key for the output format 
 	 */
-	public final static String OUTPUT_FORMAT = "outputFormat";
+	public static final String OUTPUT_FORMAT = "outputFormat";
 	
-	public final static String TEMPLATE = "template";
+	public static final String TEMPLATE = "template";
 	
-	public final static String DATE_FORMAT = "dateFormat";
-	public final static String DATE = "date";
-	public final static String IDENTIFIER = "identifier";
+	public static final String DATE_FORMAT = "dateFormat";
+	public static final String DATE = "date";
+	public static final String IDENTIFIER = "identifier";
 	
-	public final static String PEF_FORMAT = "pef";
-	public final static String TEXT_FORMAT = "text";
-	public final static String OBFL_FORMAT = "obfl";
+	public static final String PEF_FORMAT = "pef";
+	public static final String TEXT_FORMAT = "text";
+	public static final String OBFL_FORMAT = "obfl";
 	
 	/**
 	 * Defines a key for the configuration
 	 */
-	public final static String CONFIGURATION = "configuration";
+	public static final String CONFIGURATION = "configuration";
 	/**
 	 * Defines a key for the temp files.
 	 * Corresponding value should be the string "true" or "false" 
 	 */
-	public final static String WRITE_TEMP_FILES = "writeTempFiles";
+	public static final String WRITE_TEMP_FILES = "writeTempFiles";
 	/**
 	 * Defines a key for keeping temp files on success
 	 * Corresponding value should be the string "true" or "false"
 	 */
-	public final static String KEEP_TEMP_FILES_ON_SUCCESS = "keepTempFilesOnSuccess";
+	public static final String KEEP_TEMP_FILES_ON_SUCCESS = "keepTempFilesOnSuccess";
 	/**
 	 * Defines a key for the temp files directory.
 	 * Corresponding value should be a string containing a file path
 	 */
-	public final static String TEMP_FILES_DIRECTORY = "tempFilesDirectory";
+	public static final String TEMP_FILES_DIRECTORY = "tempFilesDirectory";
 	
 	/**
 	 * Defines a key for listing the conversion options.
 	 * 
 	 */
-	public final static String LIST_OPTIONS = "listOptions";
+	public static final String LIST_OPTIONS = "listOptions";
 }

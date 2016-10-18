@@ -46,7 +46,7 @@ import org.daisy.dotify.tasks.runner.TaskRunner;
  */
 public class Dotify {
 	private static final Logger logger = Logger.getLogger(Dotify.class.getCanonicalName());
-	private final static HashMap<String, String> extensionBindings;
+	private static final HashMap<String, String> extensionBindings;
 	static {
 		extensionBindings = new HashMap<String, String>();
 		extensionBindings.put("txt", SystemKeys.TEXT_FORMAT);

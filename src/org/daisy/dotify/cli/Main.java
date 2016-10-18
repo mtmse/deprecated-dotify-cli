@@ -45,15 +45,15 @@ import org.xml.sax.SAXException;
  * @author Joel Håkansson
  */
 public class Main extends AbstractUI {
-	private final static Logger logger = Logger.getLogger(Main.class.getCanonicalName());
-	//private final static String DEFAULT_TEMPLATE = "A4-w32";
-	private final static String DEFAULT_LOCALE = Locale.getDefault().toString().replaceAll("_", "-");
-	private final static String CONFIG_KEY = "configs";
-	private final static String WATCH_KEY = "watch";
-	protected final static String META_KEY = "meta";
+	private static final Logger logger = Logger.getLogger(Main.class.getCanonicalName());
+	//private static final String DEFAULT_TEMPLATE = "A4-w32";
+	private static final String DEFAULT_LOCALE = Locale.getDefault().toString().replaceAll("_", "-");
+	private static final String CONFIG_KEY = "configs";
+	private static final String WATCH_KEY = "watch";
+	protected static final String META_KEY = "meta";
 	
-	private final static int DEFAULT_POLL_TIME = 5000;
-	private final static int MIN_POLL_TIME = 250;
+	private static final int DEFAULT_POLL_TIME = 5000;
+	private static final int MIN_POLL_TIME = 250;
 
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;

@@ -22,7 +22,7 @@ import org.daisy.dotify.config.ConfigurationsProvider;
  * @author Joel Håkansson
  */
 public class DefaultConfigurationsProvider extends AbstractResourceLocator implements ConfigurationsProvider {
-	private final static String PRESETS_PATH = "resource-files/";
+	private static final String PRESETS_PATH = "resource-files/";
 	private final Logger logger;
 	private final Properties props = new Properties();
 	private Properties descs = null;

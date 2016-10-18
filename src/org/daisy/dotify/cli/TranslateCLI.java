@@ -30,11 +30,11 @@ import org.daisy.dotify.api.translator.TranslatorSpecification;
 import org.daisy.dotify.consumer.translator.BrailleTranslatorFactoryMaker;
 
 public class TranslateCLI extends AbstractUI {
-	private final static String DEFAULT_LOCALE = Locale.getDefault().toString().replaceAll("_", "-");
-	private final static String META_KEY = "meta";
-	private final static String LOCALE_KEY = "locale";
-	private final static String TABLE_KEY = "table";
-	private final static String HELP_KEY = "help";
+	private static final String DEFAULT_LOCALE = Locale.getDefault().toString().replaceAll("_", "-");
+	private static final String META_KEY = "meta";
+	private static final String LOCALE_KEY = "locale";
+	private static final String TABLE_KEY = "table";
+	private static final String HELP_KEY = "help";
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;
 	private final ShortFormResolver tableSF;

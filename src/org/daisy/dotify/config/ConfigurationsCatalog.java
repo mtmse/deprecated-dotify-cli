@@ -29,7 +29,7 @@ public abstract class ConfigurationsCatalog {
 	 * the first choice for adding configurations. 
 	 * @return returns an instance of a configurations catalog
 	 */
-	public final static ConfigurationsCatalog newInstance() {
+	public static final ConfigurationsCatalog newInstance() {
 		Iterator<ConfigurationsCatalog> i = ServiceLoader.load(ConfigurationsCatalog.class).iterator();
 		while (i.hasNext()) {
 			return i.next();
