@@ -27,13 +27,13 @@ class ListStuff extends AbstractUI {
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;
 	
-	private final static String embossersKey = "embossers";
-	private final static String tablesKey = "tables";
-	private final static String papersKey = "papers";
-	private final static String modeKey = "mode";
-	private final static String prefixKey = "prefix";
-	private final static String postfixKey = "postfix";
-	private final static String separatorKey = "separator";
+	private static final String embossersKey = "embossers";
+	private static final String tablesKey = "tables";
+	private static final String papersKey = "papers";
+	private static final String modeKey = "mode";
+	private static final String prefixKey = "prefix";
+	private static final String postfixKey = "postfix";
+	private static final String separatorKey = "separator";
 	
 	public ListStuff() {
 		reqArgs = new ArrayList<Argument>();

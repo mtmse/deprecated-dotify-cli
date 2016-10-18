@@ -42,22 +42,22 @@ import org.daisy.cli.SwitchArgument;
  * @author Joel Håkansson
  */
 public class BasicUI extends AbstractUI {
-	public final static String emboss = "emboss";
-	public final static String text2pef = "text2pef";
-	public final static String pef2text = "pef2text";
-	public final static String validate = "validate";
-	public final static String split = "split";
-	public final static String merge = "merge";
-	public final static String generate = "generate";
-	public final static String list = "list";
-	public final static String find = "find";
-	//public final static String clear = "clear";
-	//public final static String setup = "setup";
-	public final static String help = "help";
-	public final static String inspect = "inspect";
+	public static final String emboss = "emboss";
+	public static final String text2pef = "text2pef";
+	public static final String pef2text = "pef2text";
+	public static final String validate = "validate";
+	public static final String split = "split";
+	public static final String merge = "merge";
+	public static final String generate = "generate";
+	public static final String list = "list";
+	public static final String find = "find";
+	//public static final String clear = "clear";
+	//public static final String setup = "setup";
+	public static final String help = "help";
+	public static final String inspect = "inspect";
 	
-	protected final static String META_KEY = "meta";
-	private final static String VERSION_KEY = "version";
+	protected static final String META_KEY = "meta";
+	private static final String VERSION_KEY = "version";
 
 	private final String[] args;
 	private final Logger logger;

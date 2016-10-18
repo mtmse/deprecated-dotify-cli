@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  *
  */
 public class ManifestRetriever {
-	private final static Logger logger = Logger.getLogger(ManifestRetriever.class.getCanonicalName());
+	private static final Logger logger = Logger.getLogger(ManifestRetriever.class.getCanonicalName());
 	private final Class<?> clazz;
 	private boolean failed = false;
 	private Manifest manifest;

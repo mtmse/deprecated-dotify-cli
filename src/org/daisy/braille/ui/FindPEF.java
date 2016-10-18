@@ -55,9 +55,9 @@ class FindPEF extends AbstractUI {
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;
 	
-	private final static String FOLDER_KEY = "folder";
-	private final static String RECURSIVE_KEY = "recursive";
-	private final static String INTERACTIVE_KEY = "interactive";
+	private static final String FOLDER_KEY = "folder";
+	private static final String RECURSIVE_KEY = "recursive";
+	private static final String INTERACTIVE_KEY = "interactive";
 
 	public FindPEF() {
 		reqArgs = new ArrayList<Argument>();
