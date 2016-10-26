@@ -1,5 +1,14 @@
 [Table of Contents](toc.md)
 
+# 3.0.0-beta3 #
+ - Improves format detection
+ - Help text lists supported input and output formats
+ - Fixes manual volume breaking (fixes [issue #2](https://github.com/brailleapps/dotify.formatter.impl/issues/2))
+ - Introduces a dynamic task assembly
+ - Displays the name of the root element instead of just "XML" in xml conversion tasks
+ - Fixes a problem with footnotes/rearnotes sections in combination with toc in epub 3
+ - Restores support for text output with en-US locale
+
 # 3.0.0-beta2 #
   * List advanced options with -o
   * Improved epub 3/html support
