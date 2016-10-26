@@ -20,9 +20,6 @@ Formatting with hyphenation is supported for over 50 languages. Unfortunately, o
 Download the [latest release](https://github.com/brailleapps/dotify-cli/releases) and unpack it. For more information see, the user guide
 in the `docs` folder.
 
-## Running ##
-`-Djava.util.logging.config.file=logging.properties`
-
 ## Building ##
 Build with `gradlew build` (Windows) or `./gradlew build` (Mac/Linux)
 
