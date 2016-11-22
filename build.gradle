@@ -114,6 +114,20 @@ applicationDistribution.from(file('docs')) {
     into 'docs'
 }
 
+def versionFile = file("$buildDir/version")
+
+task writeVersionFile() {
+	doLast() {
+		versionFile.getParentFile().mkdirs()
+		versionFile.write(version)
+	}
+	outputs.file versionFile
+	outputs.upToDateWhen{ file('gradle.properties').lastModified()<file(versionFile).lastModified() }
+}
+
+applicationDistribution.from(versionFile)
+jar.dependsOn writeVersionFile
+
 task xsltdoc() << {
 	ant {
 		xslt (
