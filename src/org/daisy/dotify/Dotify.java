@@ -19,7 +19,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import org.daisy.dotify.api.tasks.InternalTask;
+import org.daisy.dotify.api.tasks.CompiledTaskSystem;
 import org.daisy.dotify.api.tasks.InternalTaskException;
 import org.daisy.dotify.api.tasks.TaskGroupSpecification;
 import org.daisy.dotify.api.tasks.TaskOption;
@@ -176,7 +176,7 @@ public class Dotify {
 			TaskSystem ts = TaskSystemFactoryMaker.newInstance().newTaskSystem(context.toString(), outputformat);
 			try {
 				logger.info("About to run with parameters " + rp);
-				List<InternalTask> tl = ts.compile(rp);
+				CompiledTaskSystem tl = ts.compile(rp);
 				TaskRunner.Builder builder = TaskRunner.withName(ts.getName())
 						.writeTempFiles(d.writeTempFiles)
 						.keepTempFiles(d.keepTempFilesOnSuccess)
@@ -188,7 +188,7 @@ public class Dotify {
 						);
 				List<RunnerResult> res = builder.build().runTasks(input, output, tl);
 				if (shouldPrintOptions) {
-					logOptions(ts, res);
+					logOptions(tl, res);
 				}
 			} catch (TaskSystemException e) {
 				throw new RuntimeException("Unable to run '" +ts.getName() + "' with parameters " + rp, e);
@@ -271,7 +271,7 @@ public class Dotify {
 		}
 	}
 	
-	private static void logOptions(TaskSystem ts, List<RunnerResult> res) {
+	private static void logOptions(CompiledTaskSystem ts, List<RunnerResult> res) {
 		StringWriter sw = new StringWriter();
 		try (PrintWriter pw = new PrintWriter(sw)) {
 			pw.println("Printing additional options.");
