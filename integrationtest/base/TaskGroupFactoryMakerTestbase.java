@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Set;
 
 import org.daisy.dotify.api.tasks.TaskGroupFactoryMakerService;
+import org.daisy.dotify.api.tasks.TaskGroupInformation;
 import org.daisy.dotify.api.tasks.TaskGroupSpecification;
 import org.daisy.dotify.common.text.FilterLocale;
 import org.junit.Test;
@@ -28,29 +29,30 @@ public abstract class TaskGroupFactoryMakerTestbase {
 	public void testSupportedSpecifications() {
 		//Setup
 		TaskGroupFactoryMakerService factory = getTaskGroupFMS();
-		Set<TaskGroupSpecification> specs = factory.listSupportedSpecifications();
+		Set<TaskGroupInformation> specs = factory.listAll();
 
 		//Test
-		assertEquals(17, specs.size());
-		assertTrue(specs.contains(new TaskGroupSpecification("dtbook", "obfl", "sv-SE")));
-		assertTrue(specs.contains(new TaskGroupSpecification("text", "obfl", "sv-SE")));
-		assertTrue(specs.contains(new TaskGroupSpecification("xml", "obfl", "sv-SE")));
-		assertTrue(specs.contains(new TaskGroupSpecification("txt", "obfl", "sv-SE")));
-		assertTrue(specs.contains(new TaskGroupSpecification("epub", "html", "sv-SE")));
-		assertTrue(specs.contains(new TaskGroupSpecification("html", "obfl", "sv-SE")));
-		assertTrue(specs.contains(new TaskGroupSpecification("obfl", "obfl", "sv-SE")));
-
-		assertTrue(specs.contains(new TaskGroupSpecification("obfl", "pef", "sv-SE")));
-		assertTrue(specs.contains(new TaskGroupSpecification("obfl", "text", "sv-SE")));
-		assertTrue(specs.contains(new TaskGroupSpecification("obfl", "text", "en-US")));
+		assertEquals(33, specs.size());
+		//TODO: test more specs
 		
-		assertTrue(specs.contains(new TaskGroupSpecification("dtbook", "obfl", "en-US")));
-		assertTrue(specs.contains(new TaskGroupSpecification("text", "obfl", "en-US")));
-		assertTrue(specs.contains(new TaskGroupSpecification("xml", "obfl", "en-US")));
-		assertTrue(specs.contains(new TaskGroupSpecification("txt", "obfl", "en-US")));
-		assertTrue(specs.contains(new TaskGroupSpecification("epub", "html", "en-US")));
-		assertTrue(specs.contains(new TaskGroupSpecification("html", "obfl", "en-US")));
-		assertTrue(specs.contains(new TaskGroupSpecification("obfl", "obfl", "en-US")));
+		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("text", "obfl").build()));
+		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("text", "obfl").build()));
+		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("txt", "obfl").build()));
+		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("txt", "obfl").build()));
+		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("epub", "html").build()));
+		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("epub", "html").build()));
+		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("obfl", "text").build()));
+		
+		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("dtbook", "obfl").locale("sv-SE").build()));
+		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("xml", "obfl").locale("sv-SE").build()));
+		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("html", "obfl").locale("sv-SE").build()));
+		assertTrue(specs.contains(TaskGroupInformation.newEnhanceBuilder("obfl").locale("sv-SE").build()));
+		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("obfl", "pef").locale("sv-SE").build()));
+
+		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("dtbook", "obfl").locale("en-US").build()));
+		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("xml", "obfl").locale("en-US").build()));
+		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("html", "obfl").locale("en-US").build()));
+		assertTrue(specs.contains(TaskGroupInformation.newEnhanceBuilder("obfl").locale("en-US").build()));
 	}
 	
 	@Test

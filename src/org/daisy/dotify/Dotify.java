@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 import org.daisy.dotify.api.tasks.CompiledTaskSystem;
 import org.daisy.dotify.api.tasks.InternalTaskException;
-import org.daisy.dotify.api.tasks.TaskGroupSpecification;
+import org.daisy.dotify.api.tasks.TaskGroupInformation;
 import org.daisy.dotify.api.tasks.TaskOption;
 import org.daisy.dotify.api.tasks.TaskOptionValue;
 import org.daisy.dotify.api.tasks.TaskSystem;
@@ -82,7 +82,7 @@ public class Dotify {
 			params.remove("cols");
 		}
 		
-		Set<TaskGroupSpecification> specs = TaskGroupFactoryMaker.newInstance().listSupportedSpecifications();
+		Set<TaskGroupInformation> specs = TaskGroupFactoryMaker.newInstance().listAll();
 
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.putAll(params);
@@ -198,8 +198,8 @@ public class Dotify {
 		}
 	}
 	
-	private static boolean supportsInputFormat(String inputFormat, Set<TaskGroupSpecification> specs) {
-		for (TaskGroupSpecification s : specs) {
+	private static boolean supportsInputFormat(String inputFormat, Set<TaskGroupInformation> specs) {
+		for (TaskGroupInformation s : specs) {
 			if (s.getInputFormat().equals(inputFormat)) {
 				return true;
 			}
@@ -207,8 +207,8 @@ public class Dotify {
 		return false;
 	}
 	
-	private static boolean supportsOutputFormat(String outputFormat, Set<TaskGroupSpecification> specs) {
-		for (TaskGroupSpecification s : specs) {
+	private static boolean supportsOutputFormat(String outputFormat, Set<TaskGroupInformation> specs) {
+		for (TaskGroupInformation s : specs) {
 			if (s.getOutputFormat().equals(outputFormat)) {
 				return true;
 			}

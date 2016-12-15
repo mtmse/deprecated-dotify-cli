@@ -31,7 +31,7 @@ import org.daisy.dotify.Dotify;
 import org.daisy.dotify.SystemKeys;
 import org.daisy.dotify.SystemProperties;
 import org.daisy.dotify.api.tasks.InternalTaskException;
-import org.daisy.dotify.api.tasks.TaskGroupSpecification;
+import org.daisy.dotify.api.tasks.TaskGroupInformation;
 import org.daisy.dotify.api.translator.TranslatorSpecification;
 import org.daisy.dotify.common.text.FilterLocale;
 import org.daisy.dotify.config.ConfigurationsCatalog;
@@ -259,10 +259,10 @@ public class Main extends AbstractUI {
 	@Override
 	public List<Argument> getRequiredArguments() {
 		if (reqArgs.isEmpty()) {
-			Set<TaskGroupSpecification> specs = TaskGroupFactoryMaker.newInstance().listSupportedSpecifications();
+			Set<TaskGroupInformation> specs = TaskGroupFactoryMaker.newInstance().listAll();
 			Set<String> inputFormats = new HashSet<>();
 			Set<String> outputFormats = new HashSet<>();
-			for (TaskGroupSpecification spec : specs) {
+			for (TaskGroupInformation spec : specs) {
 				inputFormats.add(spec.getInputFormat());
 				outputFormats.add(spec.getOutputFormat());
 			}
