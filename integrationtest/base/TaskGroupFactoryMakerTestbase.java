@@ -32,7 +32,7 @@ public abstract class TaskGroupFactoryMakerTestbase {
 		Set<TaskGroupInformation> specs = factory.listAll();
 
 		//Test
-		assertEquals(33, specs.size());
+		assertEquals(26, specs.size());
 		//TODO: test more specs
 		
 		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("text", "obfl").build()));
@@ -46,13 +46,11 @@ public abstract class TaskGroupFactoryMakerTestbase {
 		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("dtbook", "obfl").locale("sv-SE").build()));
 		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("xml", "obfl").locale("sv-SE").build()));
 		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("html", "obfl").locale("sv-SE").build()));
-		assertTrue(specs.contains(TaskGroupInformation.newEnhanceBuilder("obfl").locale("sv-SE").build()));
 		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("obfl", "pef").locale("sv-SE").build()));
 
 		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("dtbook", "obfl").locale("en-US").build()));
 		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("xml", "obfl").locale("en-US").build()));
 		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("html", "obfl").locale("en-US").build()));
-		assertTrue(specs.contains(TaskGroupInformation.newEnhanceBuilder("obfl").locale("en-US").build()));
 	}
 	
 	@Test
@@ -64,7 +62,6 @@ public abstract class TaskGroupFactoryMakerTestbase {
 		//Test
 		assertNotNull(factory.getFactory(new TaskGroupSpecification("xml", "obfl", locale.toString())));
 		assertNotNull(factory.getFactory(new TaskGroupSpecification("text", "obfl", locale.toString())));
-		assertNotNull(factory.getFactory(new TaskGroupSpecification("obfl", "obfl", locale.toString())));
 		assertNotNull(factory.getFactory(new TaskGroupSpecification("txt", "obfl", locale.toString())));
 		assertNotNull(factory.getFactory(new TaskGroupSpecification("dtbook", "obfl", locale.toString())));
 	}
@@ -78,7 +75,6 @@ public abstract class TaskGroupFactoryMakerTestbase {
 		//Test
 		assertNotNull(factory.getFactory(new TaskGroupSpecification("xml", "obfl", locale.toString())));
 		assertNotNull(factory.getFactory(new TaskGroupSpecification("text", "obfl", locale.toString())));
-		assertNotNull(factory.getFactory(new TaskGroupSpecification("obfl", "obfl", locale.toString())));
 		assertNotNull(factory.getFactory(new TaskGroupSpecification("txt", "obfl", locale.toString())));
 		assertNotNull(factory.getFactory(new TaskGroupSpecification("dtbook", "obfl", locale.toString())));
 	}
