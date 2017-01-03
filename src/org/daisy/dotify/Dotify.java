@@ -19,7 +19,9 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import org.daisy.dotify.api.tasks.AnnotatedFile;
 import org.daisy.dotify.api.tasks.CompiledTaskSystem;
+import org.daisy.dotify.api.tasks.DefaultAnnotatedFile;
 import org.daisy.dotify.api.tasks.InternalTaskException;
 import org.daisy.dotify.api.tasks.TaskGroupInformation;
 import org.daisy.dotify.api.tasks.TaskOption;
@@ -32,6 +34,7 @@ import org.daisy.dotify.common.text.FilterLocale;
 import org.daisy.dotify.common.xml.XMLTools;
 import org.daisy.dotify.common.xml.XMLToolsException;
 import org.daisy.dotify.config.ConfigurationsCatalog;
+import org.daisy.dotify.consumer.identity.IdentityProvider;
 import org.daisy.dotify.consumer.tasks.TaskGroupFactoryMaker;
 import org.daisy.dotify.consumer.tasks.TaskSystemFactoryMaker;
 import org.daisy.dotify.tasks.runner.DefaultTempFileWriter;
@@ -67,14 +70,14 @@ public class Dotify {
 
 	/**
 	 * Runs Dotify with the supplied parameters.
-	 * @param input the input file
+	 * @param inputFile the input file
 	 * @param output the output file
 	 * @param context the language/region context
 	 * @param params additional parameters
 	 * @throws IOException if there is an i/o error
 	 * @throws InternalTaskException if there is a problem with running the task system
 	 */
-	public static void run(File input, File output, FilterLocale context, Map<String, String> params) throws IOException, InternalTaskException {
+	public static void run(File inputFile, File output, FilterLocale context, Map<String, String> params) throws IOException, InternalTaskException {
 		Dotify d = new Dotify(params);
 
 		String cols = params.get("cols");
@@ -87,18 +90,20 @@ public class Dotify {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.putAll(params);
 
-		map.put(SystemKeys.INPUT, input.getAbsolutePath());
-		String inp = input.getName();
-		int inx = inp.lastIndexOf('.');
-		String inputFormat = "";
-		if (inx>-1) {
-			inputFormat = inp.substring(inx + 1);		
+		AnnotatedFile ai = IdentityProvider.newInstance().identify(inputFile);
+		map.put(SystemKeys.INPUT, ai.getFile().getAbsolutePath());
+
+		String inputFormat = getFormatString(ai);
+		if (inputFormat!=null) {
 			if (!supportsInputFormat(inputFormat, specs)) {
-				logger.fine("No input factory for " + inputFormat);
+				logger.warning("No input factory for " + inputFormat);
+				logger.fine("Note, the following detection code has been deprected. In future versions, an exception will be thrown if this point is reached."
+						+ " To avoid this, use the IdentifierFactory interface to implement a detector for the file type.");
 				// attempt to detect a supported type
 				try {
-					if (XMLTools.isWellformedXML(input)) {
-						inputFormat = "xml";
+					if (XMLTools.isWellformedXML(ai.getFile())) {
+						ai = DefaultAnnotatedFile.with(ai).extension("xml").build();
+						inputFormat = ai.getExtension();
 						logger.info("Input is well-formed xml.");
 					}
 				} catch (XMLToolsException e) {
@@ -133,7 +138,7 @@ public class Dotify {
 		map.put(SystemKeys.SYSTEM_RELEASE, SystemProperties.SYSTEM_RELEASE);
 		map.put("conversionDate", new Date().toString());
 
-		map.put(SystemKeys.INPUT_URI, input.toURI().toString());
+		map.put(SystemKeys.INPUT_URI, ai.getFile().toURI().toString());
 		
 		// Add default values for optional parameters
 		String dateFormat = params.get(SystemKeys.DATE_FORMAT);
@@ -173,7 +178,7 @@ public class Dotify {
 		boolean shouldPrintOptions = "true".equalsIgnoreCase(map.getOrDefault(SystemKeys.LIST_OPTIONS, "false"));
 		// Run tasks
 		try {
-			TaskSystem ts = TaskSystemFactoryMaker.newInstance().newTaskSystem(context.toString(), outputformat);
+			TaskSystem ts = TaskSystemFactoryMaker.newInstance().newTaskSystem(inputFormat, outputformat, context.toString());
 			try {
 				logger.info("About to run with parameters " + rp);
 				CompiledTaskSystem tl = ts.compile(rp);
@@ -186,7 +191,7 @@ public class Dotify {
 								.tempFilesFolder(tempFilesDirectory)
 								.build()
 						);
-				List<RunnerResult> res = builder.build().runTasks(input, output, tl);
+				List<RunnerResult> res = builder.build().runTasks(ai, output, tl);
 				if (shouldPrintOptions) {
 					logOptions(tl, res);
 				}
@@ -195,6 +200,18 @@ public class Dotify {
 			}
 		} catch (TaskSystemFactoryException e) {
 			throw new RuntimeException("Unable to retrieve a TaskSystem", e);
+		}
+	}
+	
+	private static String getFormatString(AnnotatedFile f) {
+		if (f.getFormatName()!=null) {
+			return f.getFormatName();
+		} else if (f.getExtension()!=null) {
+			return f.getExtension();
+		} else if (f.getMediaType()!=null) {
+			return f.getMediaType();
+		} else {
+			return null;
 		}
 	}
 	

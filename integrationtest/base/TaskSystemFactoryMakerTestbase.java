@@ -5,10 +5,10 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
-import org.daisy.dotify.SystemKeys;
 import org.daisy.dotify.api.tasks.InternalTask;
 import org.daisy.dotify.api.tasks.TaskSystem;
 import org.daisy.dotify.api.tasks.TaskSystemException;
@@ -36,18 +36,16 @@ public abstract class TaskSystemFactoryMakerTestbase {
 		TaskSystemFactoryMakerService factory = getTaskSystemFMS();
 		
 		//Test
-		assertNotNull(factory.getFactory("sv-SE", "pef"));
+		assertNotNull(factory.getFactory("xml", "pef", "sv-SE"));
 	}
 	
 	@Test
 	public void testFactoryForSwedish() throws TaskSystemFactoryException, TaskSystemException {
 		//Setup
 		TaskSystemFactoryMakerService factory = getTaskSystemFMS();
-		TaskSystem tf = factory.newTaskSystem("sv-SE", "pef");
+		TaskSystem tf = factory.newTaskSystem("xml", "pef", "sv-SE");
 		assertNotNull(tf);
-		HashMap<String, Object> options = new HashMap<String, Object>();
-		//This test shows how this code has to improve...
-		options.put(SystemKeys.INPUT_FORMAT, "xml");
+		Map<String, Object> options = Collections.emptyMap();
 		List<InternalTask> tasks = tf.compile(options);
 		
 		//Test
@@ -60,12 +58,9 @@ public abstract class TaskSystemFactoryMakerTestbase {
 	public void runFactoryForSwedish() throws TaskSystemFactoryException, TaskSystemException, IOException {
 		//Setup
 		TaskSystemFactoryMakerService factory = getTaskSystemFMS();
-		TaskSystem tf = factory.newTaskSystem("sv-SE", "pef");
+		TaskSystem tf = factory.newTaskSystem("xml", "pef", "sv-SE");
 		assertNotNull(tf);
-		HashMap<String, Object> options = new HashMap<String, Object>();
-
-		//This test shows how this code has to improve...
-		options.put(SystemKeys.INPUT_FORMAT, "xml");
+		Map<String, Object> options = Collections.emptyMap();
 		List<InternalTask> tasks = tf.compile(options);
 
 		File out = File.createTempFile(this.getClass().getName(), ".tmp");
@@ -86,12 +81,9 @@ public abstract class TaskSystemFactoryMakerTestbase {
 	public void runFactoryForSwedishEpub() throws TaskSystemFactoryException, TaskSystemException, IOException {
 		//Setup
 		TaskSystemFactoryMakerService factory = getTaskSystemFMS();
-		TaskSystem tf = factory.newTaskSystem("sv-SE", "pef");
+		TaskSystem tf = factory.newTaskSystem("epub", "pef", "sv-SE");
 		assertNotNull(tf);
-		HashMap<String, Object> options = new HashMap<String, Object>();
-
-		//This test shows how this code has to improve...
-		options.put(SystemKeys.INPUT_FORMAT, "epub");
+		Map<String, Object> options = Collections.emptyMap();
 		List<InternalTask> tasks = tf.compile(options);
 
 		File out = File.createTempFile(this.getClass().getName(), ".tmp");
@@ -114,6 +106,6 @@ public abstract class TaskSystemFactoryMakerTestbase {
 		TaskSystemFactoryMakerService factory = getTaskSystemFMS();
 		
 		//Test
-		assertNotNull(factory.getFactory("en-US", "text"));
+		assertNotNull(factory.getFactory("xml", "text", "en-US"));
 	}
 }
