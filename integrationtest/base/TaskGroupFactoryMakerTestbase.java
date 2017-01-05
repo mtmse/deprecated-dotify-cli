@@ -60,10 +60,10 @@ public abstract class TaskGroupFactoryMakerTestbase {
 		FilterLocale locale = FilterLocale.parse("sv-SE");
 		
 		//Test
-		assertNotNull(factory.getFactory(new TaskGroupSpecification("xml", "obfl", locale.toString())));
-		assertNotNull(factory.getFactory(new TaskGroupSpecification("text", "obfl", locale.toString())));
-		assertNotNull(factory.getFactory(new TaskGroupSpecification("txt", "obfl", locale.toString())));
-		assertNotNull(factory.getFactory(new TaskGroupSpecification("dtbook", "obfl", locale.toString())));
+		assertNotNull(factory.getFactory(TaskGroupInformation.newConvertBuilder("xml", "obfl").locale(locale.toString()).build()));
+		assertNotNull(factory.getFactory(TaskGroupInformation.newConvertBuilder("text", "obfl").build()));
+		assertNotNull(factory.getFactory(TaskGroupInformation.newConvertBuilder("txt", "obfl").build()));
+		assertNotNull(factory.getFactory(TaskGroupInformation.newConvertBuilder("dtbook", "obfl").locale(locale.toString()).build()));
 	}
 	
 	@Test
@@ -73,9 +73,9 @@ public abstract class TaskGroupFactoryMakerTestbase {
 		FilterLocale locale = FilterLocale.parse("en-US");
 		
 		//Test
-		assertNotNull(factory.getFactory(new TaskGroupSpecification("xml", "obfl", locale.toString())));
-		assertNotNull(factory.getFactory(new TaskGroupSpecification("text", "obfl", locale.toString())));
-		assertNotNull(factory.getFactory(new TaskGroupSpecification("txt", "obfl", locale.toString())));
-		assertNotNull(factory.getFactory(new TaskGroupSpecification("dtbook", "obfl", locale.toString())));
+		assertNotNull(factory.getFactory(TaskGroupInformation.newConvertBuilder("xml", "obfl").locale(locale.toString()).build()));
+		assertNotNull(factory.getFactory(TaskGroupInformation.newConvertBuilder("text", "obfl").build()));
+		assertNotNull(factory.getFactory(TaskGroupInformation.newConvertBuilder("txt", "obfl").build()));
+		assertNotNull(factory.getFactory(TaskGroupInformation.newConvertBuilder("dtbook", "obfl").locale(locale.toString()).build()));
 	}
 }
