@@ -1,5 +1,27 @@
 [Table of Contents](toc.md)
 
+# 3.0.0-beta4 #
+## New in this version ##
+- Adds support for Danish, German and Norwegian
+- Raises the log level for non-braille characters in PEF output
+- Fixes a problem with some options that were not displayed
+- Removes obfl-output-location from metadata
+- Makes it possible to override xslt localization data from CLI
+- Improves a file copy error message
+- Adds a version file to tar and zip distributions
+
+### Improvements to OBFL input processing ###
+- OBFL-validation now support tables and xml-data inside blocks
+- Adds support for attribute "underline-pattern"
+- Adds support for new marker-reference scope "spread-content"
+- Adds support for grouping of collection items according to volume
+- Removes "no block allowed within block with underline properties" restriction
+
+### Improvements to runtime plugin support ###
+- Supports identification factories
+- Improves support for providing several enhancers for the same format
+- All consumers now calls setCreatedWithSPI
+
 # 3.0.0-beta3 #
  - Improves format detection
  - Help text lists supported input and output formats
