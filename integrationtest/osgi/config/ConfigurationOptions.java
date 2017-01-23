@@ -94,8 +94,8 @@ public abstract class ConfigurationOptions {
 					dotifyCommon(),
 					jing(),
 					saxon(),
-					mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.task.impl").version("3.0.0")
-					//sonatypeStaging("org.daisy.dotify", "dotify.task.impl", "3.0.0")
+					mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.task.impl").version("3.1.0")
+					//sonatypeStaging("org.daisy.dotify", "dotify.task.impl", "3.1.0")
 				);
 	}
 	
