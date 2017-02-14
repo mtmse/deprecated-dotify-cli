@@ -47,6 +47,14 @@ sourceSets {
 	}
 }
 
+// required for gradle build outside of Eclipse
+task copyTestResources(type: Copy) {
+    from "${projectDir}/integrationtest"
+    into "${buildDir}/classes/test"
+}
+processTestResources.dependsOn copyTestResources
+//
+
 jar.doFirst {
 	manifest {
     	attributes ('Built-By': System.getProperty("user.name"),
@@ -71,9 +79,8 @@ repositories {
 }
 
 dependencies {
-	compile ('org.daisy.braille:braille-utils.ui:2.0.0-beta1') {
-		exclude module: 'Saxon-HE'
-	}
+	compile 'org.daisy.braille:braille-utils.api:2.0.0'
+	compile 'org.daisy.braille:braille-utils.basic-cli:1.0.0'
 	compile ('org.daisy.braille:braille-utils.pef-tools:2.0.0-alpha') {
 		exclude module: 'Saxon-HE'
 	}
@@ -84,6 +91,7 @@ dependencies {
 	}
 	compile 'org.daisy.dotify:dotify.task-api:3.0.0'
 
+	runtime 'org.daisy.braille:braille-utils.impl:3.0.0-beta'
 	runtime ('org.daisy.dotify:dotify.formatter.impl:3.1.0') {
 		exclude module: 'Saxon-HE'
 	}
@@ -112,6 +120,10 @@ dependencies {
 
 applicationDistribution.from(file('docs')) {
     into 'docs'
+}
+
+applicationDistribution.from(file('licenses')) {
+	into 'licenses'
 }
 
 def versionFile = file("$buildDir/version")

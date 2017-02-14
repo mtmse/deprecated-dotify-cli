@@ -2,13 +2,22 @@
 [![Type](https://img.shields.io/badge/type-application-blue.svg)](https://github.com/brailleapps/wiki/wiki/Types)
 
 # Dotify
-Dotify Braille Translation System is an open source Braille translator written in Java.  Dotify is designed for collaborative, open source braille software development.
+Dotify Braille Translation System is an open source Braille formatter and translator written in Java. It also supports embossing and managing braille in PEF-format, including converting to and from other "braille" text formats.
+Dotify is designed for collaborative, open source braille software development.
 
 ## Main Features ##
   * Translates and formats braille
-  * Includes all features of [Braille Utils](https://github.com/brailleapps/braille-utils-cli)
+  * Emboss a PEF-file
+  * Validate a PEF-file
+  * Search meta data in collection of PEF-files
+  * Convert from text to a PEF-file
+  * Convert from a PEF-file to text
+  * Split a PEF-file into one file per volume
+  * Merge several PEF-files into one
 
-### Performance ###
+Dotify supports a range of embossers, including popular [Index](http://www.indexbraille.com/) and [Braillo](http://www.braillo.com/) embossers. Note however that several embossers are untested, due to lack of access and/or time.
+
+### Translator/Formatter Performance ###
 Less than 10 seconds/book or over 70 braille pages/second (based on a selection of novels) utilizing a single core of a modern PC and including startup activites. Startup activites account for up to 4 seconds of the total processing time in this example. The performance is thus even better when running in a server environment (e.g. as part of a Daisy Pipeline 2 installation), since the startup activites rarely have to be repeated. 
 
 Performance could be improved further by utilizing more than one core.

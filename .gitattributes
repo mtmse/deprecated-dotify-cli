@@ -62,3 +62,4 @@
 *.so            binary
 *.ttf			binary
 *.war           binary
+*.prn			-text
