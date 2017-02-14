@@ -76,6 +76,7 @@ public class DotifyCLI extends AbstractUI {
 
 		//Interactive commands
 		putCommand(TRANSLATE, "translates text on system in to braille on system out", TranslateCLI.class);
+		commands.put("eval", EvaluateCLI.class);
 
 		//Diagnostics commands
 		putCommand(GENERATE, "generates a random PEF-file for testing", GeneratePEF.class);
