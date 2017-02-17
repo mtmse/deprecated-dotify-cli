@@ -6,7 +6,7 @@ public class DotifyCLI extends BasicUI {
 
 	public DotifyCLI(String[] args) {
 		super(args);
-		putCommand("convert", "Converts a document into braille with Dotify", Main.class);
+		putCommand("convert", "Converts a document into braille with Dotify", Convert.class);
 		putCommand("translate", "Translates text on system in to braille on system out", TranslateCLI.class);
 	}
 	

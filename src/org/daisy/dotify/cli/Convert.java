@@ -44,8 +44,8 @@ import org.xml.sax.SAXException;
  * Provides a command line entry point to Dotify.
  * @author Joel Håkansson
  */
-public class Main extends AbstractUI {
-	private static final Logger logger = Logger.getLogger(Main.class.getCanonicalName());
+public class Convert extends AbstractUI {
+	private static final Logger logger = Logger.getLogger(Convert.class.getCanonicalName());
 	//private static final String DEFAULT_TEMPLATE = "A4-w32";
 	private static final String DEFAULT_LOCALE = Locale.getDefault().toString().replaceAll("_", "-");
 	private static final String CONFIG_KEY = "configs";
@@ -59,7 +59,7 @@ public class Main extends AbstractUI {
 	private final List<OptionalArgument> optionalArgs;
 	private final BrailleUtilsInfo brailleInfo;
 
-	public Main() {
+	public Convert() {
 		this.brailleInfo = new BrailleUtilsInfo();
 		//Use lazy loading of argument details
 		this.reqArgs = new ArrayList<Argument>();
@@ -76,7 +76,7 @@ public class Main extends AbstractUI {
 	 * @throws InternalTaskException if there is a problem with running the tasks
 	 */
 	public static void main(String[] args) throws InternalTaskException, IOException {
-		Main m = new Main();
+		Convert m = new Convert();
 		CommandParserResult result = m.parser.parse(args);
 		List<String> p = result.getRequired();
 		if (args.length<2 || p.size()<2) {
@@ -88,26 +88,26 @@ public class Main extends AbstractUI {
 				for (TranslatorSpecification ts : s) {
 					System.out.println("  " + ts.getLocale() + ", " + ts.getMode());
 				}
-				Main.exitWithCode(ExitCode.OK);
+				Convert.exitWithCode(ExitCode.OK);
 			} else {
 				System.out.println("Expected at least two arguments");
 				
 				System.out.println();
 				m.displayHelp(System.out);
-				Main.exitWithCode(ExitCode.MISSING_ARGUMENT);
+				Convert.exitWithCode(ExitCode.MISSING_ARGUMENT);
 			}
 		} else if (p.size()>2) { 
 			System.out.println("Unknown argument(s): " + p.subList(2, p.size()));
 			System.out.println();
 			m.displayHelp(System.out);
-			Main.exitWithCode(ExitCode.UNKNOWN_ARGUMENT);
+			Convert.exitWithCode(ExitCode.UNKNOWN_ARGUMENT);
 		}
 		// remove required arguments
 		File input = new File(p.get(0));
 		//File input = new File(args[0]);
 		if (!input.exists()) {
 			System.out.println("Cannot find input file: " + input);
-			Main.exitWithCode(ExitCode.MISSING_RESOURCE);
+			Convert.exitWithCode(ExitCode.MISSING_RESOURCE);
 		}
 		
 		final File output = new File(p.get(1)).getAbsoluteFile();
@@ -133,11 +133,11 @@ public class Main extends AbstractUI {
 				logger.warning("'" + WATCH_KEY + "' is not implemented for batch mode.");
 			}
 			if ("true".equals(props.get(SystemKeys.WRITE_TEMP_FILES))) {
-				Main.exitWithCode(ExitCode.ILLEGAL_ARGUMENT_VALUE, "Cannot write debug files in batch mode.");
+				Convert.exitWithCode(ExitCode.ILLEGAL_ARGUMENT_VALUE, "Cannot write debug files in batch mode.");
 			}
 			String format = props.get(SystemKeys.OUTPUT_FORMAT);
 			if (format==null) {
-				Main.exitWithCode(ExitCode.MISSING_ARGUMENT, SystemKeys.OUTPUT_FORMAT + " must be specified in batch mode.");
+				Convert.exitWithCode(ExitCode.MISSING_ARGUMENT, SystemKeys.OUTPUT_FORMAT + " must be specified in batch mode.");
 			} else if (format.equals(SystemKeys.PEF_FORMAT)) {
 				format = "pef";
 			} else if (format.equals(SystemKeys.TEXT_FORMAT)) {
@@ -145,7 +145,7 @@ public class Main extends AbstractUI {
 			} else if (format.equals(SystemKeys.OBFL_FORMAT)) {
 				format = "obfl";
 			} else {
-				Main.exitWithCode(ExitCode.ILLEGAL_ARGUMENT_VALUE, "Unknown output format.");
+				Convert.exitWithCode(ExitCode.ILLEGAL_ARGUMENT_VALUE, "Unknown output format.");
 			}
 			//Experimental parallelization code in comment.
 			//ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
@@ -169,7 +169,7 @@ public class Main extends AbstractUI {
 			//	e.printStackTrace();
 			//}
 		} else if (input.isDirectory()) { 
-			Main.exitWithCode(ExitCode.ILLEGAL_ARGUMENT_VALUE, "If input is a directory, output must be an existing directory too.");
+			Convert.exitWithCode(ExitCode.ILLEGAL_ARGUMENT_VALUE, "If input is a directory, output must be an existing directory too.");
 		} else {
 			String pollWaitStr = result.getOptional().get(WATCH_KEY);
 			if (pollWaitStr!=null) {
@@ -206,7 +206,7 @@ public class Main extends AbstractUI {
 	
 	private void runDotify(File input, File output, String context, HashMap<String, String> props) throws InternalTaskException, IOException {
 		if (!input.exists()) {
-			Main.exitWithCode(ExitCode.MISSING_RESOURCE, "Cannot find input file: " + input);
+			Convert.exitWithCode(ExitCode.MISSING_RESOURCE, "Cannot find input file: " + input);
 		}
 		Dotify.run(input, output, FilterLocale.parse(context), props);
 		int i = output.getName().lastIndexOf(".");
