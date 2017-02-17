@@ -1,6 +1,6 @@
 package org.daisy.dotify;
 
-import org.daisy.braille.ui.ManifestRetriever;
+import org.daisy.dotify.cli.ManifestRetriever;
 
 /**
  * Provides common property values of the system

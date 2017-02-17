@@ -1,19 +1,19 @@
-package org.daisy.braille.ui.pefinfo;
+package org.daisy.dotify.cli.pefinfo;
 
 import java.util.Arrays;
 
 import org.daisy.braille.pef.PEFBook;
 
-public class PagesDetail implements Detail {
+public class VolumesDetail implements Detail {
 
 	@Override
 	public String getTitle() {
-		return "Pages";
+		return "Volumes";
 	}
 
 	@Override
 	public Iterable<String> getDetails(PEFBook book) {
-		return Arrays.asList(""+book.getPages());
+		return Arrays.asList(""+book.getVolumes());
 	}
 
 }

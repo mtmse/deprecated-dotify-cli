@@ -15,4 +15,4 @@
  * 
  * @author Joel Håkansson
  */
-package org.daisy.braille.ui;
+package org.daisy.dotify.cli;

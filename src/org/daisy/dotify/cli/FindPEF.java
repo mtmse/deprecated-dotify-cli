@@ -15,7 +15,7 @@
  * along with this library; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package org.daisy.braille.ui;
+package org.daisy.dotify.cli;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,16 +34,16 @@ import org.daisy.braille.pef.PEFBook;
 import org.daisy.braille.pef.PEFBookLoader;
 import org.daisy.braille.pef.PEFLibrary;
 import org.daisy.braille.pef.PEFSearchIndex;
-import org.daisy.braille.ui.pefinfo.Detail;
-import org.daisy.braille.ui.pefinfo.DetailSet;
-import org.daisy.braille.ui.pefinfo.PEFBookInfo;
-import org.daisy.braille.ui.pefinfo.URIDetail;
 import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
 import org.daisy.cli.CommandParserResult;
 import org.daisy.cli.ExitCode;
 import org.daisy.cli.OptionalArgument;
 import org.daisy.cli.SwitchArgument;
+import org.daisy.dotify.cli.pefinfo.Detail;
+import org.daisy.dotify.cli.pefinfo.DetailSet;
+import org.daisy.dotify.cli.pefinfo.PEFBookInfo;
+import org.daisy.dotify.cli.pefinfo.URIDetail;
 import org.xml.sax.SAXException;
 
 /**

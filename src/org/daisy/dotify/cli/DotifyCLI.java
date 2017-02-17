@@ -1,6 +1,5 @@
 package org.daisy.dotify.cli;
 
-import org.daisy.braille.ui.BasicUI;
 import org.daisy.dotify.SystemProperties;
 
 public class DotifyCLI extends BasicUI {

@@ -1,4 +1,4 @@
-package org.daisy.braille.ui;
+package org.daisy.dotify.cli;
 
 import java.util.ArrayList;
 import java.util.Arrays;

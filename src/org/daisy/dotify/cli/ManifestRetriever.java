@@ -1,4 +1,4 @@
-package org.daisy.braille.ui;
+package org.daisy.dotify.cli;
 
 import java.io.IOException;
 import java.net.URL;

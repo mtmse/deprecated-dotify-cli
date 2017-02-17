@@ -1,4 +1,4 @@
-package org.daisy.braille.ui.pefinfo;
+package org.daisy.dotify.cli.pefinfo;
 
 import java.io.PrintStream;
 import java.util.ArrayList;

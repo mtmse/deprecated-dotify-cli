@@ -1,4 +1,4 @@
-package org.daisy.braille.ui.pefinfo;
+package org.daisy.dotify.cli.pefinfo;
 
 import org.daisy.braille.pef.PEFBook;
 

@@ -1,9 +1,9 @@
-package org.daisy.braille.ui.pefinfo;
+package org.daisy.dotify.cli.pefinfo;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.daisy.braille.ui.pefinfo.DublinCoreDetail.Elements;
+import org.daisy.dotify.cli.pefinfo.DublinCoreDetail.Elements;
 
 public enum DetailSet {
 	DEFAULT,
