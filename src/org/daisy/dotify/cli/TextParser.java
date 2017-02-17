@@ -103,7 +103,7 @@ class TextParser extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return BasicUI.text2pef;
+		return DotifyCLI.text2pef;
 	}
 	
 	@Override

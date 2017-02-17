@@ -32,7 +32,7 @@ import org.daisy.cli.SwitchArgument;
 
 /**
  * Provides a UI for generating PEF-files. Not for public use.
- * This class is a package class. Use BasicUI
+ * This class is a package class. Use DotifyCLI
  * @author Joel Håkansson
  */
 class GeneratePEF extends AbstractUI {
@@ -89,7 +89,7 @@ class GeneratePEF extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return BasicUI.generate;
+		return DotifyCLI.generate;
 	}
 	
 	@Override

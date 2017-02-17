@@ -30,7 +30,7 @@ import org.daisy.cli.OptionalArgument;
 
 /**
  * Provides a UI for splitting a PEF-file. Not for public use. 
- * This class is a package class. Use BasicUI
+ * This class is a package class. Use DotifyCLI
  * @author Joel Håkansson
  */
 class SplitPEF extends AbstractUI {
@@ -54,7 +54,7 @@ class SplitPEF extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return BasicUI.split;
+		return DotifyCLI.split;
 	}
 	
 	@Override

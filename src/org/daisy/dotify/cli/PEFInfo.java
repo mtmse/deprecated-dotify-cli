@@ -39,7 +39,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Provides a UI for generating PEF-files. Not for public use.
- * This class is a package class. Use BasicUI
+ * This class is a package class. Use DotifyCLI
  * @author Joel Håkansson
  */
 class PEFInfo extends AbstractUI {
@@ -95,7 +95,7 @@ class PEFInfo extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return BasicUI.inspect;
+		return DotifyCLI.inspect;
 	}
 	
 	@Override

@@ -66,7 +66,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Provides a UI for embossing a PEF-file.
- * Not for public use. This class is a package class. Use BasicUI 
+ * Not for public use. This class is a package class. Use DotifyCLI 
  * @author Joel Håkansson
  */
 class EmbossPEF extends AbstractUI {
@@ -327,7 +327,7 @@ class EmbossPEF extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return BasicUI.emboss;
+		return DotifyCLI.emboss;
 	}
 	
 	@Override

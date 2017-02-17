@@ -149,7 +149,7 @@ class ListStuff extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return BasicUI.list;
+		return DotifyCLI.list;
 	}
 	
 	@Override

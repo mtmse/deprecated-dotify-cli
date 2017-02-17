@@ -34,7 +34,7 @@ import org.daisy.cli.ExitCode;
 import org.daisy.cli.OptionalArgument;
 
 /**
- * Provides a UI for merging PEF-files. Not for public use. This class is a package class. Use BasicUI
+ * Provides a UI for merging PEF-files. Not for public use. This class is a package class. Use DotifyCLI
  * @author Joel Håkansson
  */
 class MergePEF extends AbstractUI {
@@ -73,7 +73,7 @@ class MergePEF extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return BasicUI.merge;
+		return DotifyCLI.merge;
 	}
 	
 	@Override
