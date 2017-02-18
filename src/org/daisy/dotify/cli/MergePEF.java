@@ -73,7 +73,7 @@ class MergePEF extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return DotifyCLI.merge;
+		return DotifyCLI.MERGE;
 	}
 	
 	@Override

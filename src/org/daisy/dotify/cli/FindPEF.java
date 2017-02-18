@@ -138,7 +138,7 @@ class FindPEF extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return DotifyCLI.find;
+		return DotifyCLI.FIND;
 	}
 	
 	@Override

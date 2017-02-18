@@ -121,7 +121,7 @@ class PEFParser extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return DotifyCLI.pef2text;
+		return DotifyCLI.PEF2TEXT;
 	}
 	
 	@Override

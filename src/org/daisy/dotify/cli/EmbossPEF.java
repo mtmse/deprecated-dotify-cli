@@ -70,15 +70,15 @@ import org.xml.sax.SAXException;
  * @author Joel Håkansson
  */
 class EmbossPEF extends AbstractUI {
-	public static String DEVICE_NAME = "device name";
-	public static String EMBOSSER_TYPE = "embosser type";
-	public static String TABLE_TYPE = "table type";
-	public static String PAPER_SIZE = "paper size";
-	public static String CUT_LENGTH = "cut length";
-	public static String ORIENTATION = "orientation";
-	public static String PRINT_MODE = "print mode";
-	public static String KEY_RANGE = "range";
-	public static String KEY_COPIES = "copies";
+	public static final String DEVICE_NAME = "device name";
+	public static final String EMBOSSER_TYPE = "embosser type";
+	public static final String TABLE_TYPE = "table type";
+	public static final String PAPER_SIZE = "paper size";
+	public static final String CUT_LENGTH = "cut length";
+	public static final String ORIENTATION = "orientation";
+	public static final String PRINT_MODE = "print mode";
+	public static final String KEY_RANGE = "range";
+	public static final String KEY_COPIES = "copies";
 
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;
@@ -327,7 +327,7 @@ class EmbossPEF extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return DotifyCLI.emboss;
+		return DotifyCLI.EMBOSS;
 	}
 	
 	@Override

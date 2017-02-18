@@ -95,7 +95,7 @@ class PEFInfo extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return DotifyCLI.inspect;
+		return DotifyCLI.INSPECT;
 	}
 	
 	@Override

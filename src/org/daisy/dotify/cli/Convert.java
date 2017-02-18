@@ -248,7 +248,7 @@ public class Convert extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return "convert";
+		return DotifyCLI.CONVERT;
 	}
 	
 	@Override

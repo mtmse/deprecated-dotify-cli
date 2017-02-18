@@ -108,7 +108,7 @@ public class TranslateCLI extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return "translate";
+		return DotifyCLI.TRANSLATE;
 	}
 
 	@Override

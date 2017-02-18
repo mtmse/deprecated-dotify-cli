@@ -83,7 +83,7 @@ class ValidatePEF extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return DotifyCLI.validate;
+		return DotifyCLI.VALIDATE;
 	}
 	
 	@Override

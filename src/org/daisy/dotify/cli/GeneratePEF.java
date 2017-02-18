@@ -89,7 +89,7 @@ class GeneratePEF extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return DotifyCLI.generate;
+		return DotifyCLI.GENERATE;
 	}
 	
 	@Override

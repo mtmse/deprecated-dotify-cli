@@ -54,7 +54,7 @@ class SplitPEF extends AbstractUI {
 
 	@Override
 	public String getName() {
-		return DotifyCLI.split;
+		return DotifyCLI.SPLIT;
 	}
 	
 	@Override
