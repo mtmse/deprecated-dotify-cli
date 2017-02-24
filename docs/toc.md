@@ -2,7 +2,7 @@
 
 * [User's Guide](UsersGuide.md)
   * Commands
-    * [convert](user-guide.md)
+    * [convert](Convert.md)
     * [emboss](Emboss.md)
     * [text2pef](TextToPef.md)
     * [pef2text](PefToText.md)

@@ -1,16 +1,8 @@
 [Table of Contents](toc.md)
 
-# Introduction #
-Dotify is a braille translator written in Java.
+## Convert ##
+Converts a document into braille.
 
-# Running the Command Line UI #
-To run the command line UI, download and extract the latest release of Dotify. If you do not have Java installed on your machine, you have to download and install that as well.
-
-On the command line, navigate to the `bin` folder inside the extracted folder and type: `dotify convert`. Press enter.
-
-This will bring up the embedded help for the `convert` command. The options are explained in detail below.
-
-## Required Arguments ##
 Dotify requires two arguments to run:
   * path to an input file
   * path to the output file
@@ -26,7 +18,7 @@ The input file should, of course, be something that Dotify understands. Because 
 
 DTBook is the most developed input format, and it produces a result that meets MTM's braille standards.
 
-HTML/Epub support is very basic, but will be enhanced in the fall of 2016.
+HTML/Epub support is well developed, but tables are not as advanced as in DTBook.
 
 The generic XML support is also very basic. Dotify attempts to render the file without understanding the content, which is unlikely to produce a satisfactory result. However, the feature could be useful in some cases.
 
@@ -58,6 +50,8 @@ The following optional arguments are available:
   * dateFormat
   * table
   * watch
+  * listOptions
+  * configs
 
 ### preset ###
 The preset specifies some key properties of the finished product, such as row spacing, characters/line, rows/page and sheets/volume. Each of these can be set
@@ -107,4 +101,4 @@ If present, lists the available combinations of locale and braille translators
 # Example Workflow #
   1. Markup using a format of choice
   1. Process format into PEF (with Dotify)
-  1. Emboss using Dotify, [Braille Utils](https://github.com/brailleapps/braille-utils-cli) or [Easy Embossing Utility](https://github.com/joeha480/e2u)
+  1. Emboss using Dotify or [Dotify Studio](https://github.com/brailleapps/dotify-studio)

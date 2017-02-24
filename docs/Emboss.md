@@ -5,8 +5,8 @@ Send a PEF-file to an embosser for embossing.
 
 One argument is required, and can be one of the following:
   * path to a file
-  * `-clear`
-  * `-setup`
+  * `--clear`
+  * `--setup`
 
 Upon the first run, the application will ask the user for the required setup:
   * device
@@ -14,7 +14,7 @@ Upon the first run, the application will ask the user for the required setup:
   * embosser table (if applicable)
   * paper size
 
-The file will be sent directly to the embosser on subsequent runs. To change settings, use either `-setup` or `-clear`.
+The file will be sent directly to the embosser on subsequent runs. To change settings, use either `--setup` or `--clear`.
 
 ## Setup ##
 Setup will ask all the user to verify all settings.

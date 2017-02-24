@@ -9,7 +9,7 @@ The input file should be a "braille ready" text file, i.e. broken in rows an pag
 
 <pre>
 Example:<br>
-java -jar brailleUtils-ui.jar text2pef input.txt output.pef<br>
+dotify text2pef input.txt output.pef<br>
 </pre>
 
 Optional arguments include:
@@ -25,7 +25,7 @@ The options `identifier`, `date`, `author`, `title` and `language` all involve s
 
 <pre>
 Example:<br>
-java -jar brailleUtils-ui.jar text2pef input.txt output.pef -date=2013-01-01<br>
+dotify text2pef input.txt output.pef -date=2013-01-01<br>
 </pre>
 
 ## Mode ##
@@ -33,7 +33,7 @@ Choose a table to use when converting. Note that, if a character is encountered 
 
 <pre>
 Example:<br>
-java -jar brailleUtils-ui.jar text2pef input.txt output.pef -mode=nabcc<br>
+dotify text2pef input.txt output.pef -mode=nabcc<br>
 </pre>
 
 ## Duplex ##
@@ -41,5 +41,5 @@ Set the duplex property of the resulting file.
 
 <pre>
 Example:<br>
-java -jar brailleUtils-ui.jar text2pef input.txt output.pef -duplex=true<br>
+dotify text2pef input.txt output.pef -duplex=true<br>
 </pre>
