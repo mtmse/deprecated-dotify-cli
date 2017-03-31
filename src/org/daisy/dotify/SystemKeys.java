@@ -34,9 +34,7 @@ public interface SystemKeys {
 	
 	public static final String TEMPLATE = "template";
 	
-	public static final String DATE_FORMAT = "dateFormat";
-	public static final String DATE = "date";
-	public static final String IDENTIFIER = "identifier";
+
 	
 	public static final String PEF_FORMAT = "pef";
 	public static final String TEXT_FORMAT = "text";

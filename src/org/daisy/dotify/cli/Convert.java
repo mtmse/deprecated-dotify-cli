@@ -293,7 +293,6 @@ public class Convert extends AbstractUI {
 				//vals.add(new Definition(SystemKeys.OBFL_FORMAT, "write result in OBFL-format (bypass formatter)"));
 				optionalArgs.add(new OptionalArgument(SystemKeys.OUTPUT_FORMAT, "Specifies output format", vals, "[detect]"));
 			}
-			optionalArgs.add(new OptionalArgument(SystemKeys.IDENTIFIER, "Sets identifier in meta data (if available)", "[generated value]"));
 			{
 				ArrayList<Definition> vals = new ArrayList<Definition>();
 				vals.add(new Definition("true", "outputs temp files"));
@@ -301,8 +300,6 @@ public class Convert extends AbstractUI {
 				optionalArgs.add(new OptionalArgument(SystemKeys.WRITE_TEMP_FILES, "Writes temp files", vals, "false"));
 			}
 			optionalArgs.add(new OptionalArgument(SystemKeys.TEMP_FILES_DIRECTORY, "Path to temp files directory", DefaultTempFileWriter.TEMP_DIR));
-			optionalArgs.add(new OptionalArgument(SystemKeys.DATE, "Sets date in meta data (if available)", Dotify.getDefaultDate(SystemProperties.DEFAULT_DATE_FORMAT)));
-			optionalArgs.add(new OptionalArgument(SystemKeys.DATE_FORMAT, "Date format in meta data (if available and date is not specified)", SystemProperties.DEFAULT_DATE_FORMAT));
 			optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_TABLE, "If specified, an ASCII-braille file (.brl) is generated in addition to the PEF-file using the specified braille code table", brailleInfo.getDefinitionList(), ""));
 		}
 		return optionalArgs;

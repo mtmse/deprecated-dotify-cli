@@ -141,22 +141,8 @@ public class Dotify {
 		map.put(SystemKeys.INPUT_URI, ai.getFile().toURI().toString());
 		
 		// Add default values for optional parameters
-		String dateFormat = params.get(SystemKeys.DATE_FORMAT);
-		if (dateFormat==null || "".equals(dateFormat)) {
-			dateFormat = SystemProperties.DEFAULT_DATE_FORMAT;
-			map.put(SystemKeys.DATE_FORMAT, dateFormat);
-		}
-		final String tempFilesDirectory = params.get(SystemKeys.TEMP_FILES_DIRECTORY);
 
-		if (map.get(SystemKeys.DATE)==null || "".equals(map.get(SystemKeys.DATE))) {
-			map.put(SystemKeys.DATE, getDefaultDate(dateFormat));
-		}
-		if (map.get(SystemKeys.IDENTIFIER)==null || "".equals(map.get(SystemKeys.IDENTIFIER))) {
-			String id = Double.toHexString(Math.random());
-			id = id.substring(id.indexOf('.')+1);
-			id = id.substring(0, id.indexOf('p'));
-			map.put(SystemKeys.IDENTIFIER, "dummy-id-"+ id);
-		}
+		final String tempFilesDirectory = params.get(SystemKeys.TEMP_FILES_DIRECTORY);
 
 		// Load additional settings from file
 		if (map.get("config")==null || "".equals(map.get("config"))) {
@@ -329,13 +315,6 @@ public class Dotify {
 			} 
 		}
 		out.println();
-	}
-
-	public static String getDefaultDate(String dateFormat) {
-		Calendar c = Calendar.getInstance();
-		c.setTime(new Date());
-		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-		return sdf.format(c.getTime());
 	}
 
 }

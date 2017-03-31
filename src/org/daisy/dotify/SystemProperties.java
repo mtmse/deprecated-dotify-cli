@@ -21,8 +21,6 @@ public final class SystemProperties {
 	 * Defines the system release
 	 */
 	public static final String SYSTEM_RELEASE = getWithDefault(retriever.getManifest().getMainAttributes().getValue("Implementation-Version"), "N/A");
-
-	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
 	
 	private static final String getWithDefault(String val, String def) {
 		return (val!=null?val:def);
