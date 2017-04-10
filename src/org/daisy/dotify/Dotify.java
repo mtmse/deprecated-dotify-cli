@@ -222,7 +222,7 @@ public class Dotify {
 	private Map<String, Object> loadSetup(Map<String, String> guiParams, String setup) {
 		Properties p0;
 		if (setup==null) {
-			p0 = getDefaultConfiguration();
+			p0 = new Properties();
 		} else {
 			p0 = loadConfiguration(setup);
 		}
@@ -235,17 +235,6 @@ public class Dotify {
 		ret.putAll(guiParams);
 
 		return ret;
-	}
-	
-	private Properties getDefaultConfiguration() {
-		Properties p0 = new Properties();
-		p0.setProperty("rows", "29");
-		p0.setProperty("cols", "28");
-		p0.setProperty("inner-margin", "2");
-		p0.setProperty("outer-margin", "2");
-		p0.setProperty("rowgap", "0");
-		p0.setProperty("splitterMax", "50");
-		return p0;
 	}
 	
 	private Properties loadConfiguration(String setup) {
