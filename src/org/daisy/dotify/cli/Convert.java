@@ -12,6 +12,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -278,7 +279,12 @@ public class Convert extends AbstractUI {
 			{
 				ArrayList<Definition> vals = new ArrayList<Definition>();
 				ConfigurationsCatalog c = ConfigurationsCatalog.newInstance();
-				for (ConfigurationDetails details : c.getConfigurationDetails()) {
+				List<ConfigurationDetails> detailsList = c.getConfigurationDetails().stream()
+						.sorted((o1, o2) -> {
+							return o1.getKey().compareTo(o2.getKey());
+						})
+						.collect(Collectors.toList());
+				for (ConfigurationDetails details : detailsList) {
 					vals.add(new Definition(details.getKey(), details.getDescription()));
 				}
 				vals.add(new Definition("[other]", "Path to setup file"));
