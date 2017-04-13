@@ -29,12 +29,12 @@ import org.daisy.cli.OptionalArgument;
 import org.daisy.cli.SwitchArgument;
 import org.daisy.dotify.Dotify;
 import org.daisy.dotify.SystemKeys;
-import org.daisy.dotify.SystemProperties;
+import org.daisy.dotify.api.config.ConfigurationDetails;
 import org.daisy.dotify.api.tasks.InternalTaskException;
 import org.daisy.dotify.api.tasks.TaskGroupInformation;
 import org.daisy.dotify.api.translator.TranslatorSpecification;
 import org.daisy.dotify.common.text.FilterLocale;
-import org.daisy.dotify.config.ConfigurationsCatalog;
+import org.daisy.dotify.consumer.config.ConfigurationsCatalog;
 import org.daisy.dotify.consumer.tasks.TaskGroupFactoryMaker;
 import org.daisy.dotify.consumer.translator.BrailleTranslatorFactoryMaker;
 import org.daisy.dotify.tasks.runner.DefaultTempFileWriter;
@@ -278,8 +278,8 @@ public class Convert extends AbstractUI {
 			{
 				ArrayList<Definition> vals = new ArrayList<Definition>();
 				ConfigurationsCatalog c = ConfigurationsCatalog.newInstance();
-				for (String o : c.getKeys()) {
-					vals.add(new Definition(o, c.getConfigurationDescription(o)));
+				for (ConfigurationDetails details : c.getConfigurationDetails()) {
+					vals.add(new Definition(details.getKey(), details.getDescription()));
 				}
 				vals.add(new Definition("[other]", "Path to setup file"));
 				optionalArgs.add(new OptionalArgument("preset", "A preset to use", vals, null));

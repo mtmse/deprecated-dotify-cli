@@ -8,8 +8,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
@@ -19,6 +17,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import org.daisy.dotify.api.config.ConfigurationsProviderException;
 import org.daisy.dotify.api.tasks.AnnotatedFile;
 import org.daisy.dotify.api.tasks.CompiledTaskSystem;
 import org.daisy.dotify.api.tasks.DefaultAnnotatedFile;
@@ -29,11 +28,10 @@ import org.daisy.dotify.api.tasks.TaskOptionValue;
 import org.daisy.dotify.api.tasks.TaskSystem;
 import org.daisy.dotify.api.tasks.TaskSystemException;
 import org.daisy.dotify.api.tasks.TaskSystemFactoryException;
-import org.daisy.dotify.common.io.ResourceLocatorException;
 import org.daisy.dotify.common.text.FilterLocale;
 import org.daisy.dotify.common.xml.XMLTools;
 import org.daisy.dotify.common.xml.XMLToolsException;
-import org.daisy.dotify.config.ConfigurationsCatalog;
+import org.daisy.dotify.consumer.config.ConfigurationsCatalog;
 import org.daisy.dotify.consumer.identity.IdentityProvider;
 import org.daisy.dotify.consumer.tasks.TaskGroupFactoryMaker;
 import org.daisy.dotify.consumer.tasks.TaskSystemFactoryMaker;
@@ -220,15 +218,11 @@ public class Dotify {
 	}
 	
 	private Map<String, Object> loadSetup(Map<String, String> guiParams, String setup) {
-		Properties p0;
+		Map<String, Object> ret;
 		if (setup==null) {
-			p0 = new Properties();
+			ret = new HashMap<>();
 		} else {
-			p0 = loadConfiguration(setup);
-		}
-		Map<String, Object> ret = new HashMap<String, Object>();
-		for (Object key : p0.keySet()) {
-			ret.put(key.toString(), p0.get(key));
+			ret = loadConfiguration(setup);
 		}
 
 		// GUI parameters should take precedence
@@ -237,11 +231,11 @@ public class Dotify {
 		return ret;
 	}
 	
-	private Properties loadConfiguration(String setup) {
+	private Map<String, Object> loadConfiguration(String setup) {
 		try {
 			ConfigurationsCatalog cm = ConfigurationsCatalog.newInstance();
 			return cm.getConfiguration(setup);
-		} catch (ResourceLocatorException e) {
+		} catch (ConfigurationsProviderException e) {
 			//try as file
 			Properties p0 = new Properties();
 			URL configURL;
@@ -249,7 +243,11 @@ public class Dotify {
 				configURL = new URL(setup);
 				try {
 					p0.loadFromXML(configURL.openStream());
-					return p0;
+					Map<String, Object> ret = new HashMap<>();
+					for (Object key : p0.keySet()) {
+						ret.put(key.toString(), p0.get(key));
+					}
+					return ret;
 				} catch (FileNotFoundException e2) {
 					throw new RuntimeException("Configuration file not found: " + configURL, e2);
 				} catch (InvalidPropertiesFormatException e2) {
