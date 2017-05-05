@@ -26,7 +26,7 @@ Performance could be improved further by utilizing more than one core.
 Formatting with hyphenation is supported for over 50 languages. Unfortunately, only Swedish _braille_ is supported. However, depending on your requirements, it may be quite simple to add support for another locale.
 
 ## Using ##
-Download the [latest release](https://github.com/brailleapps/dotify-cli/releases) and unpack it. For more information see, the user guide
+Download the [latest release](https://github.com/brailleapps/dotify-cli/releases) and unpack it. For more information, see the user guide
 in the `docs` folder.
 
 ## Building ##
