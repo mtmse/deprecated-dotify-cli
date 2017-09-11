@@ -79,26 +79,26 @@ repositories {
 }
 
 dependencies {
-	compile 'org.daisy.braille:braille-utils.api:2.0.0'
+	compile 'org.daisy.braille:braille-utils.api:3.0.1'
 	compile 'org.daisy.braille:braille-utils.basic-cli:1.0.0'
-	compile ('org.daisy.braille:braille-utils.pef-tools:2.0.0-alpha') {
+	compile ('org.daisy.braille:braille-utils.pef-tools:2.2.0') {
 		exclude module: 'Saxon-HE'
 	}
 	compile 'org.daisy.dotify:dotify.api:3.1.0'
-	compile 'org.daisy.dotify:dotify.common:3.4.0'
+	compile 'org.daisy.dotify:dotify.common:3.5.1'
 	compile ('org.daisy.dotify:dotify.task-runner:2.0.0') {
 		exclude module: 'dotify.task-api'
 	}
 	compile 'org.daisy.dotify:dotify.task-api:3.2.0'
 
-	runtime 'org.daisy.braille:braille-utils.impl:3.0.0-beta'
+	runtime 'org.daisy.braille:braille-utils.impl:3.0.0'
 	runtime ('org.daisy.dotify:dotify.formatter.impl:3.1.0') {
 		exclude module: 'Saxon-HE'
 	}
 	runtime 'org.daisy.dotify:dotify.hyphenator.impl:3.0.0'
 	runtime 'org.daisy.dotify:dotify.text.impl:3.0.0'
 	runtime 'org.daisy.dotify:dotify.translator.impl:3.0.0'
-	runtime ('org.daisy.dotify:dotify.task.impl:3.3.0') {
+	runtime ('org.daisy.dotify:dotify.task.impl:3.5.0') {
 		exclude module: 'Saxon-HE'
 	}
 	runtime group: "com.googlecode.texhyphj", name: "texhyphj", version: "1.2"

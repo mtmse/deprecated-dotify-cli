@@ -16,13 +16,13 @@ public abstract class ConfigurationOptions {
 		return composite(
 				mavenBundle().groupId("org.daisy.libs").artifactId("jing").version("20120724.0.0"),
 				mavenBundle().groupId("org.daisy.libs").artifactId("saxon-he").version("9.5.1.5"),
-				mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.api").version("2.0.0"),
-				mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.pef-tools").version("1.0.0")
+				mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.api").version("3.0.1"),
+				mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.pef-tools").version("2.2.0")
 				);
 	}
 	
 	public static Option brailleUtilsCatalog() {
-		return mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.impl").version("2.0.0");
+		return mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.impl").version("3.0.0");
 	}
 
 	static Option dotifyApi() {
@@ -30,7 +30,7 @@ public abstract class ConfigurationOptions {
 	}
 	
 	static Option dotifyCommon() {
-		return mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.common").version("3.4.0");
+		return mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.common").version("3.5.1");
 	}
 	
 	public static Option dotifyText() {
@@ -107,8 +107,8 @@ public abstract class ConfigurationOptions {
 					dotifyCommon(),
 					jing(),
 					saxon(),
-					mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.task.impl").version("3.3.0")
-					//sonatypeStaging("org.daisy.dotify", "dotify.task.impl", "3.3.0")
+					mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.task.impl").version("3.5.0")
+					//sonatypeStaging("org.daisy.dotify", "dotify.task.impl", "3.5.0")
 				);
 	}
 	
