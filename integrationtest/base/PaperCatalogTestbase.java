@@ -9,6 +9,7 @@ import org.daisy.braille.utils.api.paper.Paper;
 import org.daisy.braille.utils.api.paper.PaperCatalogService;
 import org.junit.Test;
 
+@SuppressWarnings("javadoc")
 public abstract class PaperCatalogTestbase {
 	
 	public abstract PaperCatalogService getPaperCS();

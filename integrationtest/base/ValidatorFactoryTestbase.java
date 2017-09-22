@@ -7,6 +7,7 @@ import org.daisy.braille.utils.api.validator.Validator;
 import org.daisy.braille.utils.api.validator.ValidatorFactoryService;
 import org.junit.Test;
 
+@SuppressWarnings("javadoc")
 public abstract class ValidatorFactoryTestbase {
 	
 	public abstract ValidatorFactoryService getValidatorFS();

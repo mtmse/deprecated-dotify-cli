@@ -5,6 +5,7 @@ import org.daisy.dotify.consumer.text.Integer2TextFactoryMaker;
 
 import base.Integer2TextFactoryTestbase;
 
+@SuppressWarnings("javadoc")
 public class Integer2TextFactoryTest extends Integer2TextFactoryTestbase {
 
 	@Override

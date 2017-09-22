@@ -17,6 +17,7 @@ import org.ops4j.pax.exam.util.Filter;
 import base.ValidityFactoryTestbase;
 import osgi.config.ConfigurationOptions;
 
+@SuppressWarnings("javadoc")
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerClass.class)
 public class ValidityFactoryTest extends ValidityFactoryTestbase {

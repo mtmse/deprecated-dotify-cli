@@ -5,6 +5,7 @@ import org.daisy.dotify.consumer.writer.PagedMediaWriterFactoryMaker;
 
 import base.PagedMediaWriterFactoryMakerTestbase;
 
+@SuppressWarnings("javadoc")
 public class PagedMediaWriterFactoryMakerTest extends PagedMediaWriterFactoryMakerTestbase {
 
 	@Override

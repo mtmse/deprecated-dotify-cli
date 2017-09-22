@@ -9,6 +9,7 @@ import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMakerService;
 import org.daisy.dotify.api.hyphenator.HyphenatorInterface;
 import org.junit.Test;
 
+@SuppressWarnings("javadoc")
 public abstract class HyphenatorFactoryMakerTestbase {
 	
 	public abstract HyphenatorFactoryMakerService getHyphenatorFMS();

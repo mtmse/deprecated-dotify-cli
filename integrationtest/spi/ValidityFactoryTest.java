@@ -6,6 +6,7 @@ import org.daisy.dotify.consumer.validity.ValidatorFactoryMaker;
 
 import base.ValidityFactoryTestbase;
 
+@SuppressWarnings("javadoc")
 public class ValidityFactoryTest extends ValidityFactoryTestbase {
 
 	@Override

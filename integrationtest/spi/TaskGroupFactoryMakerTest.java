@@ -5,6 +5,7 @@ import org.daisy.dotify.consumer.tasks.TaskGroupFactoryMaker;
 
 import base.TaskGroupFactoryMakerTestbase;
 
+@SuppressWarnings("javadoc")
 public class TaskGroupFactoryMakerTest extends TaskGroupFactoryMakerTestbase {
 
 	@Override

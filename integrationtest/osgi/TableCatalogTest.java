@@ -17,6 +17,7 @@ import org.ops4j.pax.exam.util.Filter;
 import osgi.config.ConfigurationOptions;
 import base.TableCatalogTestbase;
 
+@SuppressWarnings("javadoc")
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerClass.class)
 public class TableCatalogTest extends TableCatalogTestbase {

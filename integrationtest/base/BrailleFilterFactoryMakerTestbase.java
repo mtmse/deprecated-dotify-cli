@@ -13,6 +13,7 @@ import org.daisy.dotify.api.translator.TranslationException;
 import org.daisy.dotify.api.translator.TranslatorConfigurationException;
 import org.junit.Test;
 
+@SuppressWarnings("javadoc")
 public abstract class BrailleFilterFactoryMakerTestbase {
 	
 	public abstract BrailleFilterFactoryMakerService getBrailleFilterFMS();

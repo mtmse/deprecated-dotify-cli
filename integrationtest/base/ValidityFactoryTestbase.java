@@ -5,8 +5,6 @@ import static org.junit.Assert.assertTrue;
 import org.daisy.dotify.api.validity.ValidationReport;
 import org.daisy.dotify.api.validity.Validator;
 import org.daisy.dotify.api.validity.ValidatorFactoryMakerService;
-import org.daisy.dotify.api.validity.ValidatorMessage;
-import org.daisy.dotify.consumer.validity.ValidatorFactoryMaker;
 import org.junit.Test;
 
 @SuppressWarnings("javadoc")

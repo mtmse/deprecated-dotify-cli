@@ -9,6 +9,7 @@ import org.daisy.braille.utils.api.table.Table;
 import org.daisy.braille.utils.api.table.TableCatalogService;
 import org.junit.Test;
 
+@SuppressWarnings("javadoc")
 public abstract class TableCatalogTestbase {
 
 	public abstract TableCatalogService getTableCS();

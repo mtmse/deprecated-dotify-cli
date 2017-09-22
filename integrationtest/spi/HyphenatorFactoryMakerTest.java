@@ -5,6 +5,7 @@ import org.daisy.dotify.consumer.hyphenator.HyphenatorFactoryMaker;
 
 import base.HyphenatorFactoryMakerTestbase;
 
+@SuppressWarnings("javadoc")
 public class HyphenatorFactoryMakerTest extends HyphenatorFactoryMakerTestbase {
 	
 	@Override

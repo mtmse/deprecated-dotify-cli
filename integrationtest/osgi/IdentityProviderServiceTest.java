@@ -17,6 +17,7 @@ import org.ops4j.pax.exam.util.Filter;
 import base.IdentityProviderServiceTestbase;
 import osgi.config.ConfigurationOptions;
 
+@SuppressWarnings("javadoc")
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerClass.class)
 public class IdentityProviderServiceTest extends IdentityProviderServiceTestbase {

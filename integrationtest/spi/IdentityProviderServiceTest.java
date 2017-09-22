@@ -5,6 +5,7 @@ import org.daisy.dotify.consumer.identity.IdentityProvider;
 
 import base.IdentityProviderServiceTestbase;
 
+@SuppressWarnings("javadoc")
 public class IdentityProviderServiceTest extends IdentityProviderServiceTestbase {
 
 	@Override

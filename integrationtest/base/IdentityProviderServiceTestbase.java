@@ -7,6 +7,7 @@ import org.daisy.dotify.api.tasks.AnnotatedFile;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+@SuppressWarnings("javadoc")
 public abstract class IdentityProviderServiceTestbase {
 	
 	public abstract IdentityProviderService getIdentityProviderService();

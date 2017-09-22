@@ -6,6 +6,7 @@ import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 
 import org.ops4j.pax.exam.Option;
 
+@SuppressWarnings("javadoc")
 public abstract class ConfigurationOptions {
 	
 	public static Option felixDS() {

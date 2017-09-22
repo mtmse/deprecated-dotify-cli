@@ -5,6 +5,7 @@ import org.daisy.dotify.consumer.translator.BrailleTranslatorFactoryMaker;
 
 import base.BrailleTranslatorFactoryMakerTestbase;
 
+@SuppressWarnings("javadoc")
 public class BrailleTranslatorFactoryMakerTest extends BrailleTranslatorFactoryMakerTestbase {
 	
 	@Override

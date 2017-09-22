@@ -9,6 +9,7 @@ import org.daisy.dotify.api.translator.MarkerProcessorFactoryMakerService;
 import org.daisy.dotify.consumer.translator.MarkerProcessorFactoryMaker;
 import org.junit.Test;
 
+@SuppressWarnings("javadoc")
 public class MarkerProcessorFactoryTest {
 	
 	@Test

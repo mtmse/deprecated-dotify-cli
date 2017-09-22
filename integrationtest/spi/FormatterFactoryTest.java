@@ -8,6 +8,7 @@ import org.daisy.dotify.consumer.formatter.FormatterFactoryMaker;
 import org.junit.Test;
 
 
+@SuppressWarnings("javadoc")
 public class FormatterFactoryTest {
 	
 	@Test

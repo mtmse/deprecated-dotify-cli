@@ -5,6 +5,7 @@ import org.daisy.braille.utils.api.table.TableCatalog;
 
 import base.TableCatalogTestbase;
 
+@SuppressWarnings("javadoc")
 public class TableCatalogTest extends TableCatalogTestbase{
 
 	@Override

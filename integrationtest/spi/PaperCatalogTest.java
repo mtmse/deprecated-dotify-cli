@@ -5,6 +5,7 @@ import org.daisy.braille.utils.api.paper.PaperCatalog;
 
 import base.PaperCatalogTestbase;
 
+@SuppressWarnings("javadoc")
 public class PaperCatalogTest extends PaperCatalogTestbase {
 
 	@Override

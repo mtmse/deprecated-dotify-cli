@@ -6,6 +6,7 @@ import org.daisy.dotify.api.obfl.Expression;
 import org.daisy.dotify.consumer.obfl.ExpressionFactoryMaker;
 import org.junit.Test;
 
+@SuppressWarnings("javadoc")
 public class ExpressionFactoryMakerTest {
 	private final Expression e = ExpressionFactoryMaker.newInstance().getFactory().newExpression();
 	

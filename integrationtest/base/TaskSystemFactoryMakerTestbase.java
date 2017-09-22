@@ -17,6 +17,7 @@ import org.daisy.dotify.api.tasks.TaskSystemFactoryMakerService;
 import org.daisy.dotify.tasks.runner.TaskRunnerCore;
 import org.junit.Test;
 
+@SuppressWarnings("javadoc")
 public abstract class TaskSystemFactoryMakerTestbase {
 	
 	public abstract TaskSystemFactoryMakerService getTaskSystemFMS();

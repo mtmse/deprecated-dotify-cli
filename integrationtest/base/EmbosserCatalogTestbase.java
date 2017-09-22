@@ -9,6 +9,7 @@ import org.daisy.braille.utils.api.embosser.Embosser;
 import org.daisy.braille.utils.api.embosser.EmbosserCatalogService;
 import org.junit.Test;
 
+@SuppressWarnings("javadoc")
 public abstract class EmbosserCatalogTestbase {
 
 	public abstract EmbosserCatalogService getEmbosserCS();

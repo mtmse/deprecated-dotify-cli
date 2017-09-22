@@ -8,10 +8,10 @@ import java.util.Set;
 
 import org.daisy.dotify.api.tasks.TaskGroupFactoryMakerService;
 import org.daisy.dotify.api.tasks.TaskGroupInformation;
-import org.daisy.dotify.api.tasks.TaskGroupSpecification;
 import org.daisy.dotify.common.text.FilterLocale;
 import org.junit.Test;
 
+@SuppressWarnings("javadoc")
 public abstract class TaskGroupFactoryMakerTestbase {
 	
 	public abstract TaskGroupFactoryMakerService getTaskGroupFMS();

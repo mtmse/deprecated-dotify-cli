@@ -10,6 +10,7 @@ import org.daisy.dotify.api.text.Integer2TextFactoryMakerService;
 import org.daisy.dotify.api.text.IntegerOutOfRange;
 import org.junit.Test;
 
+@SuppressWarnings("javadoc")
 public abstract class Integer2TextFactoryTestbase {
 	
 	public abstract Integer2TextFactoryMakerService getInteger2TextFMS();

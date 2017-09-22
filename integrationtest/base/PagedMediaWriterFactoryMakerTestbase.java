@@ -7,6 +7,7 @@ import org.daisy.dotify.api.writer.PagedMediaWriterConfigurationException;
 import org.daisy.dotify.api.writer.PagedMediaWriterFactoryMakerService;
 import org.junit.Test;
 
+@SuppressWarnings("javadoc")
 public abstract class PagedMediaWriterFactoryMakerTestbase {
 	
 	public abstract PagedMediaWriterFactoryMakerService getPageMedaWriterFMS();
