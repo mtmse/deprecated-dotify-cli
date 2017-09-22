@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.daisy.braille.pef.PEFGenerator;
+import org.daisy.braille.utils.pef.PEFGenerator;
 import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
 import org.daisy.cli.ExitCode;

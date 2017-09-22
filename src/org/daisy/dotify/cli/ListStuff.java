@@ -5,12 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.daisy.braille.api.factory.FactoryProperties;
-import org.daisy.braille.api.factory.FactoryPropertiesComparator;
-import org.daisy.braille.api.factory.FactoryPropertiesComparator.By;
-import org.daisy.braille.consumer.embosser.EmbosserCatalog;
-import org.daisy.braille.consumer.paper.PaperCatalog;
-import org.daisy.braille.consumer.table.TableCatalog;
+import org.daisy.braille.utils.api.factory.FactoryProperties;
+import org.daisy.braille.utils.api.factory.FactoryPropertiesComparator;
+import org.daisy.braille.utils.api.factory.FactoryPropertiesComparator.By;
+import org.daisy.braille.utils.api.embosser.EmbosserCatalog;
+import org.daisy.braille.utils.api.paper.PaperCatalog;
+import org.daisy.braille.utils.api.table.TableCatalog;
 import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
 import org.daisy.cli.CommandParserResult;

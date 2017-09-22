@@ -3,8 +3,8 @@ package base;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import org.daisy.braille.api.validator.Validator;
-import org.daisy.braille.api.validator.ValidatorFactoryService;
+import org.daisy.braille.utils.api.validator.Validator;
+import org.daisy.braille.utils.api.validator.ValidatorFactoryService;
 import org.junit.Test;
 
 public abstract class ValidatorFactoryTestbase {

@@ -22,7 +22,7 @@ import java.io.FileNotFoundException;
 
 import javax.print.PrintException;
 
-import org.daisy.braille.pef.PrinterDevice;
+import org.daisy.braille.utils.pef.PrinterDevice;
 
 /**
  * Provides a command line UI for sending a file straight to a

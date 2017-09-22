@@ -1,6 +1,6 @@
 package org.daisy.dotify.cli.pefinfo;
 
-import org.daisy.braille.pef.PEFBook;
+import org.daisy.braille.utils.pef.PEFBook;
 
 public class DublinCoreDetail implements Detail {
 	enum Elements {

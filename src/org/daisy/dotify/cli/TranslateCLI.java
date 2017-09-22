@@ -8,11 +8,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
-import org.daisy.braille.api.factory.Factory;
-import org.daisy.braille.api.factory.FactoryCatalog;
-import org.daisy.braille.api.factory.FactoryProperties;
-import org.daisy.braille.api.table.BrailleConverter;
-import org.daisy.braille.consumer.table.TableCatalog;
+import org.daisy.braille.utils.api.factory.Factory;
+import org.daisy.braille.utils.api.factory.FactoryCatalog;
+import org.daisy.braille.utils.api.factory.FactoryProperties;
+import org.daisy.braille.utils.api.table.BrailleConverter;
+import org.daisy.braille.utils.api.table.TableCatalog;
 import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
 import org.daisy.cli.CommandParserResult;

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import org.daisy.braille.pef.FileTools;
+import org.daisy.braille.utils.pef.FileTools;
 import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
 import org.daisy.cli.CommandParserResult;

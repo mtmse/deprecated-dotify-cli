@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.daisy.braille.consumer.validator.ValidatorFactory;
-import org.daisy.braille.pef.PEFValidator;
+import org.daisy.braille.utils.api.validator.ValidatorFactory;
+import org.daisy.braille.utils.pef.PEFValidator;
 import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
 import org.daisy.cli.Definition;
@@ -61,7 +61,7 @@ class ValidatePEF extends AbstractUI {
 			}
 		}  
 		ValidatorFactory factory = ValidatorFactory.newInstance();
-		org.daisy.braille.api.validator.Validator pv = factory.newValidator(PEFValidator.class.getCanonicalName());
+		org.daisy.braille.utils.api.validator.Validator pv = factory.newValidator(PEFValidator.class.getCanonicalName());
 		if (pv == null) {
 			System.out.println("Could not find validator.");
 			System.exit(-2);

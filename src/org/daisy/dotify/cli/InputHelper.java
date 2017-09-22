@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
-import org.daisy.braille.api.factory.FactoryProperties;
+import org.daisy.braille.utils.api.factory.FactoryProperties;
 
 /**
  * Provides a command line input helper for setting arguments interactively and 

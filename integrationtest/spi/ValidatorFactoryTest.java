@@ -1,7 +1,7 @@
 package spi;
 
-import org.daisy.braille.api.validator.ValidatorFactoryService;
-import org.daisy.braille.consumer.validator.ValidatorFactory;
+import org.daisy.braille.utils.api.validator.ValidatorFactoryService;
+import org.daisy.braille.utils.api.validator.ValidatorFactory;
 
 import base.ValidatorFactoryTestbase;
 

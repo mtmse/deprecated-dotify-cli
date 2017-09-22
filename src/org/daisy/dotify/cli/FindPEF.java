@@ -30,10 +30,10 @@ import java.util.Set;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
-import org.daisy.braille.pef.PEFBook;
-import org.daisy.braille.pef.PEFBookLoader;
-import org.daisy.braille.pef.PEFLibrary;
-import org.daisy.braille.pef.PEFSearchIndex;
+import org.daisy.braille.utils.pef.PEFBook;
+import org.daisy.braille.utils.pef.PEFBookLoader;
+import org.daisy.braille.utils.pef.PEFLibrary;
+import org.daisy.braille.utils.pef.PEFSearchIndex;
 import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
 import org.daisy.cli.CommandParserResult;

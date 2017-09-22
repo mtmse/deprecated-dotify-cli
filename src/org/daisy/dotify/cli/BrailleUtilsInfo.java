@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.daisy.braille.api.factory.Factory;
-import org.daisy.braille.api.factory.FactoryCatalog;
-import org.daisy.braille.api.factory.FactoryProperties;
-import org.daisy.braille.consumer.table.TableCatalog;
+import org.daisy.braille.utils.api.factory.Factory;
+import org.daisy.braille.utils.api.factory.FactoryCatalog;
+import org.daisy.braille.utils.api.factory.FactoryProperties;
+import org.daisy.braille.utils.api.table.TableCatalog;
 import org.daisy.cli.Definition;
 import org.daisy.cli.ShortFormResolver;
 

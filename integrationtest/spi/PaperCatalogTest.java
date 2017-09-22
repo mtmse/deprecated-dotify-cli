@@ -1,7 +1,7 @@
 package spi;
 
-import org.daisy.braille.api.paper.PaperCatalogService;
-import org.daisy.braille.consumer.paper.PaperCatalog;
+import org.daisy.braille.utils.api.paper.PaperCatalogService;
+import org.daisy.braille.utils.api.paper.PaperCatalog;
 
 import base.PaperCatalogTestbase;
 

@@ -16,13 +16,13 @@ public abstract class ConfigurationOptions {
 		return composite(
 				mavenBundle().groupId("org.daisy.libs").artifactId("jing").version("20120724.0.0"),
 				mavenBundle().groupId("org.daisy.libs").artifactId("saxon-he").version("9.5.1.5"),
-				mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.api").version("3.0.1"),
-				mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.pef-tools").version("2.2.0")
+				mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.api").version("4.0.0"),
+				mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.pef-tools").version("3.0.0")
 				);
 	}
 	
 	public static Option brailleUtilsCatalog() {
-		return mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.impl").version("3.0.0");
+		return mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.impl").version("4.0.0-beta1");
 	}
 
 	static Option dotifyApi() {

@@ -21,8 +21,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.daisy.braille.consumer.validator.ValidatorFactory;
-import org.daisy.braille.pef.PEFFileSplitter;
+import org.daisy.braille.utils.api.validator.ValidatorFactory;
+import org.daisy.braille.utils.pef.PEFFileSplitter;
 import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
 import org.daisy.cli.ExitCode;

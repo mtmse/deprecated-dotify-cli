@@ -1,7 +1,7 @@
 package spi;
 
-import org.daisy.braille.api.table.TableCatalogService;
-import org.daisy.braille.consumer.table.TableCatalog;
+import org.daisy.braille.utils.api.table.TableCatalogService;
+import org.daisy.braille.utils.api.table.TableCatalog;
 
 import base.TableCatalogTestbase;
 
