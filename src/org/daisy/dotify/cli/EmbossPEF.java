@@ -30,7 +30,9 @@ import java.util.prefs.BackingStoreException;
 import javax.print.PrintService;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.daisy.braille.utils.api.embosser.Device;
 import org.daisy.braille.utils.api.embosser.Embosser;
+import org.daisy.braille.utils.api.embosser.EmbosserCatalog;
 import org.daisy.braille.utils.api.embosser.EmbosserFeatures;
 import org.daisy.braille.utils.api.embosser.EmbosserProperties;
 import org.daisy.braille.utils.api.embosser.EmbosserProperties.PrintMode;
@@ -41,16 +43,16 @@ import org.daisy.braille.utils.api.factory.FactoryPropertiesComparator;
 import org.daisy.braille.utils.api.paper.Length;
 import org.daisy.braille.utils.api.paper.PageFormat;
 import org.daisy.braille.utils.api.paper.Paper;
+import org.daisy.braille.utils.api.paper.PaperCatalog;
 import org.daisy.braille.utils.api.paper.PaperFilter;
 import org.daisy.braille.utils.api.paper.RollPaperFormat;
 import org.daisy.braille.utils.api.paper.SheetPaperFormat;
 import org.daisy.braille.utils.api.paper.SheetPaperFormat.Orientation;
 import org.daisy.braille.utils.api.paper.TractorPaperFormat;
 import org.daisy.braille.utils.api.table.Table;
-import org.daisy.braille.utils.api.embosser.EmbosserCatalog;
-import org.daisy.braille.utils.api.paper.PaperCatalog;
 import org.daisy.braille.utils.api.table.TableCatalog;
 import org.daisy.braille.utils.api.validator.ValidatorFactory;
+import org.daisy.braille.utils.pef.FileDevice;
 import org.daisy.braille.utils.pef.PEFConverterFacade;
 import org.daisy.braille.utils.pef.PEFHandler;
 import org.daisy.braille.utils.pef.PEFValidatorFacade;
@@ -59,6 +61,7 @@ import org.daisy.braille.utils.pef.Range;
 import org.daisy.braille.utils.pef.UnsupportedWidthException;
 import org.daisy.cli.AbstractUI;
 import org.daisy.cli.Argument;
+import org.daisy.cli.CommandParserResult;
 import org.daisy.cli.ExitCode;
 import org.daisy.cli.OptionalArgument;
 import org.daisy.cli.SwitchArgument;
@@ -79,6 +82,7 @@ class EmbossPEF extends AbstractUI {
 	public static final String PRINT_MODE = "print mode";
 	public static final String KEY_RANGE = "range";
 	public static final String KEY_COPIES = "copies";
+	public static final String KEY_DIR = "dir";
 
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;
@@ -100,6 +104,7 @@ class EmbossPEF extends AbstractUI {
 		optionalArgs = new ArrayList<OptionalArgument>();
 		optionalArgs.add(new OptionalArgument(KEY_RANGE, "Emboss a range of pages", "1-"));
 		optionalArgs.add(new OptionalArgument(KEY_COPIES, "Set copies", "1"));
+		optionalArgs.add(new OptionalArgument(KEY_DIR, "Send the embosser data to a folder instead of the specified device.", ""));
 		parser.addSwitch(new SwitchArgument("clear", "settings", "clear", "To clear settings"));
 		parser.addSwitch(new SwitchArgument("setup", "settings", "setup", "To change setup"));
 	}
@@ -218,7 +223,8 @@ class EmbossPEF extends AbstractUI {
 			System.exit(-ExitCode.MISSING_ARGUMENT.ordinal());
 		}
 
-		Map<String, String> p = ui.parser.parse(args).toMap(ARG_PREFIX);
+		CommandParserResult parserResult = ui.parser.parse(args);
+		Map<String, String> p = parserResult.toMap(ARG_PREFIX);
 		String firstArg = p.remove(ARG_PREFIX+0);
 
 		if ("clear".equalsIgnoreCase(p.get("settings"))) {
@@ -234,8 +240,25 @@ class EmbossPEF extends AbstractUI {
 		} else {
 			ui.readSetup(false);
 		}
-
-		PrinterDevice device = new PrinterDevice(ui.getDeviceName(), true);
+		
+		Device device = null;
+		String basePathStr = parserResult.getOptional().get(KEY_DIR);
+		if (basePathStr!=null && !"".equals(basePathStr)) {
+			File basePath = new File(basePathStr);
+			if (basePath.isDirectory()) {
+				File embossFolder = null;
+				do {
+					embossFolder = new File(basePath, System.currentTimeMillis()+"");
+				} while (embossFolder.exists());
+				embossFolder.mkdir();
+				device = new FileDevice(embossFolder);
+			} else {
+				System.out.println(basePathStr + " does not exist or is not a directory.");
+				System.exit(-ExitCode.ILLEGAL_ARGUMENT_VALUE.ordinal());
+			}
+		} else {
+			device = new PrinterDevice(ui.getDeviceName(), true);
+		}
 
 		PageFormat pf = ui.getPageFormat();
 		ui.getEmbosser().setFeature(EmbosserFeatures.PAGE_FORMAT, pf);
