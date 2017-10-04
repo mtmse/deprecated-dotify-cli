@@ -314,7 +314,14 @@ class EmbossPEF extends AbstractUI {
 	public void listCurrentSettings(PrintStream ps) {
 		ps.println("Current settings:");
 		ps.println("\tDevice: " + deviceName);
-		ps.println("\tEmbosser: " + type.getDisplayName());
+		ps.println("\tEmbosser: " + type.getDisplayName() 
+				+ " ("
+				+ (type.supports8dot()?"6/8-dot braille":"6-dot braille")
+				+ ", "
+				+ (type.supportsVolumes()?"volume binding":"no volume binding")
+				//TODO: update this once this is supported in the API
+				+ ", simple line spacing"
+				+ ")");
 		if (table!=null) {
 			ps.println("\tTable: " + table.getDisplayName());
 		}
