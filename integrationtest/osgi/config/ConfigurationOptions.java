@@ -65,8 +65,8 @@ public abstract class ConfigurationOptions {
 	
 	static Option dotifyApiCR() {
 		return 
-				mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.task-api").version("3.2.0")
-				//sonatypeStaging("org.daisy.dotify", "dotify.task-api", "3.2.0")
+				mavenBundle().groupId("org.daisy.streamline").artifactId("streamline-api").version("0.2.0")
+				//sonatypeStaging("org.daisy.streamline", "streamline-api", "0.2.0")
 				;
 	}
 	
@@ -117,8 +117,8 @@ public abstract class ConfigurationOptions {
 		return composite(
 					dotifyCommon(),
 					dotifyApiCR(),
-					mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.task-runner").version("2.0.0")
-					//sonatypeStaging("org.daisy.dotify", "dotify.task-runner", "2.0.0")
+					mavenBundle().groupId("org.daisy.streamline").artifactId("streamline-engine").version("0.2.0")
+					//sonatypeStaging("org.daisy.streamline", "streamline-engine", "0.2.0")
 				);
 	}
 	
