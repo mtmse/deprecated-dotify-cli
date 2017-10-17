@@ -4,11 +4,11 @@
 	<comment>Setup configuration: Book A4</comment>
 
 	<!-- Layout performer -->
-	<entry key="rows">40</entry>
-	<entry key="cols">50</entry>
+	<entry key="page-height">40</entry>
+	<entry key="page-width">50</entry>
 	<entry key="inner-margin">0</entry>
 	<entry key="outer-margin">0</entry>
-	<entry key="rowgap">0</entry>
+	<entry key="row-spacing">1</entry>
 	
 	<entry key="template">paged</entry>
 

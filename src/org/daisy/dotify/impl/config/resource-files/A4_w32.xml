@@ -6,11 +6,11 @@
 	</comment>
 
 	<!-- Layout performer -->
-	<entry key="rows">29</entry>
-	<entry key="cols">28</entry>
+	<entry key="page-height">29</entry>
+	<entry key="page-width">32</entry>
 	<entry key="inner-margin">2</entry>
 	<entry key="outer-margin">2</entry>
-	<entry key="rowgap">0</entry>
+	<entry key="row-spacing">1</entry>
 
 	<!-- Splitter -->
 	<entry key="splitterMax">50</entry>
