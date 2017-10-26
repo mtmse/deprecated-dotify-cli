@@ -3,12 +3,14 @@ package org.daisy.dotify.cli;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import org.daisy.braille.utils.api.embosser.EmbosserCatalog;
 import org.daisy.braille.utils.api.factory.FactoryProperties;
 import org.daisy.braille.utils.api.factory.FactoryPropertiesComparator;
 import org.daisy.braille.utils.api.factory.FactoryPropertiesComparator.By;
-import org.daisy.braille.utils.api.embosser.EmbosserCatalog;
 import org.daisy.braille.utils.api.paper.PaperCatalog;
 import org.daisy.braille.utils.api.table.TableCatalog;
 import org.daisy.cli.AbstractUI;
@@ -17,6 +19,7 @@ import org.daisy.cli.CommandParserResult;
 import org.daisy.cli.Definition;
 import org.daisy.cli.ExitCode;
 import org.daisy.cli.OptionalArgument;
+import org.daisy.dotify.consumer.hyphenator.HyphenatorFactoryMaker;
 
 class ListStuff extends AbstractUI {
 	enum Mode {
@@ -27,30 +30,32 @@ class ListStuff extends AbstractUI {
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;
 	
-	private static final String embossersKey = "embossers";
-	private static final String tablesKey = "tables";
-	private static final String papersKey = "papers";
-	private static final String modeKey = "mode";
-	private static final String prefixKey = "prefix";
-	private static final String postfixKey = "postfix";
-	private static final String separatorKey = "separator";
+	private static final String EMBOSSERS_KEY = "embossers";
+	private static final String TABLES_KEY = "tables";
+	private static final String PAPERS_KEY = "papers";
+	private static final String HYPHENATORS_KEY = "hyphenators";
+	private static final String MODE_KEY = "mode";
+	private static final String PREFIX_KEY = "prefix";
+	private static final String POSTFIX_KEY = "postfix";
+	private static final String SEPARATOR_KEY = "separator";
 	
 	public ListStuff() {
 		reqArgs = new ArrayList<Argument>();
 		ArrayList<Definition> defs = new ArrayList<Definition>();
-		defs.add(new Definition(embossersKey, "to list available embossers"));
-		defs.add(new Definition(tablesKey, "to list available tables"));
-		defs.add(new Definition(papersKey, "to list available papers"));
+		defs.add(new Definition(EMBOSSERS_KEY, "to list available embossers"));
+		defs.add(new Definition(TABLES_KEY, "to list available tables"));
+		defs.add(new Definition(PAPERS_KEY, "to list available papers"));
+		defs.add(new Definition(HYPHENATORS_KEY, "to list available hyphenators"));
 		reqArgs.add(new Argument("type_of_objects", "What to list", defs));
 		optionalArgs = new ArrayList<OptionalArgument>();
 		ArrayList<Definition> modes = new ArrayList<Definition>();
 		modes.add(new Definition(Mode.NAME.toString(), "List display names"));
 		modes.add(new Definition(Mode.IDENTIFIER.toString(), "List identifiers"));
 		modes.add(new Definition(Mode.NAME_IDENTIFIER.toString(), "List names followed by identifier"));
-		optionalArgs.add(new OptionalArgument(modeKey, "Mode", modes, Mode.NAME.toString()));
-		optionalArgs.add(new OptionalArgument(prefixKey, "Line prefix.", ""));
-		optionalArgs.add(new OptionalArgument(postfixKey, "Line postfix.", ""));
-		optionalArgs.add(new OptionalArgument(separatorKey, "Field separator. Only used when there is more than one field on each line.", ""));
+		optionalArgs.add(new OptionalArgument(MODE_KEY, "Mode", modes, Mode.NAME.toString()));
+		optionalArgs.add(new OptionalArgument(PREFIX_KEY, "Line prefix.", ""));
+		optionalArgs.add(new OptionalArgument(POSTFIX_KEY, "Line postfix.", ""));
+		optionalArgs.add(new OptionalArgument(SEPARATOR_KEY, "Field separator. Only used when there is more than one field on each line.", ""));
 	}
 	/**
 	 * @param args
@@ -73,10 +78,10 @@ class ListStuff extends AbstractUI {
 			Map<String, String> p = cp.toMap(ARG_PREFIX);
 			type = p.remove(ARG_PREFIX+0);
 			Map<String, String> op = cp.getOptional();
-			prefix = replaceNullWithEmpty(op.get(prefixKey));
-			postfix = replaceNullWithEmpty(op.get(postfixKey));
-			separator = replaceNullWithEmpty(op.get(separatorKey));
-			String modeStr = op.get(modeKey);
+			prefix = replaceNullWithEmpty(op.get(PREFIX_KEY));
+			postfix = replaceNullWithEmpty(op.get(POSTFIX_KEY));
+			separator = replaceNullWithEmpty(op.get(SEPARATOR_KEY));
+			String modeStr = op.get(MODE_KEY);
 			if (modeStr!=null) {
 				try {
 					mode = Mode.valueOf(modeStr.toUpperCase());
@@ -84,18 +89,42 @@ class ListStuff extends AbstractUI {
 			}
 		}
 		System.out.println();
-		if (embossersKey.equalsIgnoreCase(type)) {
+		if (EMBOSSERS_KEY.equalsIgnoreCase(type)) {
 			EmbosserCatalog ec = EmbosserCatalog.newInstance();
 			FactoryProperties[] ea = ec.list().toArray(new FactoryProperties[]{});
 			printList(ea, mode, prefix, separator, postfix);
-		} else if (tablesKey.equalsIgnoreCase(type)) {
+		} else if (TABLES_KEY.equalsIgnoreCase(type)) {
 			TableCatalog tc = TableCatalog.newInstance();
 			FactoryProperties[] ta = tc.list().toArray(new FactoryProperties[]{});
 			printList(ta, mode, prefix, separator, postfix);
-		} else if (papersKey.equalsIgnoreCase(type)) {
+		} else if (PAPERS_KEY.equalsIgnoreCase(type)) {
 			PaperCatalog pc = PaperCatalog.newInstance();
 			FactoryProperties[] pa = pc.list().toArray(new FactoryProperties[]{});
 			printList(pa, mode, prefix, separator, postfix);
+		} else if (HYPHENATORS_KEY.equalsIgnoreCase(type)) {
+			HyphenatorFactoryMaker hyphs = HyphenatorFactoryMaker.newInstance();
+			FactoryProperties[] ha = hyphs.listLocales().stream().map(loc -> new LocaleFactoryPropertiesAdapter(Locale.forLanguageTag(loc))).toArray(FactoryProperties[]::new);
+			printList(ha, mode, prefix, separator, postfix);
+		}
+	}
+	
+	private static class LocaleFactoryPropertiesAdapter implements FactoryProperties {
+		private final String name, id;
+		private LocaleFactoryPropertiesAdapter(Locale l) {
+			this.id = l.toLanguageTag();
+			this.name = Arrays.asList(l.getDisplayLanguage(), l.getDisplayCountry()).stream().filter(v -> !v.isEmpty()).collect(Collectors.joining(", "));
+		}
+		@Override
+		public String getIdentifier() {
+			return id;
+		}
+		@Override
+		public String getDisplayName() {
+			return name;
+		}
+		@Override
+		public String getDescription() {
+			return "";
 		}
 	}
 	
