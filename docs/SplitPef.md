@@ -1,7 +1,7 @@
 [Table of Contents](toc.md)
 
 # Split a PEF-file #
-Split a PEF file into several files, one file per volume.
+Splits a PEF file into several files, one file per volume.
 
 The purpose is to facilitating the use of PEF files with braille editors that do not support multi volume files.
 

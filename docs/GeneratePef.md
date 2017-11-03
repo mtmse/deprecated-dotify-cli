@@ -1,65 +1,73 @@
 [Table of Contents](toc.md)
 
 # Generate a PEF-file #
-Generate a random PEF-file for testing purposes.
+Generates a random PEF-file for testing purposes.
 
 One argument is required: _path to output file_
 
-<pre>
-Example:<br>
-dotify generate output.pef<br>
-</pre>
+Example:
 
-Optional arguments include:
+`dotify generate output.pef`
+
+## Optional Arguments ##
+The following optional arguments are available:
   * volumes
+  * sections
   * pages
-  * eightdot
   * rows
   * cols
-  * duplex
 
-## Volumes ##
+### volumes ###
 Set the number of volumes to generate.
 
-<pre>
-Example:<br>
-dotify generate output.pef -volumes=3<br>
-</pre>
+Example:
 
-## Pages ##
+`dotify generate output.pef --volumes=3`
+
+### sections ###
+Sets the number of sections in each volume.
+
+Example:
+
+`dotify generate output.pef --sections=3`
+
+### pages ###
 Set the number of pages in each volume.
 
-<pre>
-Example:<br>
-dotify generate output.pef -pages=50<br>
-</pre>
+Example:
 
-## Eight dot ##
-Set to true to include 8-dot patterns.
+`dotify generate output.pef --pages=50`
 
-<pre>
-Example:<br>
-dotify generate output.pef -eightdot=true<br>
-</pre>
-
-## Rows ##
+### rows ###
 Set the maximum numbers of rows on a page.
 
-<pre>
-Example:<br>
-dotify generate output.pef -rows=29<br>
-</pre>
+Example:
 
-## Cols ##
+`dotify generate output.pef --rows=29`
+
+### cols ###
 Set the maximum number of characters on a row.
-<pre>
-Example:<br>
-dotify generate output.pef -cols=28<br>
-</pre>
 
-## Duplex ##
-Set the duplex property.
-<pre>
-Example:<br>
-dotify generate output.pef -duplex=true<br>
-</pre>
+Example:
+
+`dotify generate output.pef --cols=28`
+
+## Switches ##
+The following switches are available:
+  * full-range (-f)
+  * simplex (-s)
+
+### full-range ###
+Set to true to include 8-dot patterns.
+
+Example:
+
+`dotify generate output.pef -f`
+
+
+### simplex ###
+Creates a single sided PEF-file.
+
+Example:
+
+`dotify generate output.pef -s`

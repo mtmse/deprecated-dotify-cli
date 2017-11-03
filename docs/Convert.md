@@ -1,13 +1,13 @@
 [Table of Contents](toc.md)
 
-## Convert ##
+# Convert #
 Converts a document into braille.
 
 Dotify requires two arguments to run:
   * path to an input file
   * path to the output file
 
-### Input File Requirements ###
+## Input File Requirements ##
 The input file should, of course, be something that Dotify understands. Because Dotify has been developed for and funded by [Swedish Agency for Accessible Media, MTM](http://www.mtm.se), the current capabilities may seem odd to an average user. Dotify supports:
   * DTBook
   * HTML
@@ -26,7 +26,7 @@ A plain text can also be used, with similar capabilities as for general XML, i.e
 
 OBFL is the intermediary format used by Dotify, and is likely only of interest to developers.
 
-### Output File Formats ###
+## Output File Formats ##
 The output format is determined by examining the extension of the specified output file name. Supported extensions are:
   * pef
   * txt
@@ -43,15 +43,9 @@ The following optional arguments are available:
   * preset
   * locale
   * outputFormat
-  * identifier
   * writeTempFiles
   * tempFilesDirectory
-  * date
-  * dateFormat
   * table
-  * watch
-  * listOptions
-  * configs
 
 ### preset ###
 The preset specifies some key properties of the finished product, such as row spacing, characters/line, rows/page and sheets/volume. Each of these can be set
@@ -69,26 +63,23 @@ The locale is very important, because it determines the fall-back language used 
 ### outputFormat ###
 If specified, the output format is determined by the value of this parameter, instead of from the file name extension.
 
-### identifier ###
-Sets the identifier in the output file (if supported).
-
 ### writeTempFiles ###
 Set to true to write temp files.
 
 ### tempFilesDirectory ###
 Sets the directory to write temp data. If not specified, the user default is used.
 
-### date ###
-Sets the date in the output file (if supported).
-
-### dateFormat ###
-Sets the date format to use when writing the current date in meta data (if supported). The syntax is as specified by [SimpleDateFormat](http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html)
-
 ### table ###
 If specified, an ASCII-braille file is generated in addition to the PEF-file (requires that the output format is PEF).
 
+## Switches ##
+The following switches are available:
+  * watch
+  * listOptions
+  * configs
+
 ### watch ###
-If present, watches the input file for changes and runs the conversion when changes occur
+If present, watches the input file for changes and runs the conversion when changes occur.
 
 ### listOptions ##
 If present, lists additional options available in the context of the current job. Due to the dynamic
@@ -96,9 +87,4 @@ design of the system, the options are listed *after* the conversion has finished
 append them to the options list of the job just finished and run again. 
 
 ### configs ###
-If present, lists the available combinations of locale and braille translators 
-
-# Example Workflow #
-  1. Markup using a format of choice
-  1. Process format into PEF (with Dotify)
-  1. Emboss using Dotify or [Dotify Studio](https://github.com/brailleapps/dotify-studio)
+If present, lists the available combinations of locale and braille translators.
