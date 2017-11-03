@@ -1,5 +1,33 @@
 [Table of Contents](toc.md)
 
+# 3.0.0-beta5 #
+## New in this version ##
+- CLI
+  - Makes it possible to send embosser data to a folder instead of a device
+  - Displays some key properties of the selected embosser implementation in embosser settings (8-dot support, volume support, line spacing support)
+  - Adds hyphenators to list command
+  - Removes options related to a specific path (fixes #5, fixes #7)
+  - Sorts presets in the help text
+  - Replaces deprecated configuration parameters (fixes #10)
+- Embossing
+  - Supports Index V5 embossers
+  - Adds 8-dot embossing for Index V4 and V5 embossers
+  - Adds unprintable margins for Index V4 and V5 (fixes brailleapps/braille-utils.impl#3)
+- Formatter
+  - Supports additional page counters in OBFL
+- Source file conversion
+  - Adds an option to disable the toc preamble
+  - Adds option to remove title page (enabled by default)
+  - Adds an option to disable the cover page
+  - Uses the same header and row spacing for all pages when duplex is off
+  - Sets the position of rear jacket copy and colphon to right after the cover page when placed at the beginning of the book
+  - Supports using page-height and page-width instead of rows and cols and adds deprecation warnings for rows, cols and rowgap
+  - Adds code to handle missing values for identifier and date
+  - Updates OBFL validation
+- Other
+  - Merge with braille utils
+  - Improves PEF-validator
+
 # 3.0.0-beta4 #
 ## New in this version ##
 - Adds support for Danish, German and Norwegian
