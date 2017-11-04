@@ -16,18 +16,11 @@ import java.util.stream.Collectors;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.daisy.braille.utils.api.embosser.EmbosserFactoryException;
 import org.daisy.braille.utils.api.embosser.EmbosserCatalog;
+import org.daisy.braille.utils.api.embosser.EmbosserFactoryException;
 import org.daisy.braille.utils.pef.PEFConverterFacade;
 import org.daisy.braille.utils.pef.PEFValidator;
 import org.daisy.braille.utils.pef.UnsupportedWidthException;
-import org.daisy.cli.AbstractUI;
-import org.daisy.cli.Argument;
-import org.daisy.cli.CommandParserResult;
-import org.daisy.cli.Definition;
-import org.daisy.cli.ExitCode;
-import org.daisy.cli.OptionalArgument;
-import org.daisy.cli.SwitchArgument;
 import org.daisy.dotify.Dotify;
 import org.daisy.dotify.SystemKeys;
 import org.daisy.dotify.api.config.ConfigurationDetails;
@@ -39,6 +32,13 @@ import org.daisy.dotify.consumer.config.ConfigurationsCatalog;
 import org.daisy.dotify.consumer.tasks.TaskGroupFactoryMaker;
 import org.daisy.dotify.consumer.translator.BrailleTranslatorFactoryMaker;
 import org.daisy.dotify.tasks.runner.DefaultTempFileWriter;
+import org.daisy.streamline.cli.AbstractUI;
+import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandParserResult;
+import org.daisy.streamline.cli.Definition;
+import org.daisy.streamline.cli.ExitCode;
+import org.daisy.streamline.cli.OptionalArgument;
+import org.daisy.streamline.cli.SwitchArgument;
 import org.xml.sax.SAXException;
 
 /**

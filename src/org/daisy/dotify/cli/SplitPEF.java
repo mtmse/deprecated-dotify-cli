@@ -23,10 +23,10 @@ import java.util.List;
 
 import org.daisy.braille.utils.api.validator.ValidatorFactory;
 import org.daisy.braille.utils.pef.PEFFileSplitter;
-import org.daisy.cli.AbstractUI;
-import org.daisy.cli.Argument;
-import org.daisy.cli.ExitCode;
-import org.daisy.cli.OptionalArgument;
+import org.daisy.streamline.cli.AbstractUI;
+import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.ExitCode;
+import org.daisy.streamline.cli.OptionalArgument;
 
 /**
  * Provides a UI for splitting a PEF-file. Not for public use. 

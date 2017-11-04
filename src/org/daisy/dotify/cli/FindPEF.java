@@ -34,16 +34,16 @@ import org.daisy.braille.utils.pef.PEFBook;
 import org.daisy.braille.utils.pef.PEFBookLoader;
 import org.daisy.braille.utils.pef.PEFLibrary;
 import org.daisy.braille.utils.pef.PEFSearchIndex;
-import org.daisy.cli.AbstractUI;
-import org.daisy.cli.Argument;
-import org.daisy.cli.CommandParserResult;
-import org.daisy.cli.ExitCode;
-import org.daisy.cli.OptionalArgument;
-import org.daisy.cli.SwitchArgument;
 import org.daisy.dotify.cli.pefinfo.Detail;
 import org.daisy.dotify.cli.pefinfo.DetailSet;
 import org.daisy.dotify.cli.pefinfo.PEFBookInfo;
 import org.daisy.dotify.cli.pefinfo.URIDetail;
+import org.daisy.streamline.cli.AbstractUI;
+import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandParserResult;
+import org.daisy.streamline.cli.ExitCode;
+import org.daisy.streamline.cli.OptionalArgument;
+import org.daisy.streamline.cli.SwitchArgument;
 import org.xml.sax.SAXException;
 
 /**

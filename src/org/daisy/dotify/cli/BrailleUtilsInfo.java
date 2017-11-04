@@ -8,8 +8,8 @@ import org.daisy.braille.utils.api.factory.Factory;
 import org.daisy.braille.utils.api.factory.FactoryCatalog;
 import org.daisy.braille.utils.api.factory.FactoryProperties;
 import org.daisy.braille.utils.api.table.TableCatalog;
-import org.daisy.cli.Definition;
-import org.daisy.cli.ShortFormResolver;
+import org.daisy.streamline.cli.Definition;
+import org.daisy.streamline.cli.ShortFormResolver;
 
 /**
  * Provides lazy loading of braille utils related details

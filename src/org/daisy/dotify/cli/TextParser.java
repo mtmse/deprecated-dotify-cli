@@ -31,12 +31,12 @@ import org.daisy.braille.utils.api.table.TableCatalog;
 import org.daisy.braille.utils.api.validator.ValidatorFactory;
 import org.daisy.braille.utils.pef.PEFValidatorFacade;
 import org.daisy.braille.utils.pef.TextConverterFacade;
-import org.daisy.cli.AbstractUI;
-import org.daisy.cli.Argument;
-import org.daisy.cli.Definition;
-import org.daisy.cli.OptionalArgument;
-import org.daisy.cli.ShortFormResolver;
-import org.daisy.cli.SwitchArgument;
+import org.daisy.streamline.cli.AbstractUI;
+import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.Definition;
+import org.daisy.streamline.cli.OptionalArgument;
+import org.daisy.streamline.cli.ShortFormResolver;
+import org.daisy.streamline.cli.SwitchArgument;
 
 /**
  * Reads an ASCII file and parses it into a basic PEF file.

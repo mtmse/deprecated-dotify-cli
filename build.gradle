@@ -82,7 +82,7 @@ dependencies {
 	compileOnly group: "biz.aQute.bnd", name: "annotation", version: "2.3.0"
 
 	compile 'org.daisy.braille:braille-utils.api:4.1.0'
-	compile 'org.daisy.braille:braille-utils.basic-cli:1.0.0'
+	compile 'org.daisy.streamline:streamline-cli:0.2.0'
 	compile ('org.daisy.braille:braille-utils.pef-tools:3.0.0') {
 		exclude module: 'Saxon-HE'
 	}

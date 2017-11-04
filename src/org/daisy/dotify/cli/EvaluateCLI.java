@@ -6,14 +6,14 @@ import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.daisy.cli.AbstractUI;
-import org.daisy.cli.Argument;
-import org.daisy.cli.CommandParserResult;
-import org.daisy.cli.ExitCode;
-import org.daisy.cli.OptionalArgument;
-import org.daisy.cli.SwitchArgument;
 import org.daisy.dotify.api.obfl.Expression;
 import org.daisy.dotify.consumer.obfl.ExpressionFactoryMaker;
+import org.daisy.streamline.cli.AbstractUI;
+import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandParserResult;
+import org.daisy.streamline.cli.ExitCode;
+import org.daisy.streamline.cli.OptionalArgument;
+import org.daisy.streamline.cli.SwitchArgument;
 
 public class EvaluateCLI extends AbstractUI {
 	private final static String META_KEY = "meta";

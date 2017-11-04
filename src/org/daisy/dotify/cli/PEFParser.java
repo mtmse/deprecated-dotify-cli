@@ -24,20 +24,20 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.daisy.braille.utils.api.embosser.EmbosserCatalog;
 import org.daisy.braille.utils.api.embosser.StandardLineBreaks;
 import org.daisy.braille.utils.api.factory.Factory;
 import org.daisy.braille.utils.api.factory.FactoryCatalog;
 import org.daisy.braille.utils.api.factory.FactoryProperties;
-import org.daisy.braille.utils.api.embosser.EmbosserCatalog;
 import org.daisy.braille.utils.api.table.TableCatalog;
 import org.daisy.braille.utils.api.validator.ValidatorFactory;
 import org.daisy.braille.utils.pef.PEFConverterFacade;
 import org.daisy.braille.utils.pef.PEFValidatorFacade;
-import org.daisy.cli.AbstractUI;
-import org.daisy.cli.Argument;
-import org.daisy.cli.Definition;
-import org.daisy.cli.OptionalArgument;
-import org.daisy.cli.ShortFormResolver;
+import org.daisy.streamline.cli.AbstractUI;
+import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.Definition;
+import org.daisy.streamline.cli.OptionalArgument;
+import org.daisy.streamline.cli.ShortFormResolver;
 
 /**
  * Reads a PEF-file and outputs a text file.

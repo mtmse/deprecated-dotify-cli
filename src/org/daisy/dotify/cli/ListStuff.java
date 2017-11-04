@@ -13,13 +13,13 @@ import org.daisy.braille.utils.api.factory.FactoryPropertiesComparator;
 import org.daisy.braille.utils.api.factory.FactoryPropertiesComparator.By;
 import org.daisy.braille.utils.api.paper.PaperCatalog;
 import org.daisy.braille.utils.api.table.TableCatalog;
-import org.daisy.cli.AbstractUI;
-import org.daisy.cli.Argument;
-import org.daisy.cli.CommandParserResult;
-import org.daisy.cli.Definition;
-import org.daisy.cli.ExitCode;
-import org.daisy.cli.OptionalArgument;
 import org.daisy.dotify.consumer.hyphenator.HyphenatorFactoryMaker;
+import org.daisy.streamline.cli.AbstractUI;
+import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandParserResult;
+import org.daisy.streamline.cli.Definition;
+import org.daisy.streamline.cli.ExitCode;
+import org.daisy.streamline.cli.OptionalArgument;
 
 class ListStuff extends AbstractUI {
 	enum Mode {

@@ -28,13 +28,13 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.daisy.braille.utils.pef.PEFBook;
-import org.daisy.cli.AbstractUI;
-import org.daisy.cli.Argument;
-import org.daisy.cli.ExitCode;
-import org.daisy.cli.OptionalArgument;
-import org.daisy.cli.SwitchArgument;
 import org.daisy.dotify.cli.pefinfo.DetailSet;
 import org.daisy.dotify.cli.pefinfo.PEFBookInfo;
+import org.daisy.streamline.cli.AbstractUI;
+import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.ExitCode;
+import org.daisy.streamline.cli.OptionalArgument;
+import org.daisy.streamline.cli.SwitchArgument;
 import org.xml.sax.SAXException;
 
 /**

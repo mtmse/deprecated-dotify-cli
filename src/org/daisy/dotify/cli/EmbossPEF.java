@@ -59,12 +59,12 @@ import org.daisy.braille.utils.pef.PEFValidatorFacade;
 import org.daisy.braille.utils.pef.PrinterDevice;
 import org.daisy.braille.utils.pef.Range;
 import org.daisy.braille.utils.pef.UnsupportedWidthException;
-import org.daisy.cli.AbstractUI;
-import org.daisy.cli.Argument;
-import org.daisy.cli.CommandParserResult;
-import org.daisy.cli.ExitCode;
-import org.daisy.cli.OptionalArgument;
-import org.daisy.cli.SwitchArgument;
+import org.daisy.streamline.cli.AbstractUI;
+import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandParserResult;
+import org.daisy.streamline.cli.ExitCode;
+import org.daisy.streamline.cli.OptionalArgument;
+import org.daisy.streamline.cli.SwitchArgument;
 import org.xml.sax.SAXException;
 
 /**
