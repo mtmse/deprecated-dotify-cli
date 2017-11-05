@@ -21,16 +21,18 @@ import org.daisy.dotify.api.translator.TranslationException;
 import org.daisy.dotify.api.translator.TranslatorConfigurationException;
 import org.daisy.dotify.api.translator.TranslatorSpecification;
 import org.daisy.dotify.consumer.translator.BrailleTranslatorFactoryMaker;
-import org.daisy.streamline.cli.AbstractUI;
 import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandDetails;
+import org.daisy.streamline.cli.CommandParser;
 import org.daisy.streamline.cli.CommandParserResult;
 import org.daisy.streamline.cli.Definition;
 import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
 import org.daisy.streamline.cli.ShortFormResolver;
 import org.daisy.streamline.cli.SwitchArgument;
+import org.daisy.streamline.cli.SwitchMap;
 
-public class TranslateCLI extends AbstractUI {
+public class TranslateCLI implements CommandDetails {
 	private static final String DEFAULT_LOCALE = Locale.getDefault().toString().replaceAll("_", "-");
 	private static final String META_KEY = "meta";
 	private static final String LOCALE_KEY = "locale";
@@ -38,7 +40,9 @@ public class TranslateCLI extends AbstractUI {
 	private static final String HELP_KEY = "help";
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;
+	private final SwitchMap switches;
 	private final ShortFormResolver tableSF;
+	private final CommandParser parser;
 	
 	public TranslateCLI() {
 		this.reqArgs = new ArrayList<Argument>();
@@ -56,14 +60,17 @@ public class TranslateCLI extends AbstractUI {
 		this.optionalArgs = new ArrayList<OptionalArgument>();
 		optionalArgs.add(new OptionalArgument(LOCALE_KEY, "Braille locale. Note that the default locale is based on system settings, not on available braille locales.", translations, DEFAULT_LOCALE));
 		optionalArgs.add(new OptionalArgument(TABLE_KEY, "Table to use", getDefinitionList(tableCatalog, tableSF), "unicode_braille"));
-		parser.addSwitch(new SwitchArgument('h', HELP_KEY, META_KEY, HELP_KEY, "Help text."));
+		this.switches = new SwitchMap.Builder()
+				.addSwitch(new SwitchArgument('h', HELP_KEY, META_KEY, HELP_KEY, "Help text."))
+				.build();
+		this.parser = CommandParser.create(this);
 	}
 	
 	public static void main(String[] args) throws IOException {
 		TranslateCLI m = new TranslateCLI();
 		CommandParserResult result = m.parser.parse(args);
 		if (HELP_KEY.equals(result.getOptional().get(META_KEY))) {
-			m.displayHelp(System.out);
+			m.parser.displayHelp(System.out);
 			ExitCode.OK.exitSystem();
 		} else {
 			m.runCLI(result);
@@ -135,5 +142,10 @@ public class TranslateCLI extends AbstractUI {
 			ret.add(new Definition(key, catalog.get(resolver.resolve(key)).getDescription()));
 		}
 		return ret;
+	}
+
+	@Override
+	public SwitchMap getSwitches() {
+		return switches;
 	}
 }

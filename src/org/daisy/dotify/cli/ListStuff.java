@@ -14,14 +14,20 @@ import org.daisy.braille.utils.api.factory.FactoryPropertiesComparator.By;
 import org.daisy.braille.utils.api.paper.PaperCatalog;
 import org.daisy.braille.utils.api.table.TableCatalog;
 import org.daisy.dotify.consumer.hyphenator.HyphenatorFactoryMaker;
-import org.daisy.streamline.cli.AbstractUI;
 import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandDetails;
+import org.daisy.streamline.cli.CommandParser;
 import org.daisy.streamline.cli.CommandParserResult;
 import org.daisy.streamline.cli.Definition;
 import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
+import org.daisy.streamline.cli.SwitchMap;
 
-class ListStuff extends AbstractUI {
+class ListStuff implements CommandDetails {
+	/**
+	 * Prefix used for required arguments in the arguments map
+	 */
+	public static final String ARG_PREFIX = "required-";
 	enum Mode {
 		NAME,
 		IDENTIFIER,
@@ -29,6 +35,7 @@ class ListStuff extends AbstractUI {
 	};
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;
+	private final CommandParser parser;
 	
 	private static final String EMBOSSERS_KEY = "embossers";
 	private static final String TABLES_KEY = "tables";
@@ -56,6 +63,7 @@ class ListStuff extends AbstractUI {
 		optionalArgs.add(new OptionalArgument(PREFIX_KEY, "Line prefix.", ""));
 		optionalArgs.add(new OptionalArgument(POSTFIX_KEY, "Line postfix.", ""));
 		optionalArgs.add(new OptionalArgument(SEPARATOR_KEY, "Field separator. Only used when there is more than one field on each line.", ""));
+		this.parser = CommandParser.create(this);
 	}
 	/**
 	 * @param args
@@ -65,7 +73,7 @@ class ListStuff extends AbstractUI {
 		if (args.length<1) {
 			System.out.println("Expected at least one more argument.");
 			System.out.println();
-			ui.displayHelp(System.out);
+			ui.parser.displayHelp(System.out);
 			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
 		String type;

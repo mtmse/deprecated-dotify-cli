@@ -31,12 +31,15 @@ import org.daisy.braille.utils.api.table.TableCatalog;
 import org.daisy.braille.utils.api.validator.ValidatorFactory;
 import org.daisy.braille.utils.pef.PEFValidatorFacade;
 import org.daisy.braille.utils.pef.TextConverterFacade;
-import org.daisy.streamline.cli.AbstractUI;
 import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandDetails;
+import org.daisy.streamline.cli.CommandParser;
 import org.daisy.streamline.cli.Definition;
+import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
 import org.daisy.streamline.cli.ShortFormResolver;
 import org.daisy.streamline.cli.SwitchArgument;
+import org.daisy.streamline.cli.SwitchMap;
 
 /**
  * Reads an ASCII file and parses it into a basic PEF file.
@@ -45,12 +48,17 @@ import org.daisy.streamline.cli.SwitchArgument;
  * characters 0x0a, 0x0d (new row) and 0x0c (new page) may occur in the file. 
  * 
  * @author  Joel Håkansson
- * @version 28 aug 2008
  */
-class TextParser extends AbstractUI {
+class TextParser implements CommandDetails {
+	/**
+	 * Prefix used for required arguments in the arguments map
+	 */
+	public static final String ARG_PREFIX = "required-";
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;
+	private final SwitchMap switches;
 	private final ShortFormResolver tableSF;
+	private final CommandParser parser;
 
 	public TextParser() {
 		reqArgs = new ArrayList<Argument>();
@@ -68,7 +76,10 @@ class TextParser extends AbstractUI {
 		optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_TITLE, "the title of the publication", "[undefined]"));
 		optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_LANGUAGE, "set the publications language (as defined by IETF RFC 3066)", "[undefined]"));
 		//optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_DUPLEX, "set the document's duplex property", "true"));
-		parser.addSwitch(new SwitchArgument('s', "simplex", TextConverterFacade.KEY_DUPLEX, "false", "create single sided PEF-files"));
+		this.switches = new SwitchMap.Builder()
+				.addSwitch(new SwitchArgument('s', "simplex", TextConverterFacade.KEY_DUPLEX, "false", "create single sided PEF-files"))
+				.build();
+		this.parser = CommandParser.create(this);
 	}
 
 	/**
@@ -78,7 +89,7 @@ class TextParser extends AbstractUI {
 	public static void main(String[] args) {
 		TextParser ui = new TextParser();
 		if (args.length<2) {
-			ui.displayHelp(System.out);
+			ui.parser.displayHelp(System.out);
 		} else {
 			try {
 				Map<String, String> p = ui.parser.parse(args).toMap(ARG_PREFIX);
@@ -87,7 +98,11 @@ class TextParser extends AbstractUI {
 				File input = new File(""+p.remove(ARG_PREFIX+0));
 				File output = new File(""+p.remove(ARG_PREFIX+1));
 				// remap
-				ui.expandShortForm(p, TextConverterFacade.KEY_MODE, ui.tableSF);
+				try {
+					ui.tableSF.expandShortForm(p, TextConverterFacade.KEY_MODE);
+				} catch (IllegalArgumentException e) {
+					ExitCode.ILLEGAL_ARGUMENT_VALUE.exitSystem(e.getMessage());
+				}
 				// run
 				new TextConverterFacade(TableCatalog.newInstance()).parseTextFile(input, output, p);
 				System.out.println("Validating result...");
@@ -134,6 +149,11 @@ class TextParser extends AbstractUI {
 			ret.add(new Definition(key, catalog.get(resolver.resolve(key)).getDescription()));
 		}
 		return ret;
+	}
+
+	@Override
+	public SwitchMap getSwitches() {
+		return switches;
 	}
 
 }

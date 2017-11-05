@@ -27,17 +27,28 @@ import java.util.Map;
 import org.daisy.braille.utils.api.validator.ValidatorFactory;
 import org.daisy.braille.utils.pef.PEFFileMerger;
 import org.daisy.braille.utils.pef.PEFFileMerger.SortType;
-import org.daisy.streamline.cli.AbstractUI;
 import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandDetails;
+import org.daisy.streamline.cli.CommandParser;
 import org.daisy.streamline.cli.Definition;
 import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
+import org.daisy.streamline.cli.SwitchMap;
 
 /**
  * Provides a UI for merging PEF-files. Not for public use. This class is a package class. Use DotifyCLI
  * @author Joel Håkansson
  */
-class MergePEF extends AbstractUI {
+class MergePEF implements CommandDetails {
+	/**
+	 * Prefix used for required arguments in the arguments map
+	 */
+	public static final String ARG_PREFIX = "required-";
+	private final CommandParser parser;
+	
+	public MergePEF() {
+		this.parser = CommandParser.create(this);
+	}
 
 	/**
 	 * @param args
@@ -48,7 +59,7 @@ class MergePEF extends AbstractUI {
 		if (args.length<3) {
 			System.out.println("Expected three arguments.");
 			System.out.println();
-			ui.displayHelp(System.out);
+			ui.parser.displayHelp(System.out);
 			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
 		PEFFileMerger merger = new PEFFileMerger(ValidatorFactory.newInstance());

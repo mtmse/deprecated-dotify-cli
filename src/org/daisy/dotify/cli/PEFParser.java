@@ -33,24 +33,30 @@ import org.daisy.braille.utils.api.table.TableCatalog;
 import org.daisy.braille.utils.api.validator.ValidatorFactory;
 import org.daisy.braille.utils.pef.PEFConverterFacade;
 import org.daisy.braille.utils.pef.PEFValidatorFacade;
-import org.daisy.streamline.cli.AbstractUI;
 import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandDetails;
+import org.daisy.streamline.cli.CommandParser;
 import org.daisy.streamline.cli.Definition;
 import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
 import org.daisy.streamline.cli.ShortFormResolver;
+import org.daisy.streamline.cli.SwitchMap;
 
 /**
  * Reads a PEF-file and outputs a text file.
  * 
  * @author  Joel Håkansson
- * @version 2 jul 2008
  */
-class PEFParser extends AbstractUI {
+class PEFParser implements CommandDetails {
+	/**
+	 * Prefix used for required arguments in the arguments map
+	 */
+	public static final String ARG_PREFIX = "required-";
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;
 	//private final ShortFormResolver embosserSF;
 	private final ShortFormResolver tableSF;
+	private final CommandParser parser;
 	
 	public PEFParser() {
 		reqArgs = new ArrayList<Argument>();
@@ -81,6 +87,7 @@ class PEFParser extends AbstractUI {
 		fallbackDefs.add(new Definition("remove", "Remove the 8-dot pattern (shortens row)"));
 		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_FALLBACK, "8-dot fallback method", fallbackDefs, ""));
 		optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_REPLACEMENT, "replacement character, expressed as a hexadecimal number representing the unicode code point of the replacement character (in the range 2800-283F)", "2800"));
+		this.parser = CommandParser.create(this);
 	}
 	
 	/**
@@ -90,7 +97,7 @@ class PEFParser extends AbstractUI {
 	public static void main(String[] args) {
 		PEFParser ui = new PEFParser();
 		if (args.length<2) {
-			ui.displayHelp(System.out);
+			ui.parser.displayHelp(System.out);
 		} else {
 			try {
 				Map<String, String> p = ui.parser.parse(args).toMap(ARG_PREFIX);
@@ -106,12 +113,16 @@ class PEFParser extends AbstractUI {
 				
 				// expand short forms, if any
 				//ui.expandShortForm(p, PEFConverterFacade.KEY_EMBOSSER, ui.embosserSF);
-				ui.expandShortForm(p, PEFConverterFacade.KEY_TABLE, ui.tableSF);
+				try {
+					ui.tableSF.expandShortForm(p, PEFConverterFacade.KEY_TABLE);
+				} catch (IllegalArgumentException e) {
+					ExitCode.ILLEGAL_ARGUMENT_VALUE.exitSystem(e.getMessage());
+				}
 				
-                            try ( // run
-                                    FileOutputStream os = new FileOutputStream(output)) {
-                                new PEFConverterFacade(EmbosserCatalog.newInstance()).parsePefFile(input, os, null, p);
-                            }
+                try ( // run
+                        FileOutputStream os = new FileOutputStream(output)) {
+                    new PEFConverterFacade(EmbosserCatalog.newInstance()).parsePefFile(input, os, null, p);
+                }
 				System.out.println("Done!");
 			} catch (Exception e) {
 				e.printStackTrace();

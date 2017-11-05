@@ -26,21 +26,32 @@ import java.util.Map;
 
 import org.daisy.braille.utils.api.validator.ValidatorFactory;
 import org.daisy.braille.utils.pef.PEFValidator;
-import org.daisy.streamline.cli.AbstractUI;
 import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandDetails;
+import org.daisy.streamline.cli.CommandParser;
 import org.daisy.streamline.cli.Definition;
 import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
+import org.daisy.streamline.cli.SwitchMap;
 
-class ValidatePEF extends AbstractUI {
+class ValidatePEF implements CommandDetails {
+	/**
+	 * Prefix used for required arguments in the arguments map
+	 */
+	public static final String ARG_PREFIX = "required-";
 	public enum Mode {FULL, LIGHT};
+	private final CommandParser parser;
+	
+	public ValidatePEF() {
+		this.parser = CommandParser.create(this);
+	}
 
 	public static void main(String[] args) throws IOException {
 		ValidatePEF ui = new ValidatePEF();
 		if (args.length<1) {
 			System.out.println("Expected one more argument: input [options ...]");
 			System.out.println();
-			ui.displayHelp(System.out);
+			ui.parser.displayHelp(System.out);
 			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
 		File in = new File(args[0]);

@@ -12,20 +12,22 @@ import java.util.logging.Logger;
 
 import org.daisy.braille.utils.pef.FileTools;
 import org.daisy.dotify.SystemProperties;
-import org.daisy.streamline.cli.AbstractUI;
 import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandDetails;
+import org.daisy.streamline.cli.CommandParser;
 import org.daisy.streamline.cli.CommandParserResult;
 import org.daisy.streamline.cli.Definition;
 import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
 import org.daisy.streamline.cli.SwitchArgument;
+import org.daisy.streamline.cli.SwitchMap;
 
 /**
  * Provides a basic command line UI for core functionality in
  * org.daisy.braille.
  * @author Joel Håkansson
  */
-public class DotifyCLI extends AbstractUI {
+public class DotifyCLI implements CommandDetails {
 	public static final String EMBOSS = "emboss";
 	public static final String TEXT2PEF = "text2pef";
 	public static final String PEF2TEXT = "pef2text";
@@ -48,8 +50,10 @@ public class DotifyCLI extends AbstractUI {
 	private final String[] args;
 	private final Logger logger;
 	
-	private final Map<String, Class<? extends AbstractUI>> commands;
+	private final Map<String, Class<? extends CommandDetails>> commands;
+	private final SwitchMap switches;
 	private final List<Definition> values;
+	private final CommandParser parser;
 	
 	/**
 	 * Creates a new Basic UI
@@ -80,8 +84,11 @@ public class DotifyCLI extends AbstractUI {
 
 		//Diagnostics commands
 		putCommand(GENERATE, "generates a random PEF-file for testing", GeneratePEF.class);
+		this.switches = new SwitchMap.Builder()
+				.addSwitch(new SwitchArgument('v', VERSION_KEY, META_KEY, VERSION_KEY, "Displays version information."))
+				.build();
 		putCommand(LIST, "lists stuff", ListStuff.class);
-		parser.addSwitch(new SwitchArgument('v', VERSION_KEY, META_KEY, VERSION_KEY, "Displays version information."));
+		this.parser = CommandParser.create(this);
 
 		//Help
 		values.add(new Definition(HELP, "Without additional arguments, this text is displayed. To get help on a specific command, type help <command>"));
@@ -95,7 +102,7 @@ public class DotifyCLI extends AbstractUI {
 		}*/
 	}
 	
-	protected void putCommand(String cmd, String desc, Class<? extends AbstractUI> c) {
+	protected void putCommand(String cmd, String desc, Class<? extends CommandDetails> c) {
 		values.add(new Definition(cmd, desc));
 		commands.put(cmd, c);
 	}
@@ -125,24 +132,26 @@ public class DotifyCLI extends AbstractUI {
 		if (args.length<1) {
 			System.out.println("Expected at least one argument.");
 			System.out.println();
-			displayHelp(System.out);
+			parser.displayHelp(System.out);
 			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
 		setPluginsDir(new File("plugins"));
 		if (HELP.equalsIgnoreCase(args[0])) {
 			if (args.length>=2) {
-				Class<? extends AbstractUI> clazz = commands.get(args[1]);
+				Class<? extends CommandDetails> clazz = commands.get(args[1]);
 				if (clazz!=null) {
-					AbstractUI ui = clazz.newInstance();
-					ui.displayHelp(System.out);
+					CommandDetails ui = clazz.newInstance();
+					new CommandParser.Builder(ui)
+						.build()
+						.displayHelp(System.out);
 					ExitCode.OK.exitSystem();
 				} else {
 					System.out.println("Unknown argument '" + args[1] + "'");
-					displayHelp(System.out);
+					parser.displayHelp(System.out);
 					ExitCode.UNKNOWN_ARGUMENT.exitSystem();
 				}
 			}
-			displayHelp(System.out);
+			parser.displayHelp(System.out);
 		} else {
 			CommandParserResult result = parser.parse(args);
 			if (result.getRequired().isEmpty() && VERSION_KEY.equals(result.getOptional().get(META_KEY))) {
@@ -157,7 +166,7 @@ public class DotifyCLI extends AbstractUI {
 				method.invoke(null, (Object)getArgsSubList(1));
 			} else {
 				System.out.println("Unknown argument '" + args[0] + "'");
-				displayHelp(System.out);
+				parser.displayHelp(System.out);
 				ExitCode.UNKNOWN_ARGUMENT.exitSystem();
 			}
 		}
@@ -215,5 +224,10 @@ public class DotifyCLI extends AbstractUI {
 
 	public String getBuildIdentifier() {
 		return SystemProperties.SYSTEM_BUILD;
+	}
+
+	@Override
+	public SwitchMap getSwitches() {
+		return switches;
 	}
 }

@@ -8,30 +8,37 @@ import java.util.List;
 
 import org.daisy.dotify.api.obfl.Expression;
 import org.daisy.dotify.consumer.obfl.ExpressionFactoryMaker;
-import org.daisy.streamline.cli.AbstractUI;
 import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandDetails;
+import org.daisy.streamline.cli.CommandParser;
 import org.daisy.streamline.cli.CommandParserResult;
 import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
 import org.daisy.streamline.cli.SwitchArgument;
+import org.daisy.streamline.cli.SwitchMap;
 
-public class EvaluateCLI extends AbstractUI {
+public class EvaluateCLI implements CommandDetails {
 	private final static String META_KEY = "meta";
 	private final static String HELP_KEY = "help";
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;
+	private final SwitchMap switches;
+	private final CommandParser parser;
 
 	public EvaluateCLI() {
 		this.reqArgs = new ArrayList<Argument>();
 		this.optionalArgs = new ArrayList<OptionalArgument>();
-		parser.addSwitch(new SwitchArgument('h', HELP_KEY, META_KEY, HELP_KEY, "Help text."));
+		this.switches = new SwitchMap.Builder()
+				.addSwitch(new SwitchArgument('h', HELP_KEY, META_KEY, HELP_KEY, "Help text."))
+				.build();
+		this.parser = CommandParser.create(this);
 	}
 	
 	public static void main(String[] args) throws IOException {
 		EvaluateCLI m = new EvaluateCLI();
 		CommandParserResult result = m.parser.parse(args);
 		if (HELP_KEY.equals(result.getOptional().get(META_KEY))) {
-			m.displayHelp(System.out);
+			m.parser.displayHelp(System.out);
 			ExitCode.OK.exitSystem();
 		} else {
 			m.runCLI(result);
@@ -75,6 +82,11 @@ public class EvaluateCLI extends AbstractUI {
 	@Override
 	public List<Argument> getRequiredArguments() {
 		return reqArgs;
+	}
+
+	@Override
+	public SwitchMap getSwitches() {
+		return switches;
 	}
 
 }

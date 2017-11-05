@@ -38,12 +38,14 @@ import org.daisy.dotify.cli.pefinfo.Detail;
 import org.daisy.dotify.cli.pefinfo.DetailSet;
 import org.daisy.dotify.cli.pefinfo.PEFBookInfo;
 import org.daisy.dotify.cli.pefinfo.URIDetail;
-import org.daisy.streamline.cli.AbstractUI;
 import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandDetails;
+import org.daisy.streamline.cli.CommandParser;
 import org.daisy.streamline.cli.CommandParserResult;
 import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
 import org.daisy.streamline.cli.SwitchArgument;
+import org.daisy.streamline.cli.SwitchMap;
 import org.xml.sax.SAXException;
 
 /**
@@ -51,9 +53,11 @@ import org.xml.sax.SAXException;
  * This class is a package class. Use DotifyCLI
  * @author Joel Håkansson
  */
-class FindPEF extends AbstractUI {
+class FindPEF implements CommandDetails {
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;
+	private final SwitchMap switches;
+	private final CommandParser parser;
 	
 	private static final String FOLDER_KEY = "folder";
 	private static final String RECURSIVE_KEY = "recursive";
@@ -63,8 +67,11 @@ class FindPEF extends AbstractUI {
 		reqArgs = new ArrayList<Argument>();
 		optionalArgs = new ArrayList<OptionalArgument>();
 		optionalArgs.add(new OptionalArgument(FOLDER_KEY, "Folder path", (new File("")).getAbsolutePath()));
-		parser.addSwitch(new SwitchArgument('r', RECURSIVE_KEY, "true", "Include subfolders in the scan."));
-		parser.addSwitch(new SwitchArgument('i', INTERACTIVE_KEY, "true", "Starts an interactive shell for repeated queries."));
+		this.switches = new SwitchMap.Builder()
+				.addSwitch(new SwitchArgument('r', RECURSIVE_KEY, "true", "Include subfolders in the scan."))
+				.addSwitch(new SwitchArgument('i', INTERACTIVE_KEY, "true", "Starts an interactive shell for repeated queries."))
+				.build();
+		this.parser = CommandParser.create(this);
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {
@@ -72,7 +79,7 @@ class FindPEF extends AbstractUI {
 		if (args.length<1) {
 			System.out.println("Expected at least one more argument.");
 			System.out.println();
-			ui.displayHelp(System.out);
+			ui.parser.displayHelp(System.out);
 			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
 		CommandParserResult pr =  ui.parser.parse(args);
@@ -144,6 +151,11 @@ class FindPEF extends AbstractUI {
 	@Override
 	public String getDescription() {
 		return "Finds PEF-files.";
+	}
+
+	@Override
+	public SwitchMap getSwitches() {
+		return switches;
 	}
 
 }

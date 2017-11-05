@@ -30,11 +30,13 @@ import javax.xml.xpath.XPathExpressionException;
 import org.daisy.braille.utils.pef.PEFBook;
 import org.daisy.dotify.cli.pefinfo.DetailSet;
 import org.daisy.dotify.cli.pefinfo.PEFBookInfo;
-import org.daisy.streamline.cli.AbstractUI;
 import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandDetails;
+import org.daisy.streamline.cli.CommandParser;
 import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
 import org.daisy.streamline.cli.SwitchArgument;
+import org.daisy.streamline.cli.SwitchMap;
 import org.xml.sax.SAXException;
 
 /**
@@ -42,15 +44,24 @@ import org.xml.sax.SAXException;
  * This class is a package class. Use DotifyCLI
  * @author Joel Håkansson
  */
-class PEFInfo extends AbstractUI {
+class PEFInfo implements CommandDetails {
+	/**
+	 * Prefix used for required arguments in the arguments map
+	 */
+	public static final String ARG_PREFIX = "required-";
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;
+	private final SwitchMap switches;
+	private final CommandParser parser;
 
 	public PEFInfo() {
 		reqArgs = new ArrayList<Argument>();
 		reqArgs.add(new Argument("path_to_file", "Path to the pef file"));
 		optionalArgs = new ArrayList<OptionalArgument>();
-		parser.addSwitch(new SwitchArgument('m', "meta", "metadata", "full", "Prints all metadata."));
+		this.switches = new SwitchMap.Builder()
+				.addSwitch(new SwitchArgument('m', "meta", "metadata", "full", "Prints all metadata."))
+				.build();
+		this.parser = CommandParser.create(this);
 	}
 	
 	public static void main(String[] args) throws XPathExpressionException, ParserConfigurationException, SAXException, IOException {
@@ -58,7 +69,7 @@ class PEFInfo extends AbstractUI {
 		if (args.length<1) {
 			System.out.println("Expected at least one more argument.");
 			System.out.println();
-			ui.displayHelp(System.out);
+			ui.parser.displayHelp(System.out);
 			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
 		Map<String, String> p = ui.parser.parse(args).toMap(ARG_PREFIX);
@@ -101,6 +112,11 @@ class PEFInfo extends AbstractUI {
 	@Override
 	public String getDescription() {
 		return "Displays meta data and summary details about a PEF-file.";
+	}
+
+	@Override
+	public SwitchMap getSwitches() {
+		return switches;
 	}
 
 }

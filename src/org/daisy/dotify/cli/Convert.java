@@ -32,20 +32,22 @@ import org.daisy.dotify.consumer.config.ConfigurationsCatalog;
 import org.daisy.dotify.consumer.tasks.TaskGroupFactoryMaker;
 import org.daisy.dotify.consumer.translator.BrailleTranslatorFactoryMaker;
 import org.daisy.dotify.tasks.runner.DefaultTempFileWriter;
-import org.daisy.streamline.cli.AbstractUI;
 import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandDetails;
+import org.daisy.streamline.cli.CommandParser;
 import org.daisy.streamline.cli.CommandParserResult;
 import org.daisy.streamline.cli.Definition;
 import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
 import org.daisy.streamline.cli.SwitchArgument;
+import org.daisy.streamline.cli.SwitchMap;
 import org.xml.sax.SAXException;
 
 /**
  * Provides a command line entry point to Dotify.
  * @author Joel Håkansson
  */
-public class Convert extends AbstractUI {
+public class Convert implements CommandDetails {
 	private static final Logger logger = Logger.getLogger(Convert.class.getCanonicalName());
 	//private static final String DEFAULT_TEMPLATE = "A4-w32";
 	private static final String DEFAULT_LOCALE = Locale.getDefault().toString().replaceAll("_", "-");
@@ -58,16 +60,21 @@ public class Convert extends AbstractUI {
 
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;
+	private final SwitchMap switches;
 	private final BrailleUtilsInfo brailleInfo;
+	private final CommandParser parser;
 
 	public Convert() {
 		this.brailleInfo = new BrailleUtilsInfo();
 		//Use lazy loading of argument details
 		this.reqArgs = new ArrayList<Argument>();
 		this.optionalArgs = new ArrayList<OptionalArgument>();
-		parser.addSwitch(new SwitchArgument('w', WATCH_KEY, WATCH_KEY, "" + DEFAULT_POLL_TIME, "Keeps the conversion in sync by watching the input file for changes and rerunning the conversion automatically when the input is modified."));
-		parser.addSwitch(new SwitchArgument('o', SystemKeys.LIST_OPTIONS, SystemKeys.LIST_OPTIONS, "true", "Lists additional options as the conversion runs."));
-		parser.addSwitch(new SwitchArgument('c', CONFIG_KEY, META_KEY, CONFIG_KEY, "Lists known configurations."));
+		this.switches = new SwitchMap.Builder()
+				.addSwitch(new SwitchArgument('w', WATCH_KEY, WATCH_KEY, "" + DEFAULT_POLL_TIME, "Keeps the conversion in sync by watching the input file for changes and rerunning the conversion automatically when the input is modified."))
+				.addSwitch(new SwitchArgument('o', SystemKeys.LIST_OPTIONS, SystemKeys.LIST_OPTIONS, "true", "Lists additional options as the conversion runs."))
+				.addSwitch(new SwitchArgument('c', CONFIG_KEY, META_KEY, CONFIG_KEY, "Lists known configurations."))
+				.build();
+		this.parser = CommandParser.create(this);
 	}
 
 	/**
@@ -94,13 +101,13 @@ public class Convert extends AbstractUI {
 				System.out.println("Expected at least two arguments");
 				
 				System.out.println();
-				m.displayHelp(System.out);
+				m.parser.displayHelp(System.out);
 				ExitCode.MISSING_ARGUMENT.exitSystem();
 			}
 		} else if (p.size()>2) { 
 			System.out.println("Unknown argument(s): " + p.subList(2, p.size()));
 			System.out.println();
-			m.displayHelp(System.out);
+			m.parser.displayHelp(System.out);
 			ExitCode.UNKNOWN_ARGUMENT.exitSystem();
 		}
 		// remove required arguments
@@ -225,7 +232,11 @@ public class Convert extends AbstractUI {
 					// create brl
 					HashMap<String, String> p = new HashMap<String, String>();
 					p.put(PEFConverterFacade.KEY_TABLE, props.get(PEFConverterFacade.KEY_TABLE));
-					expandShortForm(p, PEFConverterFacade.KEY_TABLE, brailleInfo.getShortFormResolver());
+					try {
+						brailleInfo.getShortFormResolver().expandShortForm(p, PEFConverterFacade.KEY_TABLE);
+					} catch (IllegalArgumentException e) {
+						ExitCode.ILLEGAL_ARGUMENT_VALUE.exitSystem(e.getMessage());
+					}
 					File f = new File(output.getParentFile(), output.getName() + ".brl");
 					logger.info("Writing brl to " + f.getAbsolutePath());
 					try (FileOutputStream os = new FileOutputStream(f)) {
@@ -308,6 +319,11 @@ public class Convert extends AbstractUI {
 			optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_TABLE, "If specified, an ASCII-braille file (.brl) is generated in addition to the PEF-file using the specified braille code table", brailleInfo.getDefinitionList(), ""));
 		}
 		return optionalArgs;
+	}
+
+	@Override
+	public SwitchMap getSwitches() {
+		return switches;
 	}
 
 }

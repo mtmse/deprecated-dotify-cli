@@ -59,12 +59,14 @@ import org.daisy.braille.utils.pef.PEFValidatorFacade;
 import org.daisy.braille.utils.pef.PrinterDevice;
 import org.daisy.braille.utils.pef.Range;
 import org.daisy.braille.utils.pef.UnsupportedWidthException;
-import org.daisy.streamline.cli.AbstractUI;
 import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandDetails;
+import org.daisy.streamline.cli.CommandParser;
 import org.daisy.streamline.cli.CommandParserResult;
 import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
 import org.daisy.streamline.cli.SwitchArgument;
+import org.daisy.streamline.cli.SwitchMap;
 import org.xml.sax.SAXException;
 
 /**
@@ -72,7 +74,11 @@ import org.xml.sax.SAXException;
  * Not for public use. This class is a package class. Use DotifyCLI 
  * @author Joel Håkansson
  */
-class EmbossPEF extends AbstractUI {
+class EmbossPEF implements CommandDetails {
+	/**
+	 * Prefix used for required arguments in the arguments map
+	 */
+	public static final String ARG_PREFIX = "required-";
 	public static final String DEVICE_NAME = "device name";
 	public static final String EMBOSSER_TYPE = "embosser type";
 	public static final String TABLE_TYPE = "table type";
@@ -86,6 +92,8 @@ class EmbossPEF extends AbstractUI {
 
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;
+	private final SwitchMap switches;
+	private final CommandParser parser;
 	
 	private String deviceName;
 	private Embosser type;
@@ -105,8 +113,11 @@ class EmbossPEF extends AbstractUI {
 		optionalArgs.add(new OptionalArgument(KEY_RANGE, "Emboss a range of pages", "1-"));
 		optionalArgs.add(new OptionalArgument(KEY_COPIES, "Set copies", "1"));
 		optionalArgs.add(new OptionalArgument(KEY_DIR, "Send the embosser data to a folder instead of the specified device.", ""));
-		parser.addSwitch(new SwitchArgument("clear", "settings", "clear", "To clear settings"));
-		parser.addSwitch(new SwitchArgument("setup", "settings", "setup", "To change setup"));
+		this.switches = new SwitchMap.Builder()
+				.addSwitch(new SwitchArgument("clear", "settings", "clear", "To clear settings"))
+				.addSwitch(new SwitchArgument("setup", "settings", "setup", "To change setup"))
+				.build();
+		this.parser = CommandParser.create(this);
 	}
 	
 	protected void readSetup(boolean verify) {
@@ -219,7 +230,7 @@ class EmbossPEF extends AbstractUI {
 		if (args.length<1) {
 			System.out.println("Expected at least one more argument.");
 			System.out.println();
-			ui.displayHelp(System.out);
+			ui.parser.displayHelp(System.out);
 			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
 
@@ -371,6 +382,11 @@ class EmbossPEF extends AbstractUI {
 	@Override
 	public List<OptionalArgument> getOptionalArguments() {
 		return optionalArgs;
+	}
+
+	@Override
+	public SwitchMap getSwitches() {
+		return switches;
 	}
 
 }

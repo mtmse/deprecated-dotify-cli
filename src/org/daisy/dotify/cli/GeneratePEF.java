@@ -24,20 +24,28 @@ import java.util.List;
 import java.util.Map;
 
 import org.daisy.braille.utils.pef.PEFGenerator;
-import org.daisy.streamline.cli.AbstractUI;
 import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandDetails;
+import org.daisy.streamline.cli.CommandParser;
 import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
 import org.daisy.streamline.cli.SwitchArgument;
+import org.daisy.streamline.cli.SwitchMap;
 
 /**
  * Provides a UI for generating PEF-files. Not for public use.
  * This class is a package class. Use DotifyCLI
  * @author Joel Håkansson
  */
-class GeneratePEF extends AbstractUI {
+class GeneratePEF implements CommandDetails {
+	/**
+	 * Prefix used for required arguments in the arguments map
+	 */
+	public static final String ARG_PREFIX = "required-";
 	private final List<Argument> reqArgs;
 	private final List<OptionalArgument> optionalArgs;
+	private final SwitchMap switches;
+	private final CommandParser parser;
 
 	public GeneratePEF() {
 		reqArgs = new ArrayList<Argument>();
@@ -47,11 +55,14 @@ class GeneratePEF extends AbstractUI {
 		optionalArgs.add(newOptionalArgument(PEFGenerator.KEY_SPV, "Number of sections in each volume"));
 		optionalArgs.add(newOptionalArgument(PEFGenerator.KEY_PPV, "Number of pages in each volume"));
 		//optionalArgs.add(newOptionalArgument(PEFGenerator.KEY_EIGHT_DOT, "Set to true to generate 8-dot braille"));
-		parser.addSwitch(new SwitchArgument('f', "full-range", PEFGenerator.KEY_EIGHT_DOT, "true", "Use the full range of braille patterns, i.e. including eight dot patterns"));
+		this.switches = new SwitchMap.Builder()
+				.addSwitch(new SwitchArgument('f', "full-range", PEFGenerator.KEY_EIGHT_DOT, "true", "Use the full range of braille patterns, i.e. including eight dot patterns"))
+				.addSwitch(new SwitchArgument('s', "simplex", PEFGenerator.KEY_DUPLEX, "false", "Create single sided PEF-files"))
+				.build();
+		this.parser = CommandParser.create(this);
 		optionalArgs.add(newOptionalArgument(PEFGenerator.KEY_ROWS, "Maximum number of rows on a page"));
 		optionalArgs.add(newOptionalArgument(PEFGenerator.KEY_COLS, "Maximum number of cols on a row"));
 		//optionalArgs.add(newOptionalArgument(PEFGenerator.KEY_DUPLEX, "Set the duplex property"));
-		parser.addSwitch(new SwitchArgument('s', "simplex", PEFGenerator.KEY_DUPLEX, "false", "Create single sided PEF-files"));
 	}
 
 	private OptionalArgument newOptionalArgument(String key, String desc) {
@@ -63,7 +74,7 @@ class GeneratePEF extends AbstractUI {
 		if (args.length<1) {
 			System.out.println("Expected at least one more argument.");
 			System.out.println();
-			ui.displayHelp(System.out);
+			ui.parser.displayHelp(System.out);
 			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
 		Map<String, String> p = ui.parser.parse(args).toMap(ARG_PREFIX);
@@ -95,6 +106,11 @@ class GeneratePEF extends AbstractUI {
 	@Override
 	public String getDescription() {
 		return "Generates a random PEF-file for testing purposes.";
+	}
+
+	@Override
+	public SwitchMap getSwitches() {
+		return switches;
 	}
 
 }

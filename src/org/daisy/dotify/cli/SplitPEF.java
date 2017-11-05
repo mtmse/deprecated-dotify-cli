@@ -23,17 +23,24 @@ import java.util.List;
 
 import org.daisy.braille.utils.api.validator.ValidatorFactory;
 import org.daisy.braille.utils.pef.PEFFileSplitter;
-import org.daisy.streamline.cli.AbstractUI;
 import org.daisy.streamline.cli.Argument;
+import org.daisy.streamline.cli.CommandDetails;
+import org.daisy.streamline.cli.CommandParser;
 import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
+import org.daisy.streamline.cli.SwitchMap;
 
 /**
  * Provides a UI for splitting a PEF-file. Not for public use. 
  * This class is a package class. Use DotifyCLI
  * @author Joel Håkansson
  */
-class SplitPEF extends AbstractUI {
+class SplitPEF implements CommandDetails {
+	private final CommandParser parser;
+	
+	public SplitPEF() {
+		this.parser = CommandParser.create(this);
+	}
 
 	/**
 	 * @param args
@@ -43,7 +50,7 @@ class SplitPEF extends AbstractUI {
 		if (args.length!=2) {
 			System.out.println("Expected two arguments.");
 			System.out.println();
-			ui.displayHelp(System.out);
+			ui.parser.displayHelp(System.out);
 			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
 		File input = new File(args[0]);
@@ -69,11 +76,6 @@ class SplitPEF extends AbstractUI {
 		ret.add(new Argument("input_file", "Path to the input PEF-file"));
 		ret.add(new Argument("output_directory", "Path to the output folder"));
 		return ret;
-	}
-
-	@Override
-	public List<OptionalArgument> getOptionalArguments() {
-		return null;
 	}
 
 }
