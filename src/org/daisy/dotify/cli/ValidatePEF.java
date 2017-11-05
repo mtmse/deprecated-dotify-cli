@@ -41,12 +41,11 @@ class ValidatePEF extends AbstractUI {
 			System.out.println("Expected one more argument: input [options ...]");
 			System.out.println();
 			ui.displayHelp(System.out);
-			System.exit(-ExitCode.MISSING_ARGUMENT.ordinal());
+			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
 		File in = new File(args[0]);
 		if (!in.exists()) {
-			System.out.println("File does not exist: " + in);
-			System.exit(-1);
+			ExitCode.MISSING_RESOURCE.exitSystem("File does not exist: " + in);
 		}
 		Mode m = Mode.values()[0];
 		if (args.length>1) {
@@ -63,8 +62,7 @@ class ValidatePEF extends AbstractUI {
 		ValidatorFactory factory = ValidatorFactory.newInstance();
 		org.daisy.braille.utils.api.validator.Validator pv = factory.newValidator(PEFValidator.class.getCanonicalName());
 		if (pv == null) {
-			System.out.println("Could not find validator.");
-			System.exit(-2);
+			ExitCode.INTERNAL_ERROR.exitSystem("Could not find validator.");
 		}
 		pv.setFeature(PEFValidator.FEATURE_MODE, m.equals(Mode.LIGHT) ? PEFValidator.Mode.LIGHT_MODE : PEFValidator.Mode.FULL_MODE);
 		System.out.println("Validating " + in + " using \"" + pv.getDisplayName() + "\" (" + pv.getDescription() + ") in " + pv.getFeature(PEFValidator.FEATURE_MODE));

@@ -66,7 +66,7 @@ class ListStuff extends AbstractUI {
 			System.out.println("Expected at least one more argument.");
 			System.out.println();
 			ui.displayHelp(System.out);
-			System.exit(-ExitCode.MISSING_ARGUMENT.ordinal());
+			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
 		String type;
 		String prefix;

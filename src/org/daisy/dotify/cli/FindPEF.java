@@ -73,7 +73,7 @@ class FindPEF extends AbstractUI {
 			System.out.println("Expected at least one more argument.");
 			System.out.println();
 			ui.displayHelp(System.out);
-			System.exit(-ExitCode.MISSING_ARGUMENT.ordinal());
+			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
 		CommandParserResult pr =  ui.parser.parse(args);
 		//Map<String, String> p =pr.toMap(ARG_PREFIX);

@@ -36,6 +36,7 @@ import org.daisy.braille.utils.pef.PEFValidatorFacade;
 import org.daisy.streamline.cli.AbstractUI;
 import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.Definition;
+import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
 import org.daisy.streamline.cli.ShortFormResolver;
 
@@ -100,8 +101,7 @@ class PEFParser extends AbstractUI {
 				// validate input
 				boolean ok = new PEFValidatorFacade(ValidatorFactory.newInstance()).validate(input, System.out);
 				if (!ok) {
-					System.out.println("Validation failed, exiting...");
-					System.exit(-1);
+					ExitCode.UNEXPECTED_RESOURCE_CONTENTS.exitSystem("Validation failed, exiting...");
 				}
 				
 				// expand short forms, if any

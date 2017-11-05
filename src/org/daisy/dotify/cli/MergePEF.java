@@ -49,7 +49,7 @@ class MergePEF extends AbstractUI {
 			System.out.println("Expected three arguments.");
 			System.out.println();
 			ui.displayHelp(System.out);
-			System.exit(-ExitCode.MISSING_ARGUMENT.ordinal());
+			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
 		PEFFileMerger merger = new PEFFileMerger(ValidatorFactory.newInstance());
 		File input = new File(args[0]);
@@ -64,8 +64,7 @@ class MergePEF extends AbstractUI {
 			} else if (sortString.equalsIgnoreCase("number")) {
 				sort = SortType.NUMERAL_GROUPING;
 			} else {
-				System.out.println("Illegal value for argument sort: " + sortString);
-				System.exit(-ExitCode.ILLEGAL_ARGUMENT_VALUE.ordinal());
+				ExitCode.ILLEGAL_ARGUMENT_VALUE.exitSystem("Illegal value for argument sort: " + sortString);
 			}
 		}
 		merger.merge(input, new FileOutputStream(output), args[2], sort);

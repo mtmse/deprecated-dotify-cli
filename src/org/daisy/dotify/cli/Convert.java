@@ -89,26 +89,25 @@ public class Convert extends AbstractUI {
 				for (TranslatorSpecification ts : s) {
 					System.out.println("  " + ts.getLocale() + ", " + ts.getMode());
 				}
-				Convert.exitWithCode(ExitCode.OK);
+				ExitCode.OK.exitSystem();
 			} else {
 				System.out.println("Expected at least two arguments");
 				
 				System.out.println();
 				m.displayHelp(System.out);
-				Convert.exitWithCode(ExitCode.MISSING_ARGUMENT);
+				ExitCode.MISSING_ARGUMENT.exitSystem();
 			}
 		} else if (p.size()>2) { 
 			System.out.println("Unknown argument(s): " + p.subList(2, p.size()));
 			System.out.println();
 			m.displayHelp(System.out);
-			Convert.exitWithCode(ExitCode.UNKNOWN_ARGUMENT);
+			ExitCode.UNKNOWN_ARGUMENT.exitSystem();
 		}
 		// remove required arguments
 		File input = new File(p.get(0));
 		//File input = new File(args[0]);
 		if (!input.exists()) {
-			System.out.println("Cannot find input file: " + input);
-			Convert.exitWithCode(ExitCode.MISSING_RESOURCE);
+			ExitCode.MISSING_RESOURCE.exitSystem("Cannot find input file: " + input);
 		}
 		
 		final File output = new File(p.get(1)).getAbsoluteFile();
@@ -134,11 +133,11 @@ public class Convert extends AbstractUI {
 				logger.warning("'" + WATCH_KEY + "' is not implemented for batch mode.");
 			}
 			if ("true".equals(props.get(SystemKeys.WRITE_TEMP_FILES))) {
-				Convert.exitWithCode(ExitCode.ILLEGAL_ARGUMENT_VALUE, "Cannot write debug files in batch mode.");
+				ExitCode.ILLEGAL_ARGUMENT_VALUE.exitSystem("Cannot write debug files in batch mode.");
 			}
 			String format = props.get(SystemKeys.OUTPUT_FORMAT);
 			if (format==null) {
-				Convert.exitWithCode(ExitCode.MISSING_ARGUMENT, SystemKeys.OUTPUT_FORMAT + " must be specified in batch mode.");
+				ExitCode.MISSING_ARGUMENT.exitSystem(SystemKeys.OUTPUT_FORMAT + " must be specified in batch mode.");
 			} else if (format.equals(SystemKeys.PEF_FORMAT)) {
 				format = "pef";
 			} else if (format.equals(SystemKeys.TEXT_FORMAT)) {
@@ -146,7 +145,7 @@ public class Convert extends AbstractUI {
 			} else if (format.equals(SystemKeys.OBFL_FORMAT)) {
 				format = "obfl";
 			} else {
-				Convert.exitWithCode(ExitCode.ILLEGAL_ARGUMENT_VALUE, "Unknown output format.");
+				ExitCode.ILLEGAL_ARGUMENT_VALUE.exitSystem("Unknown output format.");
 			}
 			//Experimental parallelization code in comment.
 			//ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
@@ -170,7 +169,7 @@ public class Convert extends AbstractUI {
 			//	e.printStackTrace();
 			//}
 		} else if (input.isDirectory()) { 
-			Convert.exitWithCode(ExitCode.ILLEGAL_ARGUMENT_VALUE, "If input is a directory, output must be an existing directory too.");
+			ExitCode.ILLEGAL_ARGUMENT_VALUE.exitSystem("If input is a directory, output must be an existing directory too.");
 		} else {
 			String pollWaitStr = result.getOptional().get(WATCH_KEY);
 			if (pollWaitStr!=null) {
@@ -207,7 +206,7 @@ public class Convert extends AbstractUI {
 	
 	private void runDotify(File input, File output, String context, HashMap<String, String> props) throws InternalTaskException, IOException {
 		if (!input.exists()) {
-			Convert.exitWithCode(ExitCode.MISSING_RESOURCE, "Cannot find input file: " + input);
+			ExitCode.MISSING_RESOURCE.exitSystem("Cannot find input file: " + input);
 		}
 		Dotify.run(input, output, FilterLocale.parse(context), props);
 		int i = output.getName().lastIndexOf(".");

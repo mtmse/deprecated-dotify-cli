@@ -14,6 +14,7 @@ import org.daisy.dotify.api.writer.PagedMediaWriterConfigurationException;
 import org.daisy.dotify.api.writer.PagedMediaWriterFactory;
 import org.daisy.dotify.consumer.engine.FormatterEngineMaker;
 import org.daisy.dotify.consumer.writer.PagedMediaWriterFactoryMaker;
+import org.daisy.streamline.cli.ExitCode;
 
 public class FormatterCLI {
 
@@ -25,9 +26,8 @@ public class FormatterCLI {
 	 */
 	public static void main(String[] args) throws FileNotFoundException, LayoutEngineException, PagedMediaWriterConfigurationException {
 		if (args.length != 4) {
-			System.out.println("Expected four arguments: input_file output_file locale mode");
-			System.out.println(" file.obfl file.pef sv-SE uncontracted");
-			System.exit(-1);
+			//System.out.println(" file.obfl file.pef sv-SE uncontracted");
+			ExitCode.MISSING_ARGUMENT.exitSystem("Expected four arguments: input_file output_file locale mode");
 		}
 		PagedMediaWriterFactory f = PagedMediaWriterFactoryMaker.newInstance().getFactory(MediaTypes.PEF_MEDIA_TYPE);
 

@@ -63,7 +63,7 @@ public class TranslateCLI extends AbstractUI {
 		CommandParserResult result = m.parser.parse(args);
 		if (HELP_KEY.equals(result.getOptional().get(META_KEY))) {
 			m.displayHelp(System.out);
-			TranslateCLI.exitWithCode(ExitCode.OK);
+			ExitCode.OK.exitSystem();
 		} else {
 			m.runCLI(result);
 		}

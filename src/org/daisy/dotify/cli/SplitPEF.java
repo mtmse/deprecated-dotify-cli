@@ -44,7 +44,7 @@ class SplitPEF extends AbstractUI {
 			System.out.println("Expected two arguments.");
 			System.out.println();
 			ui.displayHelp(System.out);
-			System.exit(-ExitCode.MISSING_ARGUMENT.ordinal());
+			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
 		File input = new File(args[0]);
 		File output = new File(args[1]);

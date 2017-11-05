@@ -59,7 +59,7 @@ class PEFInfo extends AbstractUI {
 			System.out.println("Expected at least one more argument.");
 			System.out.println();
 			ui.displayHelp(System.out);
-			System.exit(-ExitCode.MISSING_ARGUMENT.ordinal());
+			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
 		Map<String, String> p = ui.parser.parse(args).toMap(ARG_PREFIX);
 		// remove required argument

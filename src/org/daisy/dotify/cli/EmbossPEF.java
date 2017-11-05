@@ -220,7 +220,7 @@ class EmbossPEF extends AbstractUI {
 			System.out.println("Expected at least one more argument.");
 			System.out.println();
 			ui.displayHelp(System.out);
-			System.exit(-ExitCode.MISSING_ARGUMENT.ordinal());
+			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
 
 		CommandParserResult parserResult = ui.parser.parse(args);
@@ -229,13 +229,13 @@ class EmbossPEF extends AbstractUI {
 
 		if ("clear".equalsIgnoreCase(p.get("settings"))) {
 			ui.clearSettings();
-			System.exit(ExitCode.OK.ordinal());
+			ExitCode.OK.exitSystem();
 		}
 
 		if ("setup".equalsIgnoreCase(p.get("settings"))) {
 			ui.setup();
 			if (firstArg==null) {
-				System.exit(ExitCode.OK.ordinal());
+				ExitCode.OK.exitSystem();
 			}
 		} else {
 			ui.readSetup(false);
@@ -253,8 +253,7 @@ class EmbossPEF extends AbstractUI {
 				embossFolder.mkdir();
 				device = new FileDevice(embossFolder);
 			} else {
-				System.out.println(basePathStr + " does not exist or is not a directory.");
-				System.exit(-ExitCode.ILLEGAL_ARGUMENT_VALUE.ordinal());
+				ExitCode.ILLEGAL_ARGUMENT_VALUE.exitSystem(basePathStr + " does not exist or is not a directory.");
 			}
 		} else {
 			device = new PrinterDevice(ui.getDeviceName(), true);
@@ -293,8 +292,7 @@ class EmbossPEF extends AbstractUI {
 		try {
 			boolean ok = new PEFValidatorFacade(ValidatorFactory.newInstance()).validate(input, System.out);
 			if (!ok) {
-				System.out.println("Validation failed, exiting...");
-				System.exit(-ExitCode.FAILED_TO_READ.ordinal());
+				ExitCode.UNEXPECTED_RESOURCE_CONTENTS.exitSystem("Validation failed, exiting...");
 			}
 			for (int i=0; i<copies; i++) {
 				EmbosserWriter embosserObj = ui.getEmbosser().newEmbosserWriter(device);

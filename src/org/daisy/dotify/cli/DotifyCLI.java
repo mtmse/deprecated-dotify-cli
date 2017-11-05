@@ -126,7 +126,7 @@ public class DotifyCLI extends AbstractUI {
 			System.out.println("Expected at least one argument.");
 			System.out.println();
 			displayHelp(System.out);
-			System.exit(-ExitCode.MISSING_ARGUMENT.ordinal());
+			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
 		setPluginsDir(new File("plugins"));
 		if (HELP.equalsIgnoreCase(args[0])) {
@@ -135,11 +135,11 @@ public class DotifyCLI extends AbstractUI {
 				if (clazz!=null) {
 					AbstractUI ui = clazz.newInstance();
 					ui.displayHelp(System.out);
-					exitWithCode(ExitCode.OK);
+					ExitCode.OK.exitSystem();
 				} else {
 					System.out.println("Unknown argument '" + args[1] + "'");
 					displayHelp(System.out);
-					System.exit(-ExitCode.UNKNOWN_ARGUMENT.ordinal());
+					ExitCode.UNKNOWN_ARGUMENT.exitSystem();
 				}
 			}
 			displayHelp(System.out);
@@ -149,7 +149,7 @@ public class DotifyCLI extends AbstractUI {
 				System.out.println("--- " + getName() + " ---");
 				System.out.println("Version: " + (getVersion()!=null?getVersion():"N/A"));
 				System.out.println("Build: " + (getBuildIdentifier()!=null?getBuildIdentifier():"N/A"));
-				DotifyCLI.exitWithCode(ExitCode.OK);
+				ExitCode.OK.exitSystem();
 			}
 			Class<? extends Object> clazz = commands.get(args[0]);
 			if (clazz!=null) {
@@ -158,7 +158,7 @@ public class DotifyCLI extends AbstractUI {
 			} else {
 				System.out.println("Unknown argument '" + args[0] + "'");
 				displayHelp(System.out);
-				System.exit(-ExitCode.UNKNOWN_ARGUMENT.ordinal());
+				ExitCode.UNKNOWN_ARGUMENT.exitSystem();
 			}
 		}
 	}
