@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import org.daisy.braille.utils.api.factory.Factory;
 import org.daisy.braille.utils.api.factory.FactoryCatalog;
@@ -46,12 +47,12 @@ public class TranslateCLI extends AbstractUI {
 		for (FactoryProperties p : tableCatalog.list()) { idents.add(p.getIdentifier()); }
 		tableSF = new ShortFormResolver(idents);
 		Collection<TranslatorSpecification> tr = BrailleTranslatorFactoryMaker.newInstance().listSpecifications();
-		ArrayList<Definition> translations = new ArrayList<Definition>();
-		for (TranslatorSpecification ts : tr) {
-			if (!BrailleTranslatorFactory.MODE_BYPASS.equals(ts.getMode())) {
-				translations.add(new Definition(ts.getLocale(), ""));
-			}
-		}
+		List<Definition> translations = tr.stream()
+			.filter(v->v.getMode()!=BrailleTranslatorFactory.MODE_BYPASS)
+			.map(v->v.getLocale())
+			.distinct()
+			.map(v->new Definition(v, ""))
+			.collect(Collectors.toList());
 		this.optionalArgs = new ArrayList<OptionalArgument>();
 		optionalArgs.add(new OptionalArgument(LOCALE_KEY, "Braille locale. Note that the default locale is based on system settings, not on available braille locales.", translations, DEFAULT_LOCALE));
 		optionalArgs.add(new OptionalArgument(TABLE_KEY, "Table to use", getDefinitionList(tableCatalog, tableSF), "unicode_braille"));
