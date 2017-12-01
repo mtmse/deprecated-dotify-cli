@@ -27,7 +27,7 @@ public class TaskSystemFactoryMakerTest extends TaskSystemFactoryMakerTestbase {
 		return options(
 			ConfigurationOptions.felixDS(),
 			ConfigurationOptions.dotifyTasks(),
-			ConfigurationOptions.dotifyTaskRunner(),
+			ConfigurationOptions.streamlineEngine(),
 			ConfigurationOptions.dotifyFormatter(),
 			junitBundles()
 		);

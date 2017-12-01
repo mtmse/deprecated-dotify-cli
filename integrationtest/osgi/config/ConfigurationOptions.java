@@ -35,7 +35,7 @@ public abstract class ConfigurationOptions {
 	}
 	
 	static Option dotifyCommon() {
-		return mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.common").version("3.6.0");
+		return mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.common").version("3.8.0");
 	}
 	
 	public static Option dotifyText() {
@@ -67,7 +67,7 @@ public abstract class ConfigurationOptions {
 				);
 	}
 	
-	static Option dotifyApiCR() {
+	static Option streamlineApi() {
 		return 
 				mavenBundle().groupId("org.daisy.streamline").artifactId("streamline-api").version("0.2.0")
 				//sonatypeStaging("org.daisy.streamline", "streamline-api", "0.2.0")
@@ -101,14 +101,14 @@ public abstract class ConfigurationOptions {
 				dotifyTranslator(),
 				wstx(),
 				saxon(),
-				mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.formatter.impl").version("3.2.0"));
-				//sonatypeStaging("org.daisy.dotify", "dotify.formatter.impl", "3.2.0"));
+				mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.formatter.impl").version("3.2.1"));
+				//sonatypeStaging("org.daisy.dotify", "dotify.formatter.impl", "3.2.1"));
 	}
 	
 	public static Option dotifyTasks() {
 		return composite(
 					dotifyApi(),
-					dotifyApiCR(),
+					streamlineApi(),
 					dotifyCommon(),
 					jing(),
 					saxon(),
@@ -117,10 +117,10 @@ public abstract class ConfigurationOptions {
 				);
 	}
 	
-	public static Option dotifyTaskRunner() {
+	public static Option streamlineEngine() {
 		return composite(
 					dotifyCommon(),
-					dotifyApiCR(),
+					streamlineApi(),
 					mavenBundle().groupId("org.daisy.streamline").artifactId("streamline-engine").version("0.2.0")
 					//sonatypeStaging("org.daisy.streamline", "streamline-engine", "0.2.0")
 				);
