@@ -1,5 +1,17 @@
 [Table of Contents](toc.md)
 
+# 3.0.0-beta6 #
+## New in this version ##
+- CLI
+  - Improves locales list in the "translate" command's help text
+- Embossing
+  - Corrects width calculation on Braillo 300 (fixes brailleapps/braille-utils.impl#1)
+- Formatter
+  - Improves volume splitting (including brailleapps/dotify.formatter.impl#28, brailleapps/dotify.formatter.impl#30)
+  - Adds support for margin regions with different size (brailleapps/dotify#148)
+  - Fixes row-spacing combined with footer (brailleapps/dotify.formatter.impl#29 and brailleapps/dotify#196)
+  - Improves code and performance (including brailleapps/dotify.formatter.impl#32 and brailleapps/dotify.formatter.impl#33)
+
 # 3.0.0-beta5 #
 ## New in this version ##
 - CLI
