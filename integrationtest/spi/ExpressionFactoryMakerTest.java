@@ -3,7 +3,7 @@ package spi;
 import static org.junit.Assert.assertEquals;
 
 import org.daisy.dotify.api.obfl.Expression;
-import org.daisy.dotify.consumer.obfl.ExpressionFactoryMaker;
+import org.daisy.dotify.api.obfl.ExpressionFactoryMaker;
 import org.junit.Test;
 
 @SuppressWarnings("javadoc")

@@ -1,7 +1,7 @@
 package spi;
 
 import org.daisy.dotify.api.text.Integer2TextFactoryMakerService;
-import org.daisy.dotify.consumer.text.Integer2TextFactoryMaker;
+import org.daisy.dotify.api.text.Integer2TextFactoryMaker;
 
 import base.Integer2TextFactoryTestbase;
 

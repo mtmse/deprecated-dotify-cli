@@ -13,7 +13,7 @@ import org.daisy.braille.utils.api.factory.FactoryPropertiesComparator;
 import org.daisy.braille.utils.api.factory.FactoryPropertiesComparator.By;
 import org.daisy.braille.utils.api.paper.PaperCatalog;
 import org.daisy.braille.utils.api.table.TableCatalog;
-import org.daisy.dotify.consumer.hyphenator.HyphenatorFactoryMaker;
+import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMaker;
 import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.CommandDetails;
 import org.daisy.streamline.cli.CommandParser;

@@ -30,7 +30,7 @@ import org.daisy.dotify.api.translator.TranslatorSpecification;
 import org.daisy.dotify.common.text.FilterLocale;
 import org.daisy.dotify.consumer.config.ConfigurationsCatalog;
 import org.daisy.dotify.consumer.tasks.TaskGroupFactoryMaker;
-import org.daisy.dotify.consumer.translator.BrailleTranslatorFactoryMaker;
+import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMaker;
 import org.daisy.dotify.tasks.runner.DefaultTempFileWriter;
 import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.CommandDetails;

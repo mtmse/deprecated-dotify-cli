@@ -1,7 +1,7 @@
 package spi;
 
 import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMakerService;
-import org.daisy.dotify.consumer.translator.BrailleTranslatorFactoryMaker;
+import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMaker;
 
 import base.BrailleTranslatorFactoryMakerTestbase;
 

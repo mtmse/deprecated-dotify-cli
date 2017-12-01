@@ -11,7 +11,7 @@ import org.daisy.dotify.api.translator.TextBorderConfigurationException;
 import org.daisy.dotify.api.translator.TextBorderFactory;
 import org.daisy.dotify.api.translator.TextBorderFactoryMakerService;
 import org.daisy.dotify.api.translator.TextBorderStyle;
-import org.daisy.dotify.consumer.translator.TextBorderFactoryMaker;
+import org.daisy.dotify.api.translator.TextBorderFactoryMaker;
 import org.junit.Test;
 
 @SuppressWarnings("javadoc")

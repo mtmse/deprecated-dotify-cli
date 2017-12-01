@@ -12,8 +12,8 @@ import org.daisy.dotify.api.engine.LayoutEngineException;
 import org.daisy.dotify.api.writer.MediaTypes;
 import org.daisy.dotify.api.writer.PagedMediaWriterConfigurationException;
 import org.daisy.dotify.api.writer.PagedMediaWriterFactory;
-import org.daisy.dotify.consumer.engine.FormatterEngineMaker;
-import org.daisy.dotify.consumer.writer.PagedMediaWriterFactoryMaker;
+import org.daisy.dotify.api.engine.FormatterEngineMaker;
+import org.daisy.dotify.api.writer.PagedMediaWriterFactoryMaker;
 import org.daisy.streamline.cli.ExitCode;
 
 public class FormatterCLI {

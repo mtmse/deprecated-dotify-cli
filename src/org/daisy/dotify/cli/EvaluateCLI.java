@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.daisy.dotify.api.obfl.Expression;
-import org.daisy.dotify.consumer.obfl.ExpressionFactoryMaker;
+import org.daisy.dotify.api.obfl.ExpressionFactoryMaker;
 import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.CommandDetails;
 import org.daisy.streamline.cli.CommandParser;

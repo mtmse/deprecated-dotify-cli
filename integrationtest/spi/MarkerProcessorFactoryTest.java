@@ -6,7 +6,7 @@ import org.daisy.dotify.api.translator.BrailleTranslatorFactory;
 import org.daisy.dotify.api.translator.MarkerProcessor;
 import org.daisy.dotify.api.translator.MarkerProcessorConfigurationException;
 import org.daisy.dotify.api.translator.MarkerProcessorFactoryMakerService;
-import org.daisy.dotify.consumer.translator.MarkerProcessorFactoryMaker;
+import org.daisy.dotify.api.translator.MarkerProcessorFactoryMaker;
 import org.junit.Test;
 
 @SuppressWarnings("javadoc")

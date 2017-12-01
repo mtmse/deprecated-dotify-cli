@@ -4,7 +4,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.daisy.dotify.api.formatter.Formatter;
 import org.daisy.dotify.api.translator.BrailleTranslatorFactory;
-import org.daisy.dotify.consumer.formatter.FormatterFactoryMaker;
+import org.daisy.dotify.api.formatter.FormatterFactoryMaker;
 import org.junit.Test;
 
 

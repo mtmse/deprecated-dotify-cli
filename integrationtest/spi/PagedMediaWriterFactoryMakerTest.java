@@ -1,7 +1,7 @@
 package spi;
 
 import org.daisy.dotify.api.writer.PagedMediaWriterFactoryMakerService;
-import org.daisy.dotify.consumer.writer.PagedMediaWriterFactoryMaker;
+import org.daisy.dotify.api.writer.PagedMediaWriterFactoryMaker;
 
 import base.PagedMediaWriterFactoryMakerTestbase;
 

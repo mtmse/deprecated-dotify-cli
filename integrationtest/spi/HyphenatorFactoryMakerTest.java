@@ -1,7 +1,7 @@
 package spi;
 
 import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMakerService;
-import org.daisy.dotify.consumer.hyphenator.HyphenatorFactoryMaker;
+import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMaker;
 
 import base.HyphenatorFactoryMakerTestbase;
 
