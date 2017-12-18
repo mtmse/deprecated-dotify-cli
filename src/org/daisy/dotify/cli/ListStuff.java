@@ -21,7 +21,6 @@ import org.daisy.streamline.cli.CommandParserResult;
 import org.daisy.streamline.cli.Definition;
 import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
-import org.daisy.streamline.cli.SwitchMap;
 
 class ListStuff implements CommandDetails {
 	/**

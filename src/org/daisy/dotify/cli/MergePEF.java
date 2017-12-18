@@ -33,7 +33,6 @@ import org.daisy.streamline.cli.CommandParser;
 import org.daisy.streamline.cli.Definition;
 import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
-import org.daisy.streamline.cli.SwitchMap;
 
 /**
  * Provides a UI for merging PEF-files. Not for public use. This class is a package class. Use DotifyCLI

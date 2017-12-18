@@ -27,8 +27,6 @@ import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.CommandDetails;
 import org.daisy.streamline.cli.CommandParser;
 import org.daisy.streamline.cli.ExitCode;
-import org.daisy.streamline.cli.OptionalArgument;
-import org.daisy.streamline.cli.SwitchMap;
 
 /**
  * Provides a UI for splitting a PEF-file. Not for public use. 

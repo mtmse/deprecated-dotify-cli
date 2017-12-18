@@ -40,7 +40,6 @@ import org.daisy.streamline.cli.Definition;
 import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
 import org.daisy.streamline.cli.ShortFormResolver;
-import org.daisy.streamline.cli.SwitchMap;
 
 /**
  * Reads a PEF-file and outputs a text file.
