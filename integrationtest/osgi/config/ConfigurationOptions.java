@@ -4,6 +4,9 @@ import static org.ops4j.pax.exam.CoreOptions.bundle;
 import static org.ops4j.pax.exam.CoreOptions.composite;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 
+import java.io.File;
+import java.net.MalformedURLException;
+
 import org.ops4j.pax.exam.Option;
 
 @SuppressWarnings("javadoc")
@@ -131,13 +134,35 @@ public abstract class ConfigurationOptions {
 					//sonatypeStaging("org.daisy.streamline", "streamline-engine", "0.2.0")
 				);
 	}
-	
-
 
 	static Option sonatypeStaging(String group, String artifact, String version) {
 		String path = group.replaceAll("\\.", "/");
 		return bundle("https://oss.sonatype.org/content/groups/staging/"+path+
 				"/"+artifact+"/"+version+"/"+artifact+"-"+version+".jar");
+	}
+	
+	static File mavenLocal = null;
+	
+	static synchronized File getMavenLocal() {
+		if (mavenLocal==null) {
+			File home = new File(System.getProperty("user.home"));
+			mavenLocal = new File(new File(home, ".m2"), "repository");
+			if (!mavenLocal.isDirectory()) {
+				throw new RuntimeException("Cannot find maven local at " + mavenLocal);
+			}			
+		}
+		return mavenLocal;
+	}
+	
+	static Option local(String group, String artifact, String version) {
+		try {
+			String path = group.replaceAll("\\.", "/");
+			String localPath = getMavenLocal().toURI().toURL().toExternalForm();
+			return bundle(localPath+path+
+					"/"+artifact+"/"+version+"/"+artifact+"-"+version+".jar");
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 }
