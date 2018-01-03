@@ -1,7 +1,7 @@
 package spi;
 
-import org.daisy.dotify.api.identity.IdentityProviderService;
-import org.daisy.dotify.consumer.identity.IdentityProvider;
+import org.daisy.streamline.api.identity.IdentityProvider;
+import org.daisy.streamline.api.identity.IdentityProviderService;
 
 import base.IdentityProviderServiceTestbase;
 

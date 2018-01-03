@@ -13,9 +13,9 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.daisy.dotify.api.config.ConfigurationDetails;
-import org.daisy.dotify.api.config.ConfigurationsProvider;
-import org.daisy.dotify.api.config.ConfigurationsProviderException;
+import org.daisy.streamline.api.config.ConfigurationDetails;
+import org.daisy.streamline.api.config.ConfigurationsProvider;
+import org.daisy.streamline.api.config.ConfigurationsProviderException;
 import org.daisy.dotify.common.io.AbstractResourceLocator;
 import org.daisy.dotify.common.io.ResourceLocatorException;
 

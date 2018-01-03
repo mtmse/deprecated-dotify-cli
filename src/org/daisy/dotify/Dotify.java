@@ -17,27 +17,27 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import org.daisy.dotify.api.config.ConfigurationsProviderException;
-import org.daisy.dotify.api.tasks.AnnotatedFile;
-import org.daisy.dotify.api.tasks.CompiledTaskSystem;
-import org.daisy.dotify.api.tasks.DefaultAnnotatedFile;
-import org.daisy.dotify.api.tasks.InternalTaskException;
-import org.daisy.dotify.api.tasks.TaskGroupInformation;
-import org.daisy.dotify.api.tasks.TaskOption;
-import org.daisy.dotify.api.tasks.TaskOptionValue;
-import org.daisy.dotify.api.tasks.TaskSystem;
-import org.daisy.dotify.api.tasks.TaskSystemException;
-import org.daisy.dotify.api.tasks.TaskSystemFactoryException;
 import org.daisy.dotify.common.text.FilterLocale;
 import org.daisy.dotify.common.xml.XMLTools;
 import org.daisy.dotify.common.xml.XMLToolsException;
-import org.daisy.dotify.consumer.config.ConfigurationsCatalog;
-import org.daisy.dotify.consumer.identity.IdentityProvider;
-import org.daisy.dotify.consumer.tasks.TaskGroupFactoryMaker;
-import org.daisy.dotify.consumer.tasks.TaskSystemFactoryMaker;
-import org.daisy.dotify.tasks.runner.DefaultTempFileWriter;
-import org.daisy.dotify.tasks.runner.RunnerResult;
-import org.daisy.dotify.tasks.runner.TaskRunner;
+import org.daisy.streamline.api.config.ConfigurationsCatalog;
+import org.daisy.streamline.api.config.ConfigurationsProviderException;
+import org.daisy.streamline.api.identity.IdentityProvider;
+import org.daisy.streamline.api.media.AnnotatedFile;
+import org.daisy.streamline.api.media.DefaultAnnotatedFile;
+import org.daisy.streamline.api.option.UserOption;
+import org.daisy.streamline.api.option.UserOptionValue;
+import org.daisy.streamline.api.tasks.CompiledTaskSystem;
+import org.daisy.streamline.api.tasks.InternalTaskException;
+import org.daisy.streamline.api.tasks.TaskGroupFactoryMaker;
+import org.daisy.streamline.api.tasks.TaskGroupInformation;
+import org.daisy.streamline.api.tasks.TaskSystem;
+import org.daisy.streamline.api.tasks.TaskSystemException;
+import org.daisy.streamline.api.tasks.TaskSystemFactoryException;
+import org.daisy.streamline.api.tasks.TaskSystemFactoryMaker;
+import org.daisy.streamline.engine.DefaultTempFileWriter;
+import org.daisy.streamline.engine.RunnerResult;
+import org.daisy.streamline.engine.TaskRunner;
 
 /**
  * Provides an entry point for simple embedding of Dotify. To run, call <tt>Dotify.run</tt>.
@@ -275,21 +275,21 @@ public class Dotify {
 		}
 	}
 	
-	private static void printOptions(String title, List<TaskOption> options, PrintWriter out) {
+	private static void printOptions(String title, List<UserOption> options, PrintWriter out) {
 		if (options==null || options.isEmpty()) {
 			return;
 		}
 		out.println("=== "+title+" ===");
-		for (TaskOption to : options) {
+		for (UserOption to : options) {
 			out.print("--"+to.getKey()+"=<value>");
 			if (to.getValues()==null && to.getDefaultValue()!=null && !"".equals(to.getDefaultValue())) {
 				out.print(" ("+to.getDefaultValue()+")");
 			}
 			out.println();
 			out.println("\t" + to.getDescription());
-			List<TaskOptionValue> values = to.getValues();
+			List<UserOptionValue> values = to.getValues();
 			if (values!=null) {
-				for (TaskOptionValue tov : values) {
+				for (UserOptionValue tov : values) {
 					out.print("\t\t" + tov.getName());
 					if (tov.getName().equals(to.getDefaultValue())) {
 						out.print(" (default)");

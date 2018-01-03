@@ -13,49 +13,39 @@ import org.ops4j.pax.exam.Option;
 public abstract class ConfigurationOptions {
 	
 	public static Option felixDS() {
-		return mavenBundle().groupId("org.apache.felix").artifactId("org.apache.felix.scr").version("1.6.2");
+		return MavenRepo.CENTRAL.get("org.apache.felix", "org.apache.felix.scr", "1.6.2");
 	}
 
 	public static Option brailleUtilsCore() {
 		return composite(
-				mavenBundle().groupId("org.daisy.libs").artifactId("jing").version("20120724.0.0"),
-				mavenBundle().groupId("org.daisy.libs").artifactId("saxon-he").version("9.5.1.5"),
-				mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.api").version("4.2.0"),
-				//sonatypeStaging("org.daisy.braille", "braille-utils.api", "4.2.0"),
-				mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.pef-tools").version("3.0.0")
+				MavenRepo.CENTRAL.get("org.daisy.libs", "jing", "20120724.0.0"),
+				MavenRepo.CENTRAL.get("org.daisy.libs", "saxon-he", "9.5.1.5"),
+				MavenRepo.CENTRAL.get("org.daisy.braille", "braille-utils.api", "4.2.0"),
+				MavenRepo.CENTRAL.get("org.daisy.braille", "braille-utils.pef-tools", "3.0.0")
 				);
 	}
 	
 	public static Option brailleUtilsCatalog() {
-		return 
-				mavenBundle().groupId("org.daisy.braille").artifactId("braille-utils.impl").version("4.0.1")
-				//sonatypeStaging("org.daisy.braille", "braille-utils.impl", "4.0.1")
-				;
+		return MavenRepo.CENTRAL.get("org.daisy.braille", "braille-utils.impl", "4.0.1");
 	}
 
 	static Option dotifyApi() {
-		return 
-				mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.api").version("3.3.0")
-				//sonatypeStaging("org.daisy.dotify", "dotify.api", "3.3.0")
-				;
+		return MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.api", "4.0.0");
 	}
 	
 	static Option dotifyCommon() {
-		return 
-				mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.common").version("3.9.0")
-				//sonatypeStaging("org.daisy.dotify", "dotify.common", "3.9.0")
-				;
+		return MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.common", "4.0.0");
 	}
 	
 	public static Option dotifyText() {
 		return composite(
 				dotifyApi(),
-				mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.text.impl").version("3.0.0")
-				);
+				MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.text.impl", "4.0.0")
+			);
 	}
 	
 	static Option texhyphj() {
-		return mavenBundle().groupId("com.googlecode.texhyphj").artifactId("texhyphj").version("1.2");
+		return MavenRepo.CENTRAL.get("com.googlecode.texhyphj", "texhyphj", "1.2");
 	}
 	
 	public static Option dotifyHyphenator() {
@@ -63,42 +53,37 @@ public abstract class ConfigurationOptions {
 				dotifyApi(),
 				dotifyCommon(),
 				texhyphj(),
-				mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.hyphenator.impl").version("3.0.0")
-				//sonatypeStaging("org.daisy.dotify", "dotify.hyphenator.impl", "3.0.0")
-				);
+				MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.hyphenator.impl", "4.0.0")
+			);
 	}
 	
 	public static Option dotifyTranslator() {
 		return composite(
 				dotifyHyphenator(),
-				mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.translator.impl").version("3.1.0")
-				//sonatypeStaging("org.daisy.dotify", "dotify.translator.impl", "3.1.0")
-				);
+				MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.translator.impl", "4.0.0")
+			);
 	}
 	
 	static Option streamlineApi() {
-		return 
-				mavenBundle().groupId("org.daisy.streamline").artifactId("streamline-api").version("0.2.0")
-				//sonatypeStaging("org.daisy.streamline", "streamline-api", "0.2.0")
-				;
+		return MavenRepo.CENTRAL.get("org.daisy.streamline", "streamline-api", "1.0.0");
 	}
 	
 	static Option jing() {
-		return mavenBundle().groupId("org.daisy.libs").artifactId("jing").version("20120724.0.0");
+		return MavenRepo.CENTRAL.get("org.daisy.libs", "jing", "20120724.0.0");
 	}
 	
 	static Option saxon() {
-		return mavenBundle().groupId("org.daisy.libs").artifactId("saxon-he").version("9.5.1.5");
+		return MavenRepo.CENTRAL.get("org.daisy.libs", "saxon-he", "9.5.1.5");
 	}
 	
 	static Option stax2() {
-		return mavenBundle().groupId("org.codehaus.woodstox").artifactId("stax2-api").version("3.1.4");
+		return MavenRepo.CENTRAL.get("org.codehaus.woodstox", "stax2-api", "3.1.4");
 	}
 	
 	static Option wstx() {
 		return composite(
 				stax2(),
-				mavenBundle().groupId("com.fasterxml.woodstox").artifactId("woodstox-core").version("5.0.2")
+				MavenRepo.CENTRAL.get("com.fasterxml.woodstox", "woodstox-core", "5.0.2")
 			);
 				
 	}
@@ -110,59 +95,75 @@ public abstract class ConfigurationOptions {
 				dotifyTranslator(),
 				wstx(),
 				saxon(),
-				mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.formatter.impl").version("3.3.0"));
-				//sonatypeStaging("org.daisy.dotify", "dotify.formatter.impl", "3.3.0"));
+				MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.formatter.impl", "4.0.0")
+			);
 	}
 	
 	public static Option dotifyTasks() {
 		return composite(
-					dotifyApi(),
-					streamlineApi(),
-					dotifyCommon(),
-					jing(),
-					saxon(),
-					mavenBundle().groupId("org.daisy.dotify").artifactId("dotify.task.impl").version("3.6.0")
-					//sonatypeStaging("org.daisy.dotify", "dotify.task.impl", "3.6.0")
-				);
+				dotifyApi(),
+				streamlineApi(),
+				dotifyCommon(),
+				jing(),
+				saxon(),
+				MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.task.impl", "4.0.0")
+			);
 	}
 	
 	public static Option streamlineEngine() {
 		return composite(
-					dotifyCommon(),
-					streamlineApi(),
-					mavenBundle().groupId("org.daisy.streamline").artifactId("streamline-engine").version("0.2.0")
-					//sonatypeStaging("org.daisy.streamline", "streamline-engine", "0.2.0")
-				);
+				dotifyCommon(),
+				streamlineApi(),
+				MavenRepo.CENTRAL.get("org.daisy.streamline", "streamline-engine", "1.0.0")
+			);
 	}
 
-	static Option sonatypeStaging(String group, String artifact, String version) {
-		String path = group.replaceAll("\\.", "/");
-		return bundle("https://oss.sonatype.org/content/groups/staging/"+path+
-				"/"+artifact+"/"+version+"/"+artifact+"-"+version+".jar");
-	}
-	
-	static File mavenLocal = null;
-	
-	static synchronized File getMavenLocal() {
-		if (mavenLocal==null) {
-			File home = new File(System.getProperty("user.home"));
-			mavenLocal = new File(new File(home, ".m2"), "repository");
-			if (!mavenLocal.isDirectory()) {
-				throw new RuntimeException("Cannot find maven local at " + mavenLocal);
-			}			
+	enum MavenRepo {
+		CENTRAL,
+		SONATYPE_STAGING,
+		LOCAL;
+		
+		Option get(String group, String artifact, String version) {
+			switch(this) {
+				case LOCAL:
+					return local(group, artifact, version);
+				case SONATYPE_STAGING:
+					return sonatypeStaging(group, artifact, version);
+				case CENTRAL: default:
+					return mavenBundle().groupId(group).artifactId(artifact).version(version);
+			}
 		}
-		return mavenLocal;
-	}
-	
-	static Option local(String group, String artifact, String version) {
-		try {
+		
+		static Option sonatypeStaging(String group, String artifact, String version) {
 			String path = group.replaceAll("\\.", "/");
-			String localPath = getMavenLocal().toURI().toURL().toExternalForm();
-			return bundle(localPath+path+
+			return bundle("https://oss.sonatype.org/content/groups/staging/"+path+
 					"/"+artifact+"/"+version+"/"+artifact+"-"+version+".jar");
-		} catch (MalformedURLException e) {
-			throw new RuntimeException(e);
 		}
+		
+		static File mavenLocal = null;
+		
+		static synchronized File getMavenLocal() {
+			if (mavenLocal==null) {
+				File home = new File(System.getProperty("user.home"));
+				mavenLocal = new File(new File(home, ".m2"), "repository");
+				if (!mavenLocal.isDirectory()) {
+					throw new RuntimeException("Cannot find maven local at " + mavenLocal);
+				}			
+			}
+			return mavenLocal;
+		}
+		
+		static Option local(String group, String artifact, String version) {
+			try {
+				String path = group.replaceAll("\\.", "/");
+				String localPath = getMavenLocal().toURI().toURL().toExternalForm();
+				return bundle(localPath+path+
+						"/"+artifact+"/"+version+"/"+artifact+"-"+version+".jar");
+			} catch (MalformedURLException e) {
+				throw new RuntimeException(e);
+			}
+		}
+
 	}
-	
+
 }

@@ -9,12 +9,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.daisy.dotify.api.tasks.InternalTask;
-import org.daisy.dotify.api.tasks.TaskSystem;
-import org.daisy.dotify.api.tasks.TaskSystemException;
-import org.daisy.dotify.api.tasks.TaskSystemFactoryException;
-import org.daisy.dotify.api.tasks.TaskSystemFactoryMakerService;
-import org.daisy.dotify.tasks.runner.TaskRunnerCore;
+import org.daisy.streamline.api.tasks.InternalTask;
+import org.daisy.streamline.api.tasks.TaskSystem;
+import org.daisy.streamline.api.tasks.TaskSystemException;
+import org.daisy.streamline.api.tasks.TaskSystemFactoryException;
+import org.daisy.streamline.api.tasks.TaskSystemFactoryMakerService;
+import org.daisy.streamline.engine.TaskRunnerCore;
 import org.junit.Test;
 
 @SuppressWarnings("javadoc")

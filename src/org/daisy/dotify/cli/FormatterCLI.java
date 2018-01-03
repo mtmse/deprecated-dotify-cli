@@ -8,11 +8,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.daisy.dotify.api.engine.FormatterEngine;
+import org.daisy.dotify.api.engine.FormatterEngineMaker;
 import org.daisy.dotify.api.engine.LayoutEngineException;
 import org.daisy.dotify.api.writer.MediaTypes;
 import org.daisy.dotify.api.writer.PagedMediaWriterConfigurationException;
 import org.daisy.dotify.api.writer.PagedMediaWriterFactory;
-import org.daisy.dotify.api.engine.FormatterEngineMaker;
 import org.daisy.dotify.api.writer.PagedMediaWriterFactoryMaker;
 import org.daisy.streamline.cli.ExitCode;
 

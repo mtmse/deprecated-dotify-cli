@@ -1,7 +1,7 @@
 package spi;
 
-import org.daisy.dotify.api.tasks.TaskSystemFactoryMakerService;
-import org.daisy.dotify.consumer.tasks.TaskSystemFactoryMaker;
+import org.daisy.streamline.api.tasks.TaskSystemFactoryMaker;
+import org.daisy.streamline.api.tasks.TaskSystemFactoryMakerService;
 
 import base.TaskSystemFactoryMakerTestbase;
 

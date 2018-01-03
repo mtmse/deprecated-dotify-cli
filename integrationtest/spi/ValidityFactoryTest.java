@@ -1,8 +1,8 @@
 package spi;
 
 
-import org.daisy.dotify.api.validity.ValidatorFactoryMakerService;
-import org.daisy.dotify.consumer.validity.ValidatorFactoryMaker;
+import org.daisy.streamline.api.validity.ValidatorFactoryMaker;
+import org.daisy.streamline.api.validity.ValidatorFactoryMakerService;
 
 import base.ValidityFactoryTestbase;
 

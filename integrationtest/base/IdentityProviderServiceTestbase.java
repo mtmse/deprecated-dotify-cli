@@ -1,11 +1,12 @@
 package base;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 
-import org.daisy.dotify.api.identity.IdentityProviderService;
-import org.daisy.dotify.api.tasks.AnnotatedFile;
+import org.daisy.streamline.api.identity.IdentityProviderService;
+import org.daisy.streamline.api.media.AnnotatedFile;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 @SuppressWarnings("javadoc")
 public abstract class IdentityProviderServiceTestbase {

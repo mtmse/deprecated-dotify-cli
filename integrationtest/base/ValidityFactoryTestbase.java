@@ -2,9 +2,9 @@ package base;
 
 import static org.junit.Assert.assertTrue;
 
-import org.daisy.dotify.api.validity.ValidationReport;
-import org.daisy.dotify.api.validity.Validator;
-import org.daisy.dotify.api.validity.ValidatorFactoryMakerService;
+import org.daisy.streamline.api.validity.ValidationReport;
+import org.daisy.streamline.api.validity.Validator;
+import org.daisy.streamline.api.validity.ValidatorFactoryMakerService;
 import org.junit.Test;
 
 @SuppressWarnings("javadoc")
