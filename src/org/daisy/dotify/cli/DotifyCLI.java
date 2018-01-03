@@ -68,7 +68,7 @@ public class DotifyCLI implements CommandDetails {
 		// Main commands
 		putCommand(CONVERT, "formats and translates a document into braille", Convert.class);
 		putCommand(EMBOSS, "embosses a PEF-file", EmbossPEF.class);
-		putCommand(VALIDATE, "validates a PEF-file", ValidatePEF.class);
+		putCommand(VALIDATE, "validates a file", ValidateCLI.class);
 		putCommand(INSPECT, "lists metadata about a PEF-file", PEFInfo.class);
 		putCommand(FIND, "finds PEF-files based on file metadata", FindPEF.class);
 

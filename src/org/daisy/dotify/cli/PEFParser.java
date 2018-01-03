@@ -32,7 +32,6 @@ import org.daisy.braille.utils.api.factory.FactoryProperties;
 import org.daisy.braille.utils.api.table.TableCatalog;
 import org.daisy.braille.utils.api.validator.ValidatorFactory;
 import org.daisy.braille.utils.pef.PEFConverterFacade;
-import org.daisy.braille.utils.pef.PEFValidatorFacade;
 import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.CommandDetails;
 import org.daisy.streamline.cli.CommandParser;
@@ -105,7 +104,7 @@ class PEFParser implements CommandDetails {
 				File output = new File(""+p.remove(ARG_PREFIX+1));
 				
 				// validate input
-				boolean ok = new PEFValidatorFacade(ValidatorFactory.newInstance()).validate(input, System.out);
+				boolean ok = new ValidatorFacade().validate(input, System.out);
 				if (!ok) {
 					ExitCode.UNEXPECTED_RESOURCE_CONTENTS.exitSystem("Validation failed, exiting...");
 				}

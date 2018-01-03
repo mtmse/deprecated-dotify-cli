@@ -55,7 +55,6 @@ import org.daisy.braille.utils.api.validator.ValidatorFactory;
 import org.daisy.braille.utils.pef.FileDevice;
 import org.daisy.braille.utils.pef.PEFConverterFacade;
 import org.daisy.braille.utils.pef.PEFHandler;
-import org.daisy.braille.utils.pef.PEFValidatorFacade;
 import org.daisy.braille.utils.pef.PrinterDevice;
 import org.daisy.braille.utils.pef.Range;
 import org.daisy.braille.utils.pef.UnsupportedWidthException;
@@ -301,7 +300,7 @@ class EmbossPEF implements CommandDetails {
 			throw new RuntimeException("Cannot find input file: " + firstArg);
 		}
 		try {
-			boolean ok = new PEFValidatorFacade(ValidatorFactory.newInstance()).validate(input, System.out);
+			boolean ok = new ValidatorFacade().validate(input, System.out);
 			if (!ok) {
 				ExitCode.UNEXPECTED_RESOURCE_CONTENTS.exitSystem("Validation failed, exiting...");
 			}

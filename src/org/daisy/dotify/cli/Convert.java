@@ -19,19 +19,21 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.daisy.braille.utils.api.embosser.EmbosserCatalog;
 import org.daisy.braille.utils.api.embosser.EmbosserFactoryException;
 import org.daisy.braille.utils.pef.PEFConverterFacade;
-import org.daisy.braille.utils.pef.PEFValidator;
 import org.daisy.braille.utils.pef.UnsupportedWidthException;
 import org.daisy.dotify.Dotify;
 import org.daisy.dotify.SystemKeys;
-import org.daisy.streamline.api.config.ConfigurationDetails;
-import org.daisy.streamline.api.tasks.InternalTaskException;
-import org.daisy.streamline.api.tasks.TaskGroupInformation;
+import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMaker;
 import org.daisy.dotify.api.translator.TranslatorSpecification;
 import org.daisy.dotify.common.text.FilterLocale;
+import org.daisy.streamline.api.config.ConfigurationDetails;
 import org.daisy.streamline.api.config.ConfigurationsCatalog;
+import org.daisy.streamline.api.identity.IdentityProvider;
+import org.daisy.streamline.api.media.AnnotatedFile;
+import org.daisy.streamline.api.tasks.InternalTaskException;
 import org.daisy.streamline.api.tasks.TaskGroupFactoryMaker;
-import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMaker;
-import org.daisy.streamline.engine.DefaultTempFileWriter;
+import org.daisy.streamline.api.tasks.TaskGroupInformation;
+import org.daisy.streamline.api.validity.Validator;
+import org.daisy.streamline.api.validity.ValidatorFactoryMaker;
 import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.CommandDetails;
 import org.daisy.streamline.cli.CommandParser;
@@ -41,6 +43,7 @@ import org.daisy.streamline.cli.ExitCode;
 import org.daisy.streamline.cli.OptionalArgument;
 import org.daisy.streamline.cli.SwitchArgument;
 import org.daisy.streamline.cli.SwitchMap;
+import org.daisy.streamline.engine.DefaultTempFileWriter;
 import org.xml.sax.SAXException;
 
 /**
@@ -216,41 +219,41 @@ public class Convert implements CommandDetails {
 			ExitCode.MISSING_RESOURCE.exitSystem("Cannot find input file: " + input);
 		}
 		Dotify.run(input, output, FilterLocale.parse(context), props);
-		int i = output.getName().lastIndexOf(".");
-		String format = "";
-		if (output.getName().length()>i) {
-			format = output.getName().substring(i+1);
-		}
-		if (format.equalsIgnoreCase(SystemKeys.PEF_FORMAT)) {
-			logger.info("Validating output...");
-			PEFValidator validator = new PEFValidator();
-			if (!validator.validate(output.toURI().toURL())) {
-				logger.warning("Validation failed: " + output);
-			} else {
-				logger.info("Output is valid.");
-				if (props.containsKey(PEFConverterFacade.KEY_TABLE)) {
-					// create brl
-					HashMap<String, String> p = new HashMap<String, String>();
-					p.put(PEFConverterFacade.KEY_TABLE, props.get(PEFConverterFacade.KEY_TABLE));
-					try {
-						brailleInfo.getShortFormResolver().expandShortForm(p, PEFConverterFacade.KEY_TABLE);
-					} catch (IllegalArgumentException e) {
-						ExitCode.ILLEGAL_ARGUMENT_VALUE.exitSystem(e.getMessage());
-					}
-					File f = new File(output.getParentFile(), output.getName() + ".brl");
-					logger.info("Writing brl to " + f.getAbsolutePath());
-					try (FileOutputStream os = new FileOutputStream(f)) {
-						new PEFConverterFacade(EmbosserCatalog.newInstance()).parsePefFile(output, os, null, p);
-					} catch (ParserConfigurationException e) {
-						logger.log(Level.FINE, "Parse error when converting to brl", e);
-					} catch (SAXException e) {
-						logger.log(Level.FINE, "SAX error when converting to brl", e);
-					} catch (UnsupportedWidthException e) {
-						logger.log(Level.FINE, "Width error when converting to brl", e);
-					} catch (NumberFormatException e) {
-						logger.log(Level.FINE, "Number format error when converting to brl", e);
-					} catch (EmbosserFactoryException e) {
-						logger.log(Level.FINE, "Embosser error when converting to brl", e);
+		if (output.exists()) {
+			AnnotatedFile ao = IdentityProvider.newInstance().identify(output);
+			String mediaType = ao.getMediaType();
+			ValidatorFactoryMaker validatorFactory = ValidatorFactoryMaker.newInstance();
+			Validator validator;
+			if (mediaType!=null && (validator = validatorFactory.newValidator(mediaType))!=null) {
+				logger.info(String.format("Validating output using %s", validator.getClass().getName()));
+				if (!validator.validate(output.toURI().toURL()).isValid()) {
+					logger.warning("Validation failed: " + output);
+				} else {
+					logger.info("Output is valid.");
+					if (mediaType.equals("application/x-pef+xml") && props.containsKey(PEFConverterFacade.KEY_TABLE)) {
+						// create brl
+						HashMap<String, String> p = new HashMap<String, String>();
+						p.put(PEFConverterFacade.KEY_TABLE, props.get(PEFConverterFacade.KEY_TABLE));
+						try {
+							brailleInfo.getShortFormResolver().expandShortForm(p, PEFConverterFacade.KEY_TABLE);
+						} catch (IllegalArgumentException e) {
+							ExitCode.ILLEGAL_ARGUMENT_VALUE.exitSystem(e.getMessage());
+						}
+						File f = new File(output.getParentFile(), output.getName() + ".brl");
+						logger.info("Writing brl to " + f.getAbsolutePath());
+						try (FileOutputStream os = new FileOutputStream(f)) {
+							new PEFConverterFacade(EmbosserCatalog.newInstance()).parsePefFile(output, os, null, p);
+						} catch (ParserConfigurationException e) {
+							logger.log(Level.FINE, "Parse error when converting to brl", e);
+						} catch (SAXException e) {
+							logger.log(Level.FINE, "SAX error when converting to brl", e);
+						} catch (UnsupportedWidthException e) {
+							logger.log(Level.FINE, "Width error when converting to brl", e);
+						} catch (NumberFormatException e) {
+							logger.log(Level.FINE, "Number format error when converting to brl", e);
+						} catch (EmbosserFactoryException e) {
+							logger.log(Level.FINE, "Embosser error when converting to brl", e);
+						}
 					}
 				}
 			}

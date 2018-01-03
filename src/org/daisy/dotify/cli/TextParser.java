@@ -29,7 +29,6 @@ import org.daisy.braille.utils.api.factory.FactoryCatalog;
 import org.daisy.braille.utils.api.factory.FactoryProperties;
 import org.daisy.braille.utils.api.table.TableCatalog;
 import org.daisy.braille.utils.api.validator.ValidatorFactory;
-import org.daisy.braille.utils.pef.PEFValidatorFacade;
 import org.daisy.braille.utils.pef.TextConverterFacade;
 import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.CommandDetails;
@@ -106,7 +105,7 @@ class TextParser implements CommandDetails {
 				// run
 				new TextConverterFacade(TableCatalog.newInstance()).parseTextFile(input, output, p);
 				System.out.println("Validating result...");
-				boolean ok = new PEFValidatorFacade(ValidatorFactory.newInstance()).validate(output, System.out);
+				boolean ok = new ValidatorFacade().validate(output, System.out);
 				if (!ok) {
 					System.out.println("Warning: Validation failed for " + output);
 				}
