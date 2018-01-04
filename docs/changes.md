@@ -1,5 +1,16 @@
 [Table of Contents](toc.md)
 
+# 3.0.0-rc.1 #
+## New in this version ##
+- CLI
+  - Uses streamline-api validators (fixes #12, fixes #13) - OBFL validation is now supported by the `convert` command for OBFL results and as input to the `validate` command
+- Formatter
+  - Takes margin and padding into account when computing table layout (closes https://github.com/brailleapps/dotify.formatter.impl/pull/35)
+  - Makes it possible to disallow hyphen at the last line of the last page of a volume
+- Other
+  - Updates dotify.api, dotify.common, dotify.hyphenator.impl, dotify.translator.impl, dotify.text.impl, dotify.formatter.impl and dotify.task.impl to v4.0.0
+  - Updates streamline-api, streamline-engine and streamline-cli to v1.0.0
+
 # 3.0.0-beta6 #
 ## New in this version ##
 - CLI
