@@ -98,7 +98,10 @@ class FindPEF implements CommandDetails {
 		PEFBookLoader loader = new PEFBookLoader();
 		for (File f : PEFLibrary.listFiles(dir, recursive)) {
 			try {
-				search.add(loader.load(f));
+				PEFBook p = loader.load(f);
+				if (p!=null) {
+					search.add(p);
+				}
 			} catch (XPathExpressionException | ParserConfigurationException | SAXException | IOException e) {
 				//e.printStackTrace();
 			}
