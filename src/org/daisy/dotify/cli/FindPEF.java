@@ -89,7 +89,7 @@ class FindPEF implements CommandDetails {
 		if (dirStr!=null) {
 			dir = new File(dirStr);
 		} else {
-			dir = new File("");
+			dir = new File("").getAbsoluteFile();
 		}
 
 		boolean recursive = Boolean.parseBoolean(pr.getOptional().get(RECURSIVE_KEY));
