@@ -50,7 +50,7 @@ sourceSets {
 // required for gradle build outside of Eclipse
 task copyTestResources(type: Copy) {
     from "${projectDir}/integrationtest"
-    into "${buildDir}/classes/test"
+    into "${buildDir}/classes/java/test"
 }
 processTestResources.dependsOn copyTestResources
 //
@@ -234,6 +234,7 @@ uploadArchives {
 	}
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '3.5'
+wrapper {
+	gradleVersion = '4.5.1'
+	distributionType = Wrapper.DistributionType.ALL
 }
