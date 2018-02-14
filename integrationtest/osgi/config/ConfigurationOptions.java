@@ -21,7 +21,7 @@ public abstract class ConfigurationOptions {
 				MavenRepo.CENTRAL.get("org.daisy.libs", "jing", "20120724.0.0"),
 				MavenRepo.CENTRAL.get("org.daisy.libs", "saxon-he", "9.5.1.5"),
 				MavenRepo.CENTRAL.get("org.daisy.braille", "braille-utils.api", "4.2.0"),
-				MavenRepo.CENTRAL.get("org.daisy.braille", "braille-utils.pef-tools", "3.0.0")
+				MavenRepo.CENTRAL.get("org.daisy.braille", "braille-utils.pef-tools", "3.0.1")
 				);
 	}
 	
@@ -30,11 +30,11 @@ public abstract class ConfigurationOptions {
 	}
 
 	static Option dotifyApi() {
-		return MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.api", "4.0.0");
+		return MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.api", "4.1.0");
 	}
 	
 	static Option dotifyCommon() {
-		return MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.common", "4.0.0");
+		return MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.common", "4.1.0");
 	}
 	
 	public static Option dotifyText() {
@@ -95,7 +95,7 @@ public abstract class ConfigurationOptions {
 				dotifyTranslator(),
 				wstx(),
 				saxon(),
-				MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.formatter.impl", "4.0.0")
+				MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.formatter.impl", "4.1.0")
 			);
 	}
 	
