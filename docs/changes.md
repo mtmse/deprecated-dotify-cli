@@ -1,5 +1,79 @@
 [Table of Contents](toc.md)
 
+# 3.0.0 #
+## New since 2.3 (released in September 2014) ##
+
+### CLI ###
+#### New commands ####
+  - Includes all commands previously found in Braille Utils CLI (the "default command" in Dotify 2.3 is now called convert)
+  - Adds translator command
+
+#### Changed options ####
+  - convert (the "default command" in Dotify 2.3)
+    - Adds option to re-run conversion upon change in source file  with -w
+    - Lists advanced options with -o
+    - Makes it possible to override xslt localization data
+    - Removes options related to a specific path (fixes #5, fixes #7)
+    - Uses page-height and page-width instead of rows and cols (fixes #10)
+  - list
+    - Adds hyphenators to list command
+#### Improved commands ####
+  - convert (the "default command" in Dotify 2.3)
+    - Help text lists supported input and output formats
+    - Sorts presets in the help text
+    - OBFL validation is now supported for OBFL results
+    - Improves format detection
+  - emboss
+    - Makes it possible to send embosser data to a folder instead of a device
+    - Displays some key properties of the selected embosser implementation in embosser settings (8-dot support, volume support, line spacing support)
+  - find
+    - Corrects the scanning folder (fixes #14)
+  - validate
+    - OBFL is now supported as input
+
+### Embossing ###
+- Supports Index V5 embossers
+- Adds 8-dot embossing for Index V4 and V5 embossers
+- Adds unprintable margins for Index V4 and V5 (fixes brailleapps/braille-utils.impl#3)
+- Corrects width calculation on Braillo 300 (fixes brailleapps/braille-utils.impl#1)
+
+### Formatter ###
+- Adds support for html and epub 3
+- Adds support for tables
+- Adds support for margin markers (including brailleapps/dotify#148)
+- Adds support for collapsing margins
+- Adds support for attribute "underline-pattern"
+- Adds support for new marker-reference scope "spread-content"
+- Adds support for grouping of collection items according to volume
+- Adds support for additional page counters in OBFL
+- Makes it possible to disallow hyphen at the last line of the last page of a volume
+- Improves volume splitting (including #2, brailleapps/dotify.formatter.impl#28, brailleapps/dotify.formatter.impl#30)
+- Improves pagination algorithm
+- Fixes row-spacing combined with footer (brailleapps/dotify.formatter.impl#29 and brailleapps/dotify#196)
+- Takes margin and padding into account when computing table layout (fixes brailleapps/dotify.formatter.impl#35)
+- Raises the log level for non-braille characters in PEF output
+- Removes obfl-output-location from metadata
+- Improves code and performance (including brailleapps/dotify.formatter.impl#32 and brailleapps/dotify.formatter.impl#33)
+
+### Source file conversion ###
+- Adds support for Danish, German and Norwegian text output (not braille)
+- Adds an option to disable the toc preamble
+- Adds option to remove title page (enabled by default)
+- Adds an option to disable the cover page
+- Uses the same header and row spacing for all pages when duplex is off
+- Sets the position of rear jacket copy and colphon to right after the cover page when placed at the beginning of the book
+- Supports using page-height and page-width instead of rows and cols and adds deprecation warnings for rows, cols and rowgap
+- Adds code to handle missing values for identifier and date
+- Displays the name of the root element instead of just "XML" in xml conversion tasks
+- Fixes a problem with footnotes/rearnotes sections in combination with toc in epub 3
+- Updates OBFL validation
+
+### Other ###
+- Requires Java 8
+- Improves PEF-validator
+- Adds a version file to tar and zip distributions
+
+
 # 3.0.0-rc.1 #
 ## New in this version ##
 - CLI
