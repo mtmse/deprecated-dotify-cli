@@ -19,10 +19,10 @@ group = "org.daisy.dotify"
 ext {
 	versions = [
 			'osgi'               : '5.0.0',
-			'junit'              : '4.7',
-			'felix'              : '4.4.1',
-			'paxExam'            : '3.5.0', //4.4.0 requires Java 7
-			'paxUrl'             : '2.3.0',
+			'junit'              : '4.12',
+			'felix'              : '5.6.10',
+			'paxExam'            : '4.11.0',
+			'paxUrl'             : '2.5.4',
 	]
 }
 
