@@ -9,8 +9,9 @@ import java.util.logging.Logger;
 /**
  * Retrieves a jar manifest, if available
  * @author Joel Håkansson
- *
+ * @deprecated Moved to dotify.common
  */
+@Deprecated
 public class ManifestRetriever {
 	private static final Logger logger = Logger.getLogger(ManifestRetriever.class.getCanonicalName());
 	private final Class<?> clazz;
