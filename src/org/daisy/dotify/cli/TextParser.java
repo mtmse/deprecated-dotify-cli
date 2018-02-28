@@ -28,8 +28,7 @@ import org.daisy.braille.utils.api.factory.Factory;
 import org.daisy.braille.utils.api.factory.FactoryCatalog;
 import org.daisy.braille.utils.api.factory.FactoryProperties;
 import org.daisy.braille.utils.api.table.TableCatalog;
-import org.daisy.braille.utils.api.validator.ValidatorFactory;
-import org.daisy.braille.utils.pef.TextConverterFacade;
+import org.daisy.braille.utils.pef.TextHandler;
 import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.CommandDetails;
 import org.daisy.streamline.cli.CommandParser;
@@ -68,15 +67,15 @@ class TextParser implements CommandDetails {
 		for (FactoryProperties p : tableCatalog.list()) { idents.add(p.getIdentifier()); }
 		tableSF = new ShortFormResolver(idents);
 		optionalArgs = new ArrayList<OptionalArgument>();
-		optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_MODE, "input braille code", getDefinitionList(tableCatalog, tableSF), ""));
-		optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_IDENTIFIER, "the publications unique identifier", "[generated]"));
-		optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_DATE, "set the publication date using the form \"yyyy-MM-dd\"", "[today's date]"));
-		optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_AUTHOR, "the author of the publication", "[undefined]"));
-		optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_TITLE, "the title of the publication", "[undefined]"));
-		optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_LANGUAGE, "set the publications language (as defined by IETF RFC 3066)", "[undefined]"));
-		//optionalArgs.add(new OptionalArgument(TextConverterFacade.KEY_DUPLEX, "set the document's duplex property", "true"));
+		optionalArgs.add(new OptionalArgument(TextHandler.KEY_MODE, "input braille code", getDefinitionList(tableCatalog, tableSF), ""));
+		optionalArgs.add(new OptionalArgument(TextHandler.KEY_IDENTIFIER, "the publications unique identifier", "[generated]"));
+		optionalArgs.add(new OptionalArgument(TextHandler.KEY_DATE, "set the publication date using the form \"yyyy-MM-dd\"", "[today's date]"));
+		optionalArgs.add(new OptionalArgument(TextHandler.KEY_AUTHOR, "the author of the publication", "[undefined]"));
+		optionalArgs.add(new OptionalArgument(TextHandler.KEY_TITLE, "the title of the publication", "[undefined]"));
+		optionalArgs.add(new OptionalArgument(TextHandler.KEY_LANGUAGE, "set the publications language (as defined by IETF RFC 3066)", "[undefined]"));
+		//optionalArgs.add(new OptionalArgument(TextHandler.KEY_DUPLEX, "set the document's duplex property", "true"));
 		this.switches = new SwitchMap.Builder()
-				.addSwitch(new SwitchArgument('s', "simplex", TextConverterFacade.KEY_DUPLEX, "false", "create single sided PEF-files"))
+				.addSwitch(new SwitchArgument('s', "simplex", TextHandler.KEY_DUPLEX, "false", "create single sided PEF-files"))
 				.build();
 		this.parser = CommandParser.create(this);
 	}
@@ -98,12 +97,14 @@ class TextParser implements CommandDetails {
 				File output = new File(""+p.remove(ARG_PREFIX+1));
 				// remap
 				try {
-					ui.tableSF.expandShortForm(p, TextConverterFacade.KEY_MODE);
+					ui.tableSF.expandShortForm(p, TextHandler.KEY_MODE);
 				} catch (IllegalArgumentException e) {
 					ExitCode.ILLEGAL_ARGUMENT_VALUE.exitSystem(e.getMessage());
 				}
 				// run
-				new TextConverterFacade(TableCatalog.newInstance()).parseTextFile(input, output, p);
+				TextHandler.with(input, output, TableCatalog.newInstance())
+					.options(p)
+					.parse();
 				System.out.println("Validating result...");
 				boolean ok = new ValidatorFacade().validate(output, System.out);
 				if (!ok) {

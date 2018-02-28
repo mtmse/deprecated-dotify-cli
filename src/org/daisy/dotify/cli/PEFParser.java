@@ -30,7 +30,6 @@ import org.daisy.braille.utils.api.factory.Factory;
 import org.daisy.braille.utils.api.factory.FactoryCatalog;
 import org.daisy.braille.utils.api.factory.FactoryProperties;
 import org.daisy.braille.utils.api.table.TableCatalog;
-import org.daisy.braille.utils.api.validator.ValidatorFactory;
 import org.daisy.braille.utils.pef.PEFConverterFacade;
 import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.CommandDetails;

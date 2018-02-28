@@ -24,9 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.daisy.braille.utils.api.validator.ValidatorFactory;
 import org.daisy.braille.utils.pef.PEFFileMerger;
 import org.daisy.braille.utils.pef.PEFFileMerger.SortType;
+import org.daisy.streamline.api.validity.Validator;
+import org.daisy.streamline.api.validity.ValidatorFactoryMaker;
+import org.daisy.streamline.api.validity.ValidatorFactoryMakerService;
 import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.CommandDetails;
 import org.daisy.streamline.cli.CommandParser;
@@ -61,7 +63,12 @@ class MergePEF implements CommandDetails {
 			ui.parser.displayHelp(System.out);
 			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
-		PEFFileMerger merger = new PEFFileMerger(ValidatorFactory.newInstance());
+		ValidatorFactoryMakerService factory = ValidatorFactoryMaker.newInstance();
+		Validator validator = factory.newValidator("application/x-pef+xml");
+		if (validator==null) {
+			ExitCode.INTERNAL_ERROR.exitSystem("Failed to locate a validator");
+		}
+		PEFFileMerger merger = new PEFFileMerger(url->validator.validate(url).isValid());
 		File input = new File(args[0]);
 		File output = new File(args[1]);
 		SortType sort = SortType.STANDARD;

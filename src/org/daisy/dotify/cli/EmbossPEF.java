@@ -51,7 +51,6 @@ import org.daisy.braille.utils.api.paper.SheetPaperFormat.Orientation;
 import org.daisy.braille.utils.api.paper.TractorPaperFormat;
 import org.daisy.braille.utils.api.table.Table;
 import org.daisy.braille.utils.api.table.TableCatalog;
-import org.daisy.braille.utils.api.validator.ValidatorFactory;
 import org.daisy.braille.utils.pef.FileDevice;
 import org.daisy.braille.utils.pef.PEFConverterFacade;
 import org.daisy.braille.utils.pef.PEFHandler;

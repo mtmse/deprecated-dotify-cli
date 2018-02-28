@@ -21,8 +21,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.daisy.braille.utils.api.validator.ValidatorFactory;
 import org.daisy.braille.utils.pef.PEFFileSplitter;
+import org.daisy.streamline.api.validity.Validator;
+import org.daisy.streamline.api.validity.ValidatorFactoryMaker;
+import org.daisy.streamline.api.validity.ValidatorFactoryMakerService;
 import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.CommandDetails;
 import org.daisy.streamline.cli.CommandParser;
@@ -53,7 +55,12 @@ class SplitPEF implements CommandDetails {
 		}
 		File input = new File(args[0]);
 		File output = new File(args[1]);
-		PEFFileSplitter splitter = new PEFFileSplitter(ValidatorFactory.newInstance());
+		ValidatorFactoryMakerService factory = ValidatorFactoryMaker.newInstance();
+		Validator validator = factory.newValidator("application/x-pef+xml");
+		if (validator==null) {
+			ExitCode.INTERNAL_ERROR.exitSystem("Failed to locate a validator");
+		}
+		PEFFileSplitter splitter = new PEFFileSplitter(url->validator.validate(url).isValid());
 		splitter.split(input, output);
 	}
 
