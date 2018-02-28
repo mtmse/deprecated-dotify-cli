@@ -32,14 +32,13 @@ public abstract class TaskGroupFactoryMakerTestbase {
 		Set<TaskGroupInformation> specs = factory.listAll();
 
 		//Test
-		assertEquals(26, specs.size());
+		assertEquals(37, specs.size());
 		//TODO: test more specs
 		
 		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("text", "obfl").build()));
-		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("text", "obfl").build()));
 		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("txt", "obfl").build()));
-		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("txt", "obfl").build()));
-		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("epub", "html").build()));
+		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("text", "html").build()));
+		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("txt", "html").build()));
 		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("epub", "html").build()));
 		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("obfl", "text").build()));
 		

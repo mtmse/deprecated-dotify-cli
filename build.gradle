@@ -100,7 +100,7 @@ dependencies {
 	runtime 'org.daisy.dotify:dotify.hyphenator.impl:4.0.0'
 	runtime 'org.daisy.dotify:dotify.text.impl:4.0.0'
 	runtime 'org.daisy.dotify:dotify.translator.impl:4.0.0'
-	runtime ('org.daisy.dotify:dotify.task.impl:4.0.0') {
+	runtime ('org.daisy.dotify:dotify.task.impl:4.2.0') {
 		exclude module: 'Saxon-HE'
 		exclude module: 'streamline-api'
 	}
