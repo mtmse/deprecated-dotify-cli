@@ -20,7 +20,7 @@ public abstract class ConfigurationOptions {
 		return composite(
 				MavenRepo.CENTRAL.get("org.daisy.libs", "jing", "20120724.0.0"),
 				MavenRepo.CENTRAL.get("org.daisy.libs", "saxon-he", "9.5.1.5"),
-				MavenRepo.CENTRAL.get("org.daisy.braille", "braille-utils.api", "4.2.0"),
+				MavenRepo.CENTRAL.get("org.daisy.braille", "braille-utils.api", "4.2.1"),
 				MavenRepo.CENTRAL.get("org.daisy.braille", "braille-utils.pef-tools", "3.1.0")
 				);
 	}
@@ -30,7 +30,7 @@ public abstract class ConfigurationOptions {
 	}
 
 	static Option dotifyApi() {
-		return MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.api", "4.1.0");
+		return MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.api", "4.1.1");
 	}
 	
 	static Option dotifyCommon() {
@@ -65,7 +65,7 @@ public abstract class ConfigurationOptions {
 	}
 	
 	static Option streamlineApi() {
-		return MavenRepo.CENTRAL.get("org.daisy.streamline", "streamline-api", "1.0.0");
+		return MavenRepo.CENTRAL.get("org.daisy.streamline", "streamline-api", "1.0.1");
 	}
 	
 	static Option jing() {
