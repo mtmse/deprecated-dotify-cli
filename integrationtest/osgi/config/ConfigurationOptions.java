@@ -20,13 +20,13 @@ public abstract class ConfigurationOptions {
 		return composite(
 				MavenRepo.CENTRAL.get("org.daisy.libs", "jing", "20120724.0.0"),
 				MavenRepo.CENTRAL.get("org.daisy.libs", "saxon-he", "9.5.1.5"),
-				MavenRepo.CENTRAL.get("org.daisy.braille", "braille-utils.api", "4.2.1"),
+				MavenRepo.CENTRAL.get("org.daisy.braille", "braille-utils.api", "4.3.0"),
 				MavenRepo.CENTRAL.get("org.daisy.braille", "braille-utils.pef-tools", "3.1.0")
 				);
 	}
 	
 	public static Option brailleUtilsCatalog() {
-		return MavenRepo.CENTRAL.get("org.daisy.braille", "braille-utils.impl", "4.0.1");
+		return MavenRepo.CENTRAL.get("org.daisy.braille", "braille-utils.impl", "4.1.0");
 	}
 
 	static Option dotifyApi() {
