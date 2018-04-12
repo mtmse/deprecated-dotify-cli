@@ -34,7 +34,7 @@ public abstract class ConfigurationOptions {
 	}
 	
 	static Option dotifyCommon() {
-		return MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.common", "4.1.0");
+		return MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.common", "4.2.0");
 	}
 	
 	public static Option dotifyText() {
@@ -65,7 +65,7 @@ public abstract class ConfigurationOptions {
 	}
 	
 	static Option streamlineApi() {
-		return MavenRepo.CENTRAL.get("org.daisy.streamline", "streamline-api", "1.0.1");
+		return MavenRepo.CENTRAL.get("org.daisy.streamline", "streamline-api", "1.1.0");
 	}
 	
 	static Option jing() {

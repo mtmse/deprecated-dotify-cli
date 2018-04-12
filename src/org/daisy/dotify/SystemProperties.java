@@ -1,6 +1,6 @@
 package org.daisy.dotify;
 
-import org.daisy.dotify.cli.ManifestRetriever;
+import org.daisy.dotify.common.java.ManifestRetriever;
 
 /**
  * Provides common property values of the system
