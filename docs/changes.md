@@ -1,5 +1,14 @@
 [Table of Contents](toc.md)
 
+# 3.1.0
+## New in this version
+- Adds a volume transition feature
+- Adds the possibility to add content to the beginning of the book
+- Supports referencing spans (closes brailleapps/dotify.api#17 and brailleapps/dotify.formatter.impl#44)
+- Corrects top-padding of the toc heading
+- Removes workaround for tables in DTBook (fixes brailleapps/dotify.task.impl#4)
+- Improves Java 9 compatibility (fixes brailleapps/dotify.task.impl#18)
+
 # 3.0.0 #
 ## New since 2.3 (released in September 2014) ##
 
