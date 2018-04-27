@@ -95,7 +95,7 @@ public abstract class ConfigurationOptions {
 				dotifyTranslator(),
 				wstx(),
 				saxon(),
-				MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.formatter.impl", "4.2.0")
+				MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.formatter.impl", "4.2.1")
 			);
 	}
 	
@@ -106,7 +106,7 @@ public abstract class ConfigurationOptions {
 				dotifyCommon(),
 				jing(),
 				saxon(),
-				MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.task.impl", "4.3.0")
+				MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.task.impl", "4.3.0")
 			);
 	}
 	

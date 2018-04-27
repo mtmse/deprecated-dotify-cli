@@ -94,7 +94,7 @@ dependencies {
 	compile 'org.daisy.streamline:streamline-api:1.1.0'
 
 	runtime 'org.daisy.braille:braille-utils.impl:4.1.0'
-	runtime ('org.daisy.dotify:dotify.formatter.impl:4.2.0') {
+	runtime ('org.daisy.dotify:dotify.formatter.impl:4.2.1') {
 		exclude module: 'Saxon-HE'
 	}
 	runtime 'org.daisy.dotify:dotify.hyphenator.impl:4.0.0'
