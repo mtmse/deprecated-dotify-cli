@@ -65,7 +65,7 @@ public abstract class ConfigurationOptions {
 	}
 	
 	static Option streamlineApi() {
-		return MavenRepo.CENTRAL.get("org.daisy.streamline", "streamline-api", "1.1.0");
+		return MavenRepo.SONATYPE_STAGING.get("org.daisy.streamline", "streamline-api", "1.2.0");
 	}
 	
 	static Option jing() {
@@ -89,13 +89,14 @@ public abstract class ConfigurationOptions {
 	}
 	
 	public static Option dotifyFormatter() {
-		return composite( 
+		return composite(
+				streamlineApi(),
 				dotifyText(), 
 				dotifyHyphenator(), 
 				dotifyTranslator(),
 				wstx(),
 				saxon(),
-				MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.formatter.impl", "4.2.1")
+				MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.formatter.impl", "4.3.0")
 			);
 	}
 	
@@ -106,7 +107,7 @@ public abstract class ConfigurationOptions {
 				dotifyCommon(),
 				jing(),
 				saxon(),
-				MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.task.impl", "4.3.0")
+				MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.task.impl", "4.4.0")
 			);
 	}
 	
@@ -114,7 +115,7 @@ public abstract class ConfigurationOptions {
 		return composite(
 				dotifyCommon(),
 				streamlineApi(),
-				MavenRepo.CENTRAL.get("org.daisy.streamline", "streamline-engine", "1.0.0")
+				MavenRepo.SONATYPE_STAGING.get("org.daisy.streamline", "streamline-engine", "1.2.0")
 			);
 	}
 

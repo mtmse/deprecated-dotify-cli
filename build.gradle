@@ -73,7 +73,7 @@ jar.doFirst {
 
 repositories {
 	mavenCentral()
-	//mavenLocal()
+	mavenLocal()
 	//maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 	maven { url "https://oss.sonatype.org/content/groups/staging" }
 }
@@ -88,19 +88,19 @@ dependencies {
 	}
 	compile 'org.daisy.dotify:dotify.api:4.2.0'
 	compile 'org.daisy.dotify:dotify.common:4.2.0'
-	compile ('org.daisy.streamline:streamline-engine:1.0.0') {
+	compile ('org.daisy.streamline:streamline-engine:1.2.0') {
 		exclude module: 'streamline-api'
 	}
-	compile 'org.daisy.streamline:streamline-api:1.1.0'
+	compile 'org.daisy.streamline:streamline-api:1.2.0'
 
 	runtime 'org.daisy.braille:braille-utils.impl:4.1.0'
-	runtime ('org.daisy.dotify:dotify.formatter.impl:4.2.1') {
+	runtime ('org.daisy.dotify:dotify.formatter.impl:4.3.0') {
 		exclude module: 'Saxon-HE'
 	}
 	runtime 'org.daisy.dotify:dotify.hyphenator.impl:4.0.0'
 	runtime 'org.daisy.dotify:dotify.text.impl:4.0.0'
 	runtime 'org.daisy.dotify:dotify.translator.impl:4.0.0'
-	runtime ('org.daisy.dotify:dotify.task.impl:4.3.0') {
+	runtime ('org.daisy.dotify:dotify.task.impl:4.4.0') {
 		exclude module: 'Saxon-HE'
 		exclude module: 'streamline-api'
 	}

@@ -14,7 +14,6 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import org.daisy.dotify.common.text.FilterLocale;
@@ -25,12 +24,11 @@ import org.daisy.streamline.api.config.ConfigurationsProviderException;
 import org.daisy.streamline.api.identity.IdentityProvider;
 import org.daisy.streamline.api.media.AnnotatedFile;
 import org.daisy.streamline.api.media.DefaultAnnotatedFile;
+import org.daisy.streamline.api.media.FormatIdentifier;
 import org.daisy.streamline.api.option.UserOption;
 import org.daisy.streamline.api.option.UserOptionValue;
 import org.daisy.streamline.api.tasks.CompiledTaskSystem;
 import org.daisy.streamline.api.tasks.InternalTaskException;
-import org.daisy.streamline.api.tasks.TaskGroupFactoryMaker;
-import org.daisy.streamline.api.tasks.TaskGroupInformation;
 import org.daisy.streamline.api.tasks.TaskSystem;
 import org.daisy.streamline.api.tasks.TaskSystemException;
 import org.daisy.streamline.api.tasks.TaskSystemFactoryException;
@@ -83,7 +81,7 @@ public class Dotify {
 			params.remove("cols");
 		}
 		
-		Set<TaskGroupInformation> specs = TaskGroupFactoryMaker.newInstance().listAll();
+		TaskSystemFactoryMaker specs = TaskSystemFactoryMaker.newInstance();
 
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.putAll(params);
@@ -93,7 +91,7 @@ public class Dotify {
 
 		String inputFormat = getFormatString(ai);
 		if (inputFormat!=null) {
-			if (!supportsInputFormat(inputFormat, specs)) {
+			if (!supportsInputFormat(FormatIdentifier.with(inputFormat), specs)) {
 				logger.warning("No input factory for " + inputFormat);
 				logger.fine("Note, the following detection code has been deprected. In future versions, an exception will be thrown if this point is reached."
 						+ " To avoid this, use the IdentifierFactory interface to implement a detector for the file type.");
@@ -119,7 +117,7 @@ public class Dotify {
 			int indx = output.getName().lastIndexOf('.');
 			if (indx>-1) {
 				String ext = output.getName().substring(indx+1).toLowerCase();
-				if (supportsOutputFormat(ext, specs)) {
+				if (supportsOutputFormat(FormatIdentifier.with(ext), specs)) {
 					outputformat = ext;
 				} else {
 					outputformat = extensionBindings.get(ext);
@@ -199,22 +197,12 @@ public class Dotify {
 		}
 	}
 	
-	private static boolean supportsInputFormat(String inputFormat, Set<TaskGroupInformation> specs) {
-		for (TaskGroupInformation s : specs) {
-			if (s.getInputFormat().equals(inputFormat)) {
-				return true;
-			}
-		}
-		return false;
+	private static boolean supportsInputFormat(FormatIdentifier inputFormat, TaskSystemFactoryMaker specs) {
+		return specs.listInputs().stream().filter(v->v.equals(inputFormat)).findAny().isPresent();
 	}
 	
-	private static boolean supportsOutputFormat(String outputFormat, Set<TaskGroupInformation> specs) {
-		for (TaskGroupInformation s : specs) {
-			if (s.getOutputFormat().equals(outputFormat)) {
-				return true;
-			}
-		}
-		return false;
+	private static boolean supportsOutputFormat(FormatIdentifier outputFormat, TaskSystemFactoryMaker specs) {
+		return specs.listOutputs().stream().filter(v->v.equals(outputFormat)).findAny().isPresent();
 	}
 	
 	private Map<String, Object> loadSetup(Map<String, String> guiParams, String setup) {

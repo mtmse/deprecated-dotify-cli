@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -30,8 +29,7 @@ import org.daisy.streamline.api.config.ConfigurationsCatalog;
 import org.daisy.streamline.api.identity.IdentityProvider;
 import org.daisy.streamline.api.media.AnnotatedFile;
 import org.daisy.streamline.api.tasks.InternalTaskException;
-import org.daisy.streamline.api.tasks.TaskGroupFactoryMaker;
-import org.daisy.streamline.api.tasks.TaskGroupInformation;
+import org.daisy.streamline.api.tasks.TaskSystemFactoryMaker;
 import org.daisy.streamline.api.validity.Validator;
 import org.daisy.streamline.api.validity.ValidatorFactoryMaker;
 import org.daisy.streamline.cli.Argument;
@@ -273,13 +271,10 @@ public class Convert implements CommandDetails {
 	@Override
 	public List<Argument> getRequiredArguments() {
 		if (reqArgs.isEmpty()) {
-			Set<TaskGroupInformation> specs = TaskGroupFactoryMaker.newInstance().listAll();
-			Set<String> inputFormats = new HashSet<>();
-			Set<String> outputFormats = new HashSet<>();
-			for (TaskGroupInformation spec : specs) {
-				inputFormats.add(spec.getInputFormat());
-				outputFormats.add(spec.getOutputFormat());
-			}
+			TaskSystemFactoryMaker fm = TaskSystemFactoryMaker.newInstance();
+			//TODO: map identifiers to file formats
+			Set<String> inputFormats = fm.listInputs().stream().map(v->v.getIdentifier()).collect(Collectors.toSet());
+			Set<String> outputFormats = fm.listOutputs().stream().map(v->v.getIdentifier()).collect(Collectors.toSet());
 			reqArgs.add(new Argument("path_to_input", "Path to the input file " + inputFormats));
 			reqArgs.add(new Argument("path_to_output", "Path to the output file " + outputFormats));
 		}
