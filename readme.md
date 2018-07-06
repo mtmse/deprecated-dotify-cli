@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/brailleapps/dotify-cli.svg?branch=master)](https://travis-ci.org/brailleapps/dotify-cli)
 [![Type](https://img.shields.io/badge/type-application-blue.svg)](https://github.com/brailleapps/wiki/wiki/Types)
+[![License: LGPL v2.1](https://img.shields.io/badge/License-LGPL%20v2%2E1%20%28or%20later%29-blue.svg)](https://www.gnu.org/licenses/lgpl-2.1)
 
 # Dotify
 Dotify Braille Translation System is an open source Braille formatter and translator written in Java. It also supports embossing and managing braille in PEF-format, including converting to and from other "braille" text formats.

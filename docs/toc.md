@@ -16,6 +16,7 @@
   * list
   * help
 * [Plugins](Plugins.md)
+* [Notices](Notice.md)
 * [Changes](changes.md)
 * Appendices
   * [Unicode Braille Patterns](UnicodeBraillePatterns.md)
