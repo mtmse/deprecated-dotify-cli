@@ -143,35 +143,6 @@ task writeVersionFile() {
 applicationDistribution.from(versionFile)
 jar.dependsOn writeVersionFile
 
-task xsltdoc() {
-	doLast() {
-		ant {
-			xslt (
-				basedir: "src",
-				destdir: (new File(docsDir, "xsltdoc")),
-				style: "build-xslt-doc.xsl",
-				includes: "**/*.xsl",
-				excludes:"lib, ant-build, build-xslt-doc.xsl, build",
-				filenameparameter: "filename"
-			) {
-				mapper (
-					type: "package",
-					from: "*.xsl",
-					to: "*.html"
-				)
-				xmlcatalog {
-					dtd (
-						publicId: "-//W3C//DTD XHTML 1.0 Strict//EN",
-						location: "ant-build/resources/dtd/xhtml10/xhtml1-strict.dtd"
-					)
-				}
-			}
-		}
-	}
-}
-
-javadoc.dependsOn(xsltdoc)
-
 task javadocJar(type: Jar) {
 	classifier = 'javadoc'
 	from javadoc
