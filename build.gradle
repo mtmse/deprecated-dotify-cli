@@ -1,6 +1,8 @@
-apply plugin: 'application'
-apply plugin: 'maven'
-apply plugin: "signing"
+plugins {
+	id 'application'
+	id 'maven'
+	id 'signing'
+}
 
 mainClassName = "org.daisy.dotify.cli.DotifyCLI"
 startScripts.applicationName = 'dotify'
