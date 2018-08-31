@@ -9,8 +9,7 @@ import java.util.stream.Collectors;
 
 import org.daisy.braille.utils.api.embosser.EmbosserCatalog;
 import org.daisy.braille.utils.api.factory.FactoryProperties;
-import org.daisy.braille.utils.api.factory.FactoryPropertiesComparator;
-import org.daisy.braille.utils.api.factory.FactoryPropertiesComparator.By;
+import org.daisy.braille.utils.api.factory.FactoryProperties.ComparatorBuilder.SortProperty;
 import org.daisy.braille.utils.api.paper.PaperCatalog;
 import org.daisy.braille.utils.api.table.TableCatalog;
 import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMaker;
@@ -98,7 +97,7 @@ class ListStuff implements CommandDetails {
 		System.out.println();
 		if (EMBOSSERS_KEY.equalsIgnoreCase(type)) {
 			EmbosserCatalog ec = EmbosserCatalog.newInstance();
-			FactoryProperties[] ea = ec.list().toArray(new FactoryProperties[]{});
+			FactoryProperties[] ea = ec.listEmbossers().toArray(new FactoryProperties[]{});
 			printList(ea, mode, prefix, separator, postfix);
 		} else if (TABLES_KEY.equalsIgnoreCase(type)) {
 			TableCatalog tc = TableCatalog.newInstance();
@@ -166,11 +165,11 @@ class ListStuff implements CommandDetails {
 	}
 	
 	private static void sortById(FactoryProperties[] f) {
-		Arrays.sort(f, new FactoryPropertiesComparator().by(By.IDENTIFIER));
+		Arrays.sort(f, FactoryProperties.newComparatorBuilder().sortBy(SortProperty.IDENTIFIER).build());
 	}
 	
 	private static void sortByName(FactoryProperties[] f) {
-		Arrays.sort(f, new FactoryPropertiesComparator().by(By.DISPLAY_NAME));
+		Arrays.sort(f, FactoryProperties.newComparatorBuilder().sortBy(SortProperty.DISPLAY_NAME).build());
 	}
 
 	@Override

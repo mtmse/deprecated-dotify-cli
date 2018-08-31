@@ -39,7 +39,6 @@ import org.daisy.braille.utils.api.embosser.EmbosserProperties.PrintMode;
 import org.daisy.braille.utils.api.embosser.EmbosserWriter;
 import org.daisy.braille.utils.api.embosser.PrintPage;
 import org.daisy.braille.utils.api.factory.FactoryProperties;
-import org.daisy.braille.utils.api.factory.FactoryPropertiesComparator;
 import org.daisy.braille.utils.api.paper.Length;
 import org.daisy.braille.utils.api.paper.PageFormat;
 import org.daisy.braille.utils.api.paper.Paper;
@@ -129,8 +128,8 @@ class EmbossPEF implements CommandDetails {
 		System.out.println("Using device: " + deviceName);
 		
 		EmbosserCatalog ec = EmbosserCatalog.newInstance();
-		ArrayList<FactoryProperties> sorted = new ArrayList<FactoryProperties>(ec.list());
-		Collections.sort(sorted, new FactoryPropertiesComparator());
+		ArrayList<FactoryProperties> sorted = new ArrayList<FactoryProperties>(ec.listEmbossers());
+		Collections.sort(sorted, FactoryProperties.newComparatorBuilder().build());
 		String embosserType = input.select(EMBOSSER_TYPE, sorted, "embosser", verify);
 		type = ec.get(embosserType);
 		System.out.println("Embosser: " + type.getDisplayName());
@@ -160,7 +159,7 @@ class EmbossPEF implements CommandDetails {
 		do {
 			PaperCatalog pc = PaperCatalog.newInstance();
 			sorted = new ArrayList<FactoryProperties>(pc.list(new EmbosserPaperFilter(type)));
-			Collections.sort(sorted, new FactoryPropertiesComparator());
+			Collections.sort(sorted, FactoryProperties.newComparatorBuilder().build());
 			String paperSize = input.select(PAPER_SIZE, sorted, "paper", verify);
 			paper = pc.get(paperSize);
 			

@@ -75,7 +75,7 @@ jar.doFirst {
 
 repositories {
 	mavenCentral()
-	mavenLocal()
+	//mavenLocal()
 	//maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 	maven { url "https://oss.sonatype.org/content/groups/staging" }
 }
@@ -83,7 +83,7 @@ repositories {
 dependencies {
 	compileOnly 'org.osgi:org.osgi.service.component.annotations:1.3.0'
 
-	compile 'org.daisy.braille:braille-utils.api:4.3.0'
+	compile 'org.daisy.braille:braille-utils.api:4.3.1'
 	compile 'org.daisy.streamline:streamline-cli:1.0.0'
 	compile ('org.daisy.braille:braille-utils.pef-tools:3.1.0') {
 		exclude module: 'Saxon-HE'

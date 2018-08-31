@@ -18,7 +18,7 @@ public abstract class EmbosserCatalogTestbase {
 	public void testEmbosserCatalog() {
 		EmbosserCatalogService embosserCatalog = getEmbosserCS(); //EmbosserCatalog.newInstance();
 		assertNotNull(embosserCatalog);
-		assertTrue(embosserCatalog.list().size()>=54);
+		assertTrue(embosserCatalog.listEmbossers().size()>=54);
 	}
 
 	@Test
