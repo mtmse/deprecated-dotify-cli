@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import org.daisy.braille.utils.api.factory.Factory;
-import org.daisy.braille.utils.api.factory.FactoryCatalog;
-import org.daisy.braille.utils.api.factory.FactoryProperties;
-import org.daisy.braille.utils.api.table.BrailleConverter;
-import org.daisy.braille.utils.api.table.TableCatalog;
+import org.daisy.dotify.api.factory.Factory;
+import org.daisy.dotify.api.factory.FactoryCatalog;
+import org.daisy.dotify.api.factory.FactoryProperties;
+import org.daisy.dotify.api.table.BrailleConverter;
+import org.daisy.dotify.api.table.TableCatalog;
 import org.daisy.dotify.api.translator.BrailleTranslator;
 import org.daisy.dotify.api.translator.BrailleTranslatorFactory;
 import org.daisy.dotify.api.translator.Translatable;

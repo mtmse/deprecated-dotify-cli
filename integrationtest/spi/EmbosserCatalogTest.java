@@ -1,7 +1,7 @@
 package spi;
 
-import org.daisy.braille.utils.api.embosser.EmbosserCatalogService;
-import org.daisy.braille.utils.api.embosser.EmbosserCatalog;
+import org.daisy.dotify.api.embosser.EmbosserCatalogService;
+import org.daisy.dotify.api.embosser.EmbosserCatalog;
 
 import base.EmbosserCatalogTestbase;
 

@@ -24,12 +24,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import org.daisy.braille.utils.api.embosser.EmbosserCatalog;
-import org.daisy.braille.utils.api.embosser.StandardLineBreaks;
-import org.daisy.braille.utils.api.factory.Factory;
-import org.daisy.braille.utils.api.factory.FactoryCatalog;
-import org.daisy.braille.utils.api.factory.FactoryProperties;
-import org.daisy.braille.utils.api.table.TableCatalog;
+import org.daisy.dotify.api.embosser.EmbosserCatalog;
+import org.daisy.dotify.api.embosser.StandardLineBreaks;
+import org.daisy.dotify.api.factory.Factory;
+import org.daisy.dotify.api.factory.FactoryCatalog;
+import org.daisy.dotify.api.factory.FactoryProperties;
+import org.daisy.dotify.api.table.TableCatalog;
 import org.daisy.braille.utils.pef.PEFConverterFacade;
 import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.CommandDetails;

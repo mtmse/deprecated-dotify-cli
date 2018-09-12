@@ -5,8 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
-import org.daisy.braille.utils.api.embosser.Embosser;
-import org.daisy.braille.utils.api.embosser.EmbosserCatalogService;
+import org.daisy.dotify.api.embosser.Embosser;
+import org.daisy.dotify.api.embosser.EmbosserCatalogService;
 import org.junit.Test;
 
 @SuppressWarnings("javadoc")

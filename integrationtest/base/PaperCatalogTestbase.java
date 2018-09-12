@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import org.daisy.braille.utils.api.paper.Length;
-import org.daisy.braille.utils.api.paper.Paper;
-import org.daisy.braille.utils.api.paper.PaperCatalogService;
+import org.daisy.dotify.api.paper.Length;
+import org.daisy.dotify.api.paper.Paper;
+import org.daisy.dotify.api.paper.PaperCatalogService;
 import org.junit.Test;
 
 @SuppressWarnings("javadoc")

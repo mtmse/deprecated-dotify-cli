@@ -7,11 +7,11 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.daisy.braille.utils.api.embosser.EmbosserCatalog;
-import org.daisy.braille.utils.api.factory.FactoryProperties;
-import org.daisy.braille.utils.api.factory.FactoryProperties.ComparatorBuilder.SortProperty;
-import org.daisy.braille.utils.api.paper.PaperCatalog;
-import org.daisy.braille.utils.api.table.TableCatalog;
+import org.daisy.dotify.api.embosser.EmbosserCatalog;
+import org.daisy.dotify.api.factory.FactoryProperties;
+import org.daisy.dotify.api.factory.FactoryProperties.ComparatorBuilder.SortProperty;
+import org.daisy.dotify.api.paper.PaperCatalog;
+import org.daisy.dotify.api.table.TableCatalog;
 import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMaker;
 import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.CommandDetails;

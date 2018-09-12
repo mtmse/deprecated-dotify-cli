@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import org.daisy.braille.utils.api.table.BrailleConverter;
-import org.daisy.braille.utils.api.table.Table;
-import org.daisy.braille.utils.api.table.TableCatalogService;
+import org.daisy.dotify.api.table.BrailleConverter;
+import org.daisy.dotify.api.table.Table;
+import org.daisy.dotify.api.table.TableCatalogService;
 import org.junit.Test;
 
 @SuppressWarnings("javadoc")
