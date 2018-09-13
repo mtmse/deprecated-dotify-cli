@@ -4,3 +4,7 @@
 /.gradle/
 .project
 .classpath
+.idea/
+out/
+*.iml
+dist/
