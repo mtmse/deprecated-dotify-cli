@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -32,12 +33,12 @@ import javax.xml.xpath.XPathExpressionException;
 
 import org.daisy.braille.utils.pef.PEFBook;
 import org.daisy.braille.utils.pef.PEFBookLoader;
-import org.daisy.braille.utils.pef.PEFLibrary;
 import org.daisy.braille.utils.pef.PEFSearchIndex;
 import org.daisy.dotify.cli.pefinfo.Detail;
 import org.daisy.dotify.cli.pefinfo.DetailSet;
 import org.daisy.dotify.cli.pefinfo.PEFBookInfo;
 import org.daisy.dotify.cli.pefinfo.URIDetail;
+import org.daisy.dotify.common.io.FileIO;
 import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.CommandDetails;
 import org.daisy.streamline.cli.CommandParser;
@@ -96,7 +97,9 @@ class FindPEF implements CommandDetails {
 		System.out.println("Scanning books. Wait a while...");
 		PEFSearchIndex search = new PEFSearchIndex();
 		PEFBookLoader loader = new PEFBookLoader();
-		for (File f : PEFLibrary.listFiles(dir, recursive)) {
+		String ext = ".pef";
+		Collection<File> coll = recursive ? FileIO.listFilesRecursive(dir, ext) : Arrays.asList(dir.listFiles((parent, name)->name.endsWith(ext)));
+		for (File f : coll) {
 			try {
 				PEFBook p = loader.load(f);
 				if (p!=null) {

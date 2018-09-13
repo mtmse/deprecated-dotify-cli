@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import org.daisy.braille.utils.pef.FileTools;
 import org.daisy.dotify.SystemProperties;
+import org.daisy.dotify.common.io.FileIO;
 import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.CommandDetails;
 import org.daisy.streamline.cli.CommandParser;
@@ -114,7 +114,7 @@ public class DotifyCLI implements CommandDetails {
 	 */
 	public void setPluginsDir(File dir) {
 		// list jars and convert to URL's
-		URL[] jars = FileTools.toURL(FileTools.listFiles(dir, ".jar"));
+		URL[] jars = FileIO.toURL(dir.listFiles((parent, name)->name.endsWith(".jar")));
 		for (URL u : jars) {
 			logger.info("Found jar " + u);
 		}
