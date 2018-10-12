@@ -34,7 +34,7 @@ public abstract class ConfigurationOptions {
 	}
 	
 	static Option dotifyCommon() {
-		return MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.common", "4.3.0");
+		return MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.common", "4.3.1");
 	}
 	
 	public static Option dotifyText() {
@@ -107,7 +107,7 @@ public abstract class ConfigurationOptions {
 				dotifyCommon(),
 				jing(),
 				saxon(),
-				MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.task.impl", "4.5.0")
+				MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.task.impl", "4.6.0")
 			);
 	}
 	
