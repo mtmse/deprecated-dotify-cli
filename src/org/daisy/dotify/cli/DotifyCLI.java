@@ -2,12 +2,15 @@ package org.daisy.dotify.cli;
 
 import java.io.File;
 import java.lang.reflect.Method;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.daisy.dotify.SystemProperties;
@@ -113,14 +116,21 @@ public class DotifyCLI implements CommandDetails {
 	 * @param dir the directory to search for jar-files.
 	 */
 	public void setPluginsDir(File dir) {
-		// list jars and convert to URL's
-		URL[] jars = FileIO.toURL(dir.listFiles((parent, name)->name.endsWith(".jar")));
-		for (URL u : jars) {
-			logger.info("Found jar " + u);
+		if (logger.isLoggable(Level.FINE)) {
+			logger.fine("Plugins folder: " + dir);
 		}
-		// set context class loader
-		if (jars.length>0) {
-			Thread.currentThread().setContextClassLoader(new URLClassLoader(jars));
+		if (dir.exists()) {
+			// list jars and convert to URL's
+			URL[] jars = FileIO.toURL(FileIO.listFilesRecursive(dir, ".jar").toArray(new File[]{}));
+			if (logger.isLoggable(Level.FINE)) {
+				for (URL u : jars) {
+					logger.fine("Found jar " + u);
+				}
+			}
+			// set context class loader
+			if (jars.length>0) {
+				Thread.currentThread().setContextClassLoader(new URLClassLoader(jars));
+			}
 		}
 	}
 
@@ -135,7 +145,16 @@ public class DotifyCLI implements CommandDetails {
 			parser.displayHelp(System.out);
 			ExitCode.MISSING_ARGUMENT.exitSystem();
 		}
-		setPluginsDir(new File("plugins"));
+		//TODO: check error conditions, such as null
+		Optional.ofNullable(DotifyCLI.class.getProtectionDomain().getCodeSource())
+			.flatMap(v->{
+				try {
+					return Optional.ofNullable(new File((v.getLocation()).toURI()).getParentFile());
+				} catch (URISyntaxException e) {
+					return Optional.<File>empty();
+				}
+			})
+			.ifPresent(parent->setPluginsDir(new File(parent, "plugins")));
 		if (HELP.equalsIgnoreCase(args[0])) {
 			if (args.length>=2) {
 				Class<? extends CommandDetails> clazz = commands.get(args[1]);
