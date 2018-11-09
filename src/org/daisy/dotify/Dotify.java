@@ -38,7 +38,7 @@ import org.daisy.streamline.engine.RunnerResult;
 import org.daisy.streamline.engine.TaskRunner;
 
 /**
- * Provides an entry point for simple embedding of Dotify. To run, call <tt>Dotify.run</tt>.
+ * Provides an entry point for simple embedding of Dotify. To run, call <code>Dotify.run</code>.
  * 
  * @author Joel Håkansson
  *
