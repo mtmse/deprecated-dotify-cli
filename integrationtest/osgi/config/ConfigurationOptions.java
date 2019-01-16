@@ -13,7 +13,7 @@ import org.ops4j.pax.exam.Option;
 public abstract class ConfigurationOptions {
 	
 	public static Option felixDS() {
-		return MavenRepo.CENTRAL.get("org.apache.felix", "org.apache.felix.scr", "1.6.2");
+		return MavenRepo.CENTRAL.get("org.apache.felix", "org.apache.felix.scr", "2.1.14");
 	}
 
 	public static Option brailleUtilsCore() {
