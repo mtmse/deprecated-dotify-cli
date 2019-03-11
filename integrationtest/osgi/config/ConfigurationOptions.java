@@ -30,7 +30,7 @@ public abstract class ConfigurationOptions {
 	}
 
 	static Option dotifyApi() {
-		return MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.api", "4.4.0");
+		return MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.api", "4.6.0");
 	}
 	
 	static Option dotifyCommon() {
@@ -60,7 +60,9 @@ public abstract class ConfigurationOptions {
 	public static Option dotifyTranslator() {
 		return composite(
 				dotifyHyphenator(),
-				MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.translator.impl", "4.0.0")
+				MavenRepo.CENTRAL.get("net.java.dev.jna", "jna", "5.2.0"),
+				MavenRepo.SONATYPE_STAGING.get("org.liblouis", "liblouis-java", "4.0.0"),
+				MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.translator.impl", "4.1.0")
 			);
 	}
 	
@@ -96,7 +98,7 @@ public abstract class ConfigurationOptions {
 				dotifyTranslator(),
 				wstx(),
 				saxon(),
-				MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.formatter.impl", "4.4.0")
+				MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.formatter.impl", "4.5.0")
 			);
 	}
 	
@@ -107,7 +109,7 @@ public abstract class ConfigurationOptions {
 				dotifyCommon(),
 				jing(),
 				saxon(),
-				MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.task.impl", "4.6.0")
+				MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.task.impl", "4.7.0")
 			);
 	}
 	

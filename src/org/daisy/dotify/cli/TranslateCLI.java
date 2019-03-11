@@ -15,12 +15,12 @@ import org.daisy.dotify.api.factory.FactoryProperties;
 import org.daisy.dotify.api.table.BrailleConverter;
 import org.daisy.dotify.api.table.TableCatalog;
 import org.daisy.dotify.api.translator.BrailleTranslator;
-import org.daisy.dotify.api.translator.BrailleTranslatorFactory;
+import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMaker;
 import org.daisy.dotify.api.translator.Translatable;
 import org.daisy.dotify.api.translator.TranslationException;
 import org.daisy.dotify.api.translator.TranslatorConfigurationException;
 import org.daisy.dotify.api.translator.TranslatorSpecification;
-import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMaker;
+import org.daisy.dotify.api.translator.TranslatorType;
 import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.CommandDetails;
 import org.daisy.streamline.cli.CommandParser;
@@ -34,8 +34,10 @@ import org.daisy.streamline.cli.SwitchMap;
 
 public class TranslateCLI implements CommandDetails {
 	private static final String DEFAULT_LOCALE = Locale.getDefault().toString().replaceAll("_", "-");
+	private static final String DEFAULT_MODE = TranslatorType.UNCONTRACTED.toString(); 
 	private static final String META_KEY = "meta";
 	private static final String LOCALE_KEY = "locale";
+	private static final String MODE_KEY = "mode";
 	private static final String TABLE_KEY = "table";
 	private static final String HELP_KEY = "help";
 	private final List<Argument> reqArgs;
@@ -43,7 +45,8 @@ public class TranslateCLI implements CommandDetails {
 	private final SwitchMap switches;
 	private final ShortFormResolver tableSF;
 	private final CommandParser parser;
-	
+//translate  --locale=en-US --mode=grade:1 
+//translate --locale=da-dk --mode=contracted/8-dot
 	public TranslateCLI() {
 		this.reqArgs = new ArrayList<Argument>();
 		TableCatalog tableCatalog = TableCatalog.newInstance();
@@ -52,14 +55,23 @@ public class TranslateCLI implements CommandDetails {
 		tableSF = new ShortFormResolver(idents);
 		Collection<TranslatorSpecification> tr = BrailleTranslatorFactoryMaker.newInstance().listSpecifications();
 		List<Definition> translations = tr.stream()
-			.filter(v->v.getMode()!=BrailleTranslatorFactory.MODE_BYPASS)
+			.filter(v->!v.getMode().equals(TranslatorType.BYPASS.toString()) && !v.getMode().equals(TranslatorType.PRE_TRANSLATED.toString()))
 			.map(v->v.getLocale())
 			.distinct()
-			.map(v->new Definition(v, ""))
+			.sorted()
+			.map(v->new Definition(v, 
+					tr.stream()
+					.filter(v2->v2.getLocale().equals(v) && !v2.getMode().equals(TranslatorType.BYPASS.toString()) && !v2.getMode().equals(TranslatorType.PRE_TRANSLATED.toString()))
+					.map(v2->v2.getMode())
+					.distinct()
+					.sorted()
+					.collect(Collectors.joining(", ", "Modes: ", ""))
+			))
 			.collect(Collectors.toList());
 		this.optionalArgs = new ArrayList<OptionalArgument>();
 		optionalArgs.add(new OptionalArgument(LOCALE_KEY, "Braille locale. Note that the default locale is based on system settings, not on available braille locales.", translations, DEFAULT_LOCALE));
-		optionalArgs.add(new OptionalArgument(TABLE_KEY, "Table to use", getDefinitionList(tableCatalog, tableSF), "unicode_braille"));
+		optionalArgs.add(new OptionalArgument(MODE_KEY, "Braille mode. For a list of modes, see the locale option.", DEFAULT_MODE));
+		optionalArgs.add(new OptionalArgument(TABLE_KEY, "Preview table to use", getDefinitionList(tableCatalog, tableSF), "unicode_braille"));
 		this.switches = new SwitchMap.Builder()
 				.addSwitch(new SwitchArgument('h', HELP_KEY, META_KEY, HELP_KEY, "Help text."))
 				.build();
@@ -83,7 +95,12 @@ public class TranslateCLI implements CommandDetails {
 			if (locale==null || "".equals(locale)) {
 				locale = DEFAULT_LOCALE;
 			}
-			BrailleTranslator t = BrailleTranslatorFactoryMaker.newInstance().newTranslator(locale, BrailleTranslatorFactory.MODE_UNCONTRACTED);
+			String mode = cmd.getOptional().get(MODE_KEY);
+			if (mode==null || "".equals(mode)) {
+				mode = DEFAULT_MODE;
+			}
+
+			BrailleTranslator t = BrailleTranslatorFactoryMaker.newInstance().newTranslator(locale, mode);
 			TableCatalog tc = TableCatalog.newInstance();
 			String table = cmd.getOptional().get(TABLE_KEY);
 			BrailleConverter bc = null;
