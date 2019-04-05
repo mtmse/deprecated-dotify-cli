@@ -53,3 +53,11 @@ __TeXHyphenator-J__
 __OSGi libraries__
   by The OSGi Alliance (http://www.osgi.org/)
   under the Apache License (version 2.0).
+  
+__JNA__
+  at https://github.com/java-native-access/jna/
+  under the GNU Lesser General Public License (version 2.1)
+
+__SLF4J__
+  at https://www.slf4j.org
+  under the MIT license
