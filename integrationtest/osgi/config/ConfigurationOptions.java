@@ -21,7 +21,7 @@ public abstract class ConfigurationOptions {
 				dotifyApi(),
 				MavenRepo.CENTRAL.get("org.daisy.libs", "jing", "20120724.0.0"),
 				MavenRepo.CENTRAL.get("org.daisy.libs", "saxon-he", "9.5.1.5"),
-				MavenRepo.SONATYPE_STAGING.get("org.daisy.braille", "braille-utils.pef-tools", "5.0.0")
+				MavenRepo.SONATYPE_STAGING.get("org.daisy.braille", "braille-utils.pef-tools", "5.0.2")
 				);
 	}
 	
