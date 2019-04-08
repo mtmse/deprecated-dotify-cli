@@ -12,4 +12,4 @@
  * </p>
  * @author Joel Håkansson
  */
-package org.daisy.dotify.impl.config;
+package org.daisy.dotify.cli.impl.config;

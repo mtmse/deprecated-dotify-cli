@@ -1,4 +1,4 @@
-package org.daisy.dotify.impl.config;
+package org.daisy.dotify.cli.impl.config;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
