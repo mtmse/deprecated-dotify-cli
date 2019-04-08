@@ -48,7 +48,7 @@ public class Dotify {
 	private static final HashMap<String, String> extensionBindings;
 	static {
 		extensionBindings = new HashMap<String, String>();
-		extensionBindings.put("txt", SystemKeys.FORMATTED_TEXT_FORMAT);
+		extensionBindings.put("txt", SystemKeys.FORMATTED_TEXT_FORMAT.getKey());
 	}
 	
 	private final boolean writeTempFiles;
@@ -56,8 +56,8 @@ public class Dotify {
 	// hide default constructor to disable instantiation.
 	private Dotify(Map<String, String> params) { 
 		// get parameters
-		writeTempFiles = "true".equals(params.get(SystemKeys.WRITE_TEMP_FILES));
-		keepTempFilesOnSuccess = !("false".equals(params.get(SystemKeys.KEEP_TEMP_FILES_ON_SUCCESS)));
+		writeTempFiles = "true".equals(params.get(SystemKeys.WRITE_TEMP_FILES.getKey()));
+		keepTempFilesOnSuccess = !("false".equals(params.get(SystemKeys.KEEP_TEMP_FILES_ON_SUCCESS.getKey())));
 	}
 	
 	public static void run(File input, File output, String locale, Map<String, String> params) throws IOException, InternalTaskException {
@@ -87,7 +87,7 @@ public class Dotify {
 		map.putAll(params);
 
 		AnnotatedFile ai = IdentityProvider.newInstance().identify(inputFile);
-		map.put(SystemKeys.INPUT, ai.getFile().getAbsolutePath());
+		map.put(SystemKeys.INPUT.getKey(), ai.getFile().getAbsolutePath());
 
 		String inputFormat = getFormatString(ai);
 		if (inputFormat!=null) {
@@ -110,9 +110,9 @@ public class Dotify {
 			}
 		}
 		
-		map.put(SystemKeys.INPUT_FORMAT, inputFormat);
+		map.put(SystemKeys.INPUT_FORMAT.getKey(), inputFormat);
 
-		String outputformat = params.get(SystemKeys.OUTPUT_FORMAT);
+		String outputformat = params.get(SystemKeys.OUTPUT_FORMAT.getKey());
 		if (outputformat==null || "".equals(outputformat)) {
 			int indx = output.getName().lastIndexOf('.');
 			if (indx>-1) {
@@ -127,18 +127,18 @@ public class Dotify {
 				throw new IllegalArgumentException("Cannot detect file format for output file. Please specify output format.");
 			}
 		}
-		map.put(SystemKeys.OUTPUT_FORMAT, outputformat.toLowerCase());
+		map.put(SystemKeys.OUTPUT_FORMAT.getKey(), outputformat.toLowerCase());
 		
-		map.put(SystemKeys.SYSTEM_NAME, SystemProperties.SYSTEM_NAME);
-		map.put(SystemKeys.SYSTEM_BUILD, SystemProperties.SYSTEM_BUILD);
-		map.put(SystemKeys.SYSTEM_RELEASE, SystemProperties.SYSTEM_RELEASE);
+		map.put(SystemKeys.SYSTEM_NAME.getKey(), SystemProperties.SYSTEM_NAME);
+		map.put(SystemKeys.SYSTEM_BUILD.getKey(), SystemProperties.SYSTEM_BUILD);
+		map.put(SystemKeys.SYSTEM_RELEASE.getKey(), SystemProperties.SYSTEM_RELEASE);
 		map.put("conversionDate", new Date().toString());
 
-		map.put(SystemKeys.INPUT_URI, ai.getFile().toURI().toString());
+		map.put(SystemKeys.INPUT_URI.getKey(), ai.getFile().toURI().toString());
 		
 		// Add default values for optional parameters
 
-		final String tempFilesDirectory = params.get(SystemKeys.TEMP_FILES_DIRECTORY);
+		final String tempFilesDirectory = params.get(SystemKeys.TEMP_FILES_DIRECTORY.getKey());
 
 		// Load additional settings from file
 		if (map.get("config")==null || "".equals(map.get("config"))) {
@@ -157,7 +157,7 @@ public class Dotify {
 		String setup = map.remove("preset");
 		Map<String, Object> rp = d.loadSetup(map, setup);
 
-		boolean shouldPrintOptions = "true".equalsIgnoreCase(map.getOrDefault(SystemKeys.LIST_OPTIONS, "false"));
+		boolean shouldPrintOptions = "true".equalsIgnoreCase(map.getOrDefault(SystemKeys.LIST_OPTIONS.getKey(), "false"));
 		// Run tasks
 		try {
 			TaskSystem ts = TaskSystemFactoryMaker.newInstance().newTaskSystem(inputFormat, outputformat, context.toString());

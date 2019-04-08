@@ -71,7 +71,7 @@ public class Convert implements CommandDetails {
 		this.optionalArgs = new ArrayList<OptionalArgument>();
 		this.switches = new SwitchMap.Builder()
 				.addSwitch(new SwitchArgument('w', WATCH_KEY, WATCH_KEY, "" + DEFAULT_POLL_TIME, "Keeps the conversion in sync by watching the input file for changes and rerunning the conversion automatically when the input is modified."))
-				.addSwitch(new SwitchArgument('o', SystemKeys.LIST_OPTIONS, SystemKeys.LIST_OPTIONS, "true", "Lists additional options as the conversion runs."))
+				.addSwitch(new SwitchArgument('o', SystemKeys.LIST_OPTIONS.getKey(), SystemKeys.LIST_OPTIONS.getKey(), "true", "Lists additional options as the conversion runs."))
 				.addSwitch(new SwitchArgument('c', CONFIG_KEY, META_KEY, CONFIG_KEY, "Lists known configurations."))
 				.build();
 		this.parser = CommandParser.create(this);
@@ -130,7 +130,7 @@ public class Convert implements CommandDetails {
 		//File output = new File(args[1]);
 		final HashMap<String, String> props = new HashMap<String, String>();
 		//props.put("debug", "true");
-		//props.put(SystemKeys.TEMP_FILES_DIRECTORY, TEMP_DIR);
+		//props.put(SystemKeys.TEMP_FILES_DIRECTORY.getKey(), TEMP_DIR);
 
 		props.putAll(result.getOptional());
 		
@@ -138,17 +138,17 @@ public class Convert implements CommandDetails {
 			if (result.getOptional().get(WATCH_KEY)!=null) {
 				logger.warning("'" + WATCH_KEY + "' is not implemented for batch mode.");
 			}
-			if ("true".equals(props.get(SystemKeys.WRITE_TEMP_FILES))) {
+			if ("true".equals(props.get(SystemKeys.WRITE_TEMP_FILES.getKey()))) {
 				ExitCode.ILLEGAL_ARGUMENT_VALUE.exitSystem("Cannot write debug files in batch mode.");
 			}
-			String format = props.get(SystemKeys.OUTPUT_FORMAT);
+			String format = props.get(SystemKeys.OUTPUT_FORMAT.getKey());
 			if (format==null) {
-				ExitCode.MISSING_ARGUMENT.exitSystem(SystemKeys.OUTPUT_FORMAT + " must be specified in batch mode.");
-			} else if (format.equals(SystemKeys.PEF_FORMAT)) {
+				ExitCode.MISSING_ARGUMENT.exitSystem(SystemKeys.OUTPUT_FORMAT.getKey() + " must be specified in batch mode.");
+			} else if (format.equals(SystemKeys.PEF_FORMAT.getKey())) {
 				format = "pef";
-			} else if (format.equals(SystemKeys.FORMATTED_TEXT_FORMAT)) {
+			} else if (format.equals(SystemKeys.FORMATTED_TEXT_FORMAT.getKey())) {
 				format = "txt";
-			} else if (format.equals(SystemKeys.OBFL_FORMAT)) {
+			} else if (format.equals(SystemKeys.OBFL_FORMAT.getKey())) {
 				format = "obfl";
 			} else {
 				ExitCode.ILLEGAL_ARGUMENT_VALUE.exitSystem("Unknown output format.");
@@ -300,18 +300,18 @@ public class Convert implements CommandDetails {
 			
 			{
 				ArrayList<Definition> vals = new ArrayList<Definition>();
-				vals.add(new Definition(SystemKeys.PEF_FORMAT, "write result in PEF-format"));
-				vals.add(new Definition(SystemKeys.FORMATTED_TEXT_FORMAT, "write result as text"));
-				//vals.add(new Definition(SystemKeys.OBFL_FORMAT, "write result in OBFL-format (bypass formatter)"));
-				optionalArgs.add(new OptionalArgument(SystemKeys.OUTPUT_FORMAT, "Specifies output format", vals, "[detect]"));
+				vals.add(new Definition(SystemKeys.PEF_FORMAT.getKey(), "write result in PEF-format"));
+				vals.add(new Definition(SystemKeys.FORMATTED_TEXT_FORMAT.getKey(), "write result as text"));
+				//vals.add(new Definition(SystemKeys.OBFL_FORMAT.getKey(), "write result in OBFL-format (bypass formatter)"));
+				optionalArgs.add(new OptionalArgument(SystemKeys.OUTPUT_FORMAT.getKey(), "Specifies output format", vals, "[detect]"));
 			}
 			{
 				ArrayList<Definition> vals = new ArrayList<Definition>();
 				vals.add(new Definition("true", "outputs temp files"));
 				vals.add(new Definition("false", "does not output temp files"));
-				optionalArgs.add(new OptionalArgument(SystemKeys.WRITE_TEMP_FILES, "Writes temp files", vals, "false"));
+				optionalArgs.add(new OptionalArgument(SystemKeys.WRITE_TEMP_FILES.getKey(), "Writes temp files", vals, "false"));
 			}
-			optionalArgs.add(new OptionalArgument(SystemKeys.TEMP_FILES_DIRECTORY, "Path to temp files directory", DefaultTempFileWriter.TEMP_DIR));
+			optionalArgs.add(new OptionalArgument(SystemKeys.TEMP_FILES_DIRECTORY.getKey(), "Path to temp files directory", DefaultTempFileWriter.TEMP_DIR));
 			optionalArgs.add(new OptionalArgument(PEFConverterFacade.KEY_TABLE, "If specified, an ASCII-braille file (.brl) is generated in addition to the PEF-file using the specified braille code table", brailleInfo.getDefinitionList(), ""));
 		}
 		return optionalArgs;
