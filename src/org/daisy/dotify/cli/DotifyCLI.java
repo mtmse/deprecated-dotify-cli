@@ -177,6 +177,7 @@ public class DotifyCLI implements CommandDetails {
 				System.out.println("--- " + getName() + " ---");
 				System.out.println("Version: " + (getVersion()!=null?getVersion():"N/A"));
 				System.out.println("Build: " + (getBuildIdentifier()!=null?getBuildIdentifier():"N/A"));
+				System.out.println("Java runtime: " + System.getProperty("java.version"));
 				ExitCode.OK.exitSystem();
 			}
 			Class<? extends Object> clazz = commands.get(args[0]);
