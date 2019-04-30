@@ -56,9 +56,7 @@ For example:
 `--preset=/path/to/file.xml`
 
 ### locale ###
-The locale is very important, because it determines the fall-back language used for braille translation and hyphenation. 
-
-**Note: Depending on the system settings, changing this might be necessary to produce a result, due to the limited set of braille translators available.**
+The locale is very important, because it determines the fall-back language used for braille translation and hyphenation.
 
 ### outputFormat ###
 If specified, the output format is determined by the value of this parameter, instead of from the file name extension.

@@ -34,11 +34,6 @@ Dotify supports a range of embossers, including popular [Index](http://www.index
 
 For details, see the complete list of supported embossers by typing the following command:
   `dotify list embossers`
-  
-### Translator Limitations ###
-Formatting with hyphenation is supported for over 50 languages. Unfortunately, only Swedish _braille_ is supported when
-using the following command:
-`dotify convert`
 
 ## 2 Installation ##
 You can download a ready-to-run binary variant of this library from
