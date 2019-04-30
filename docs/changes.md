@@ -1,5 +1,29 @@
 [Table of Contents](toc.md)
 
+# 3.2.0
+## New in this version
+- User interface
+  - Improves "translate" command options
+  - Includes java runtime version in "version" command
+- Translators
+  - Adds Liblouis translators for the following locales:  af, ar, as, awa, bn, bra, ca, chr, ckb, cs, cy, da, de, de-CH, el, en, en-GB, en-US, eo, es, fa, fi, fr, ga, gez, gu, haw, hi, hr, hu, iu, kha, kn, ko, lt, lv, mi, ml, mn, mni, mr, ne, nl, nl-BE, no, or, pa, pl, pt, ru, sa sd, sk, sl, sr, ta, te and vi.
+  - Supports locale 'sv'
+  - Adds localized name and description to the Swedish braille translators and filters
+- Embossing
+  - Fixes a problem with page ranges on Index V4 and V5 embossers
+- Layout
+  - Supports staircase tables in html (fixes brailleapps/dotify.task.impl#8)
+- Formatting
+  - Fixes a problem where a page could become too long
+  - Supports BreakBefore.SHEET (fixes brailleapps/dotify.formatter.impl#53, closes brailleapps/dotify.formatter.impl#54)
+  - Supports flow into header/footer (fixes brailleapps/dotify.formatter.impl#63)
+  - Enhances volume-transition
+  - Fixes marker-reference issue (fixes brailleapps/dotify.formatter.impl#39, closes brailleapps/dotify.formatter.impl#94)
+- Misc
+  - Makes plugins directory independent of current directory (fixes #9)
+  - Updates documentation
+  - Adds license information
+
 # 3.1.0
 ## New in this version
 - Adds a volume transition feature
