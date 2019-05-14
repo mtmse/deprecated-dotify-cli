@@ -21,20 +21,20 @@ public abstract class ConfigurationOptions {
 				dotifyApi(),
 				MavenRepo.CENTRAL.get("org.daisy.libs", "jing", "20120724.0.0"),
 				MavenRepo.CENTRAL.get("org.daisy.libs", "saxon-he", "9.5.1.5"),
-				MavenRepo.SONATYPE_STAGING.get("org.daisy.braille", "braille-utils.pef-tools", "5.0.2")
+				MavenRepo.CENTRAL.get("org.daisy.braille", "braille-utils.pef-tools", "5.0.2")
 				);
 	}
 	
 	public static Option brailleUtilsCatalog() {
-		return MavenRepo.SONATYPE_STAGING.get("org.daisy.braille", "braille-utils.impl", "6.0.0");
+		return MavenRepo.CENTRAL.get("org.daisy.braille", "braille-utils.impl", "6.0.0");
 	}
 
 	static Option dotifyApi() {
-		return MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.api", "4.6.0");
+		return MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.api", "4.7.0");
 	}
 	
 	static Option dotifyCommon() {
-		return MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.common", "4.3.1");
+		return MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.common", "4.3.1");
 	}
 	
 	public static Option dotifyText() {
@@ -61,8 +61,8 @@ public abstract class ConfigurationOptions {
 		return composite(
 				dotifyHyphenator(),
 				MavenRepo.CENTRAL.get("net.java.dev.jna", "jna", "5.2.0"),
-				MavenRepo.SONATYPE_STAGING.get("org.liblouis", "liblouis-java", "4.0.0"),
-				MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.translator.impl", "4.1.0")
+				MavenRepo.CENTRAL.get("org.liblouis", "liblouis-java", "4.1.0"),
+				MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.translator.impl", "4.2.0")
 			);
 	}
 	
@@ -98,7 +98,7 @@ public abstract class ConfigurationOptions {
 				dotifyTranslator(),
 				wstx(),
 				saxon(),
-				MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.formatter.impl", "4.5.1")
+				MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.formatter.impl", "4.6.0")
 			);
 	}
 	
@@ -109,7 +109,7 @@ public abstract class ConfigurationOptions {
 				dotifyCommon(),
 				jing(),
 				saxon(),
-				MavenRepo.SONATYPE_STAGING.get("org.daisy.dotify", "dotify.task.impl", "4.7.0")
+				MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.task.impl", "4.7.0")
 			);
 	}
 	
