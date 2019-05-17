@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -15,14 +14,14 @@ import java.util.stream.Collectors;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.daisy.dotify.api.embosser.EmbosserCatalog;
-import org.daisy.dotify.api.embosser.EmbosserFactoryException;
 import org.daisy.braille.utils.pef.PEFConverterFacade;
 import org.daisy.braille.utils.pef.UnsupportedWidthException;
 import org.daisy.dotify.Dotify;
 import org.daisy.dotify.SystemKeys;
+import org.daisy.dotify.api.embosser.EmbosserCatalog;
+import org.daisy.dotify.api.embosser.EmbosserFactoryException;
 import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMaker;
-import org.daisy.dotify.api.translator.TranslatorSpecification;
+import org.daisy.dotify.api.translator.TranslatorType;
 import org.daisy.dotify.common.text.FilterLocale;
 import org.daisy.streamline.api.config.ConfigurationDetails;
 import org.daisy.streamline.api.config.ConfigurationsCatalog;
@@ -90,13 +89,12 @@ public class Convert implements CommandDetails {
 		List<String> p = result.getRequired();
 		if (args.length<2 || p.size()<2) {
 			if (CONFIG_KEY.equals(result.getOptional().get(META_KEY))) {
-				ArrayList<TranslatorSpecification> s = new ArrayList<TranslatorSpecification>();
-				s.addAll(BrailleTranslatorFactoryMaker.newInstance().listSpecifications());
-				Collections.sort(s);
 				System.out.println("Known configurations (locale, braille mode):");
-				for (TranslatorSpecification ts : s) {
-					System.out.println("  " + ts.getLocale() + ", " + ts.getMode());
-				}
+				BrailleTranslatorFactoryMaker.newInstance().listSpecifications().stream()
+					.filter(ts->ts.getModeDetails().getType().map(v2->v2!=TranslatorType.BYPASS&&v2!=TranslatorType.PRE_TRANSLATED).orElse(true))
+					.sorted()
+					.map(ts->"" + ts.getLocale() + ", " + ts.getMode())
+					.forEach(System.out::println);
 				ExitCode.OK.exitSystem();
 			} else {
 				System.out.println("Expected at least two arguments");
