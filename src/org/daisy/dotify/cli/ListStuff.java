@@ -5,14 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.daisy.dotify.api.embosser.EmbosserCatalog;
 import org.daisy.dotify.api.factory.FactoryProperties;
 import org.daisy.dotify.api.factory.FactoryProperties.ComparatorBuilder.SortProperty;
+import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMaker;
 import org.daisy.dotify.api.paper.PaperCatalog;
 import org.daisy.dotify.api.table.TableCatalog;
-import org.daisy.dotify.api.hyphenator.HyphenatorFactoryMaker;
 import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.CommandDetails;
 import org.daisy.streamline.cli.CommandParser;
@@ -109,16 +108,19 @@ class ListStuff implements CommandDetails {
 			printList(pa, mode, prefix, separator, postfix);
 		} else if (HYPHENATORS_KEY.equalsIgnoreCase(type)) {
 			HyphenatorFactoryMaker hyphs = HyphenatorFactoryMaker.newInstance();
-			FactoryProperties[] ha = hyphs.listLocales().stream().map(loc -> new LocaleFactoryPropertiesAdapter(Locale.forLanguageTag(loc))).toArray(FactoryProperties[]::new);
+			FactoryProperties[] ha = hyphs.listLocales().stream().map(loc -> {
+					Locale l = Locale.forLanguageTag(loc);
+					return new FactoryPropertiesAdapter(l.toLanguageTag(), l.getDisplayName());
+				}).toArray(FactoryProperties[]::new);
 			printList(ha, mode, prefix, separator, postfix);
 		}
 	}
 	
-	private static class LocaleFactoryPropertiesAdapter implements FactoryProperties {
+	private static class FactoryPropertiesAdapter implements FactoryProperties {
 		private final String name, id;
-		private LocaleFactoryPropertiesAdapter(Locale l) {
-			this.id = l.toLanguageTag();
-			this.name = Arrays.asList(l.getDisplayLanguage(), l.getDisplayCountry()).stream().filter(v -> !v.isEmpty()).collect(Collectors.joining(", "));
+		private FactoryPropertiesAdapter(String id, String name) {
+			this.id = id;
+			this.name = name;
 		}
 		@Override
 		public String getIdentifier() {
