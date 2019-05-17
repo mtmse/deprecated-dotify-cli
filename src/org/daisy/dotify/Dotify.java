@@ -210,7 +210,7 @@ public class Dotify {
 		if (setup==null) {
 			ret = new HashMap<>();
 		} else {
-			ret = loadConfiguration(setup);
+			ret = new HashMap<>(loadConfiguration(setup));
 		}
 
 		// GUI parameters should take precedence
