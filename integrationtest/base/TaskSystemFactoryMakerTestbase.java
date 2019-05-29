@@ -107,6 +107,6 @@ public abstract class TaskSystemFactoryMakerTestbase {
 		TaskSystemFactoryMakerService factory = getTaskSystemFMS();
 		
 		//Test
-		assertNotNull(factory.getFactory("xml", "text", "en-US"));
+		assertNotNull(factory.getFactory("xml", "formatted-text", "en-US"));
 	}
 }

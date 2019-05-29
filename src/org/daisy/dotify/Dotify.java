@@ -48,7 +48,7 @@ public class Dotify {
 	private static final HashMap<String, String> extensionBindings;
 	static {
 		extensionBindings = new HashMap<String, String>();
-		extensionBindings.put("txt", SystemKeys.TEXT_FORMAT);
+		extensionBindings.put("txt", SystemKeys.FORMATTED_TEXT_FORMAT);
 	}
 	
 	private final boolean writeTempFiles;

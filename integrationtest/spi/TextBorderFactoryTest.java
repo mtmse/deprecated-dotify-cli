@@ -6,12 +6,13 @@ import static org.junit.Assert.assertNotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.daisy.dotify.api.translator.BrailleTranslatorFactory;
 import org.daisy.dotify.api.translator.TextBorderConfigurationException;
 import org.daisy.dotify.api.translator.TextBorderFactory;
+import org.daisy.dotify.api.translator.TextBorderFactoryMaker;
 import org.daisy.dotify.api.translator.TextBorderFactoryMakerService;
 import org.daisy.dotify.api.translator.TextBorderStyle;
-import org.daisy.dotify.api.translator.TextBorderFactoryMaker;
+import org.daisy.dotify.api.translator.TranslatorMode;
+import org.daisy.dotify.api.translator.TranslatorType;
 import org.junit.Test;
 
 @SuppressWarnings("javadoc")
@@ -22,7 +23,7 @@ public class TextBorderFactoryTest {
 		//Setup
 		TextBorderFactoryMakerService maker = TextBorderFactoryMaker.newInstance();
 		Map<String, Object> props = new HashMap<String, Object>();
-		props.put(TextBorderFactory.FEATURE_MODE, BrailleTranslatorFactory.MODE_UNCONTRACTED);
+		props.put(TextBorderFactory.FEATURE_MODE, TranslatorMode.withType(TranslatorType.UNCONTRACTED).toString());
 		//Test
 		maker.newTextBorderStyle(props);
 	}
@@ -32,7 +33,7 @@ public class TextBorderFactoryTest {
 		//Setup
 		TextBorderFactoryMakerService maker = TextBorderFactoryMaker.newInstance();
 		Map<String, Object> props = new HashMap<String, Object>();
-		props.put(TextBorderFactory.FEATURE_MODE, BrailleTranslatorFactory.MODE_UNCONTRACTED);
+		props.put(TextBorderFactory.FEATURE_MODE, TranslatorMode.withType(TranslatorType.UNCONTRACTED).toString());
 		props.put("border-style", "solid");
 		props.put("border-width", "1");
 		props.put("border-align", "outer");

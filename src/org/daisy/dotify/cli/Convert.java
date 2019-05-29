@@ -146,7 +146,7 @@ public class Convert implements CommandDetails {
 				ExitCode.MISSING_ARGUMENT.exitSystem(SystemKeys.OUTPUT_FORMAT + " must be specified in batch mode.");
 			} else if (format.equals(SystemKeys.PEF_FORMAT)) {
 				format = "pef";
-			} else if (format.equals(SystemKeys.TEXT_FORMAT)) {
+			} else if (format.equals(SystemKeys.FORMATTED_TEXT_FORMAT)) {
 				format = "txt";
 			} else if (format.equals(SystemKeys.OBFL_FORMAT)) {
 				format = "obfl";
@@ -301,7 +301,7 @@ public class Convert implements CommandDetails {
 			{
 				ArrayList<Definition> vals = new ArrayList<Definition>();
 				vals.add(new Definition(SystemKeys.PEF_FORMAT, "write result in PEF-format"));
-				vals.add(new Definition(SystemKeys.TEXT_FORMAT, "write result as text"));
+				vals.add(new Definition(SystemKeys.FORMATTED_TEXT_FORMAT, "write result as text"));
 				//vals.add(new Definition(SystemKeys.OBFL_FORMAT, "write result in OBFL-format (bypass formatter)"));
 				optionalArgs.add(new OptionalArgument(SystemKeys.OUTPUT_FORMAT, "Specifies output format", vals, "[detect]"));
 			}

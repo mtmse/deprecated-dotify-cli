@@ -39,7 +39,7 @@ public abstract class TaskGroupFactoryMakerTestbase {
 		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("text", "html").build()));
 		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("txt", "html").build()));
 		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("epub", "html").build()));
-		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("obfl", "text").build()));
+		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("obfl", "formatted-text").build()));
 		
 		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("dtbook", "obfl").build()));
 		assertTrue(specs.contains(TaskGroupInformation.newConvertBuilder("xml", "obfl").build()));

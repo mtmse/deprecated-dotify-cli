@@ -37,7 +37,7 @@ public interface SystemKeys {
 
 	
 	public static final String PEF_FORMAT = "pef";
-	public static final String TEXT_FORMAT = "text";
+	public static final String FORMATTED_TEXT_FORMAT = "formatted-text";
 	public static final String OBFL_FORMAT = "obfl";
 	
 	/**
