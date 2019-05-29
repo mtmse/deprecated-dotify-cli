@@ -117,7 +117,7 @@ public abstract class ConfigurationOptions {
 		return composite(
 				dotifyCommon(),
 				streamlineApi(),
-				MavenRepo.CENTRAL.get("org.daisy.streamline", "streamline-engine", "1.2.0")
+				MavenRepo.SONATYPE_STAGING.get("org.daisy.streamline", "streamline-engine", "1.3.0")
 			);
 	}
 
