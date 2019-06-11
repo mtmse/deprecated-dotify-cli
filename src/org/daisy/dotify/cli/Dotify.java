@@ -51,15 +51,15 @@ public class Dotify {
 		extensionBindings.put("txt", SystemKeys.FORMATTED_TEXT_FORMAT.getKey());
 	}
 	
-	private final boolean writeTempFiles;
-	private final boolean keepTempFilesOnSuccess;
-	// hide default constructor to disable instantiation.
-	private Dotify(Map<String, String> params) { 
-		// get parameters
-		writeTempFiles = "true".equals(params.get(SystemKeys.WRITE_TEMP_FILES.getKey()));
-		keepTempFilesOnSuccess = !("false".equals(params.get(SystemKeys.KEEP_TEMP_FILES_ON_SUCCESS.getKey())));
-	}
-	
+	/**
+	 * Runs Dotify with the supplied parameters.
+	 * @param input the input file
+	 * @param output the output file
+	 * @param locale the language/region context
+	 * @param params additional parameters
+	 * @throws IOException if there is an i/o error
+	 * @throws InternalTaskException if there is a problem with running the task system
+	 */
 	public static void run(File input, File output, String locale, Map<String, String> params) throws IOException, InternalTaskException {
 		run(input, output, FilterLocale.parse(locale), params);
 	}
@@ -74,8 +74,9 @@ public class Dotify {
 	 * @throws InternalTaskException if there is a problem with running the task system
 	 */
 	public static void run(File inputFile, File output, FilterLocale context, Map<String, String> params) throws IOException, InternalTaskException {
-		Dotify d = new Dotify(params);
-
+		boolean writeTempFiles = "true".equals(params.get(SystemKeys.WRITE_TEMP_FILES.getKey()));
+		boolean keepTempFilesOnSuccess = !("false".equals(params.get(SystemKeys.KEEP_TEMP_FILES_ON_SUCCESS.getKey())));
+		
 		String cols = params.get("cols");
 		if (cols==null || "".equals(cols)) {
 			params.remove("cols");
@@ -155,7 +156,7 @@ public class Dotify {
 
 		// Load setup
 		String setup = map.remove("preset");
-		Map<String, Object> rp = d.loadSetup(map, setup);
+		Map<String, Object> rp = loadSetup(map, setup);
 
 		boolean shouldPrintOptions = "true".equalsIgnoreCase(map.getOrDefault(SystemKeys.LIST_OPTIONS.getKey(), "false"));
 		// Run tasks
@@ -165,8 +166,8 @@ public class Dotify {
 				logger.info("About to run with parameters " + rp);
 				CompiledTaskSystem tl = ts.compile(rp);
 				TaskRunner.Builder builder = TaskRunner.withName(ts.getName())
-						.writeTempFiles(d.writeTempFiles)
-						.keepTempFiles(d.keepTempFilesOnSuccess)
+						.writeTempFiles(writeTempFiles)
+						.keepTempFiles(keepTempFilesOnSuccess)
 						.tempFileWriter(
 								new DefaultTempFileWriter.Builder()
 								.prefix("Dotify")
@@ -205,7 +206,7 @@ public class Dotify {
 		return specs.listOutputs().stream().filter(v->v.equals(outputFormat)).findAny().isPresent();
 	}
 	
-	private Map<String, Object> loadSetup(Map<String, String> guiParams, String setup) {
+	private static Map<String, Object> loadSetup(Map<String, String> guiParams, String setup) {
 		Map<String, Object> ret;
 		if (setup==null) {
 			ret = new HashMap<>();
@@ -219,7 +220,7 @@ public class Dotify {
 		return ret;
 	}
 	
-	private Map<String, Object> loadConfiguration(String setup) {
+	private static Map<String, Object> loadConfiguration(String setup) {
 		try {
 			ConfigurationsCatalog cm = ConfigurationsCatalog.newInstance();
 			return cm.getConfiguration(setup);
