@@ -1,4 +1,4 @@
-package org.daisy.dotify;
+package org.daisy.dotify.cli;
 
 import java.io.File;
 import java.io.FileInputStream;

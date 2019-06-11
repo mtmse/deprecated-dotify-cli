@@ -16,8 +16,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.daisy.braille.utils.pef.PEFConverterFacade;
 import org.daisy.braille.utils.pef.UnsupportedWidthException;
-import org.daisy.dotify.Dotify;
-import org.daisy.dotify.SystemKeys;
 import org.daisy.dotify.api.embosser.EmbosserCatalog;
 import org.daisy.dotify.api.embosser.EmbosserFactoryException;
 import org.daisy.dotify.api.translator.BrailleTranslatorFactoryMaker;

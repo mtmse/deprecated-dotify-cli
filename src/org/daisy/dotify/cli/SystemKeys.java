@@ -1,4 +1,4 @@
-package org.daisy.dotify;
+package org.daisy.dotify.cli;
 
 /**
  * Provides common property keys used in the system.
