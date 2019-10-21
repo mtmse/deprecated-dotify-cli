@@ -8,7 +8,7 @@
   - Fix interpretation of volume-keep-priority in and around nested blocks
   - Fix break-before="page" when already at the beginning of a page, resulting in less empty pages in the result. #98
   - Allow evaluation of $volume in volume transitions and in the normal flow #99
-  - Allow <evaluate expression="$page"/>`, where you previously had to say (round $page) or (format {0} $page) #99
+  - Allow ```<evaluate expression="$page"/>```, where you previously had to say (round $page) or (format {0} $page) #99
   - Be more strict about what is allowed in an expression #99
   - Don't normalize space in evaluating expressions #99
   - Call setResolver earlier to enable peeking to Evaluate or PageNumberReference segments #105
