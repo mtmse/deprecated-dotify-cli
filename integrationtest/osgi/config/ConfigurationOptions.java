@@ -11,7 +11,7 @@ import org.ops4j.pax.exam.Option;
 
 @SuppressWarnings("javadoc")
 public abstract class ConfigurationOptions {
-	
+
 	public static Option felixDS() {
 		return MavenRepo.CENTRAL.get("org.apache.felix", "org.apache.felix.scr", "2.1.14");
 	}
@@ -24,7 +24,7 @@ public abstract class ConfigurationOptions {
 				MavenRepo.CENTRAL.get("org.daisy.braille", "braille-utils.pef-tools", "6.0.0")
 				);
 	}
-	
+
 	public static Option brailleUtilsCatalog() {
 		return MavenRepo.CENTRAL.get("org.daisy.braille", "braille-utils.impl", "7.0.0");
 	}
@@ -32,22 +32,22 @@ public abstract class ConfigurationOptions {
 	static Option dotifyApi() {
 		return MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.api", "5.0.0");
 	}
-	
+
 	static Option dotifyCommon() {
 		return MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.common", "4.4.0");
 	}
-	
+
 	public static Option dotifyText() {
 		return composite(
 				dotifyApi(),
 				MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.text.impl", "5.0.0")
 			);
 	}
-	
+
 	static Option texhyphj() {
 		return MavenRepo.CENTRAL.get("com.googlecode.texhyphj", "texhyphj", "1.2");
 	}
-	
+
 	public static Option dotifyHyphenator() {
 		return composite(
 				dotifyApi(),
@@ -56,7 +56,7 @@ public abstract class ConfigurationOptions {
 				MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.hyphenator.impl", "5.0.0")
 			);
 	}
-	
+
 	public static Option dotifyTranslator() {
 		return composite(
 				dotifyHyphenator(),
@@ -65,43 +65,43 @@ public abstract class ConfigurationOptions {
 				MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.translator.impl", "5.0.0")
 			);
 	}
-	
+
 	static Option streamlineApi() {
 		return MavenRepo.CENTRAL.get("org.daisy.streamline", "streamline-api", "1.4.0");
 	}
-	
+
 	static Option jing() {
 		return MavenRepo.CENTRAL.get("org.daisy.libs", "jing", "20120724.0.0");
 	}
-	
+
 	static Option saxon() {
 		return MavenRepo.CENTRAL.get("org.daisy.libs", "saxon-he", "9.5.1.5");
 	}
-	
+
 	static Option stax2() {
 		return MavenRepo.CENTRAL.get("org.codehaus.woodstox", "stax2-api", "3.1.4");
 	}
-	
+
 	static Option wstx() {
 		return composite(
 				stax2(),
 				MavenRepo.CENTRAL.get("com.fasterxml.woodstox", "woodstox-core", "5.0.2")
 			);
-				
+
 	}
-	
+
 	public static Option dotifyFormatter() {
 		return composite(
 				streamlineApi(),
-				dotifyText(), 
-				dotifyHyphenator(), 
+				dotifyText(),
+				dotifyHyphenator(),
 				dotifyTranslator(),
 				wstx(),
 				saxon(),
-				MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.formatter.impl", "5.0.0")
+				MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.formatter.impl", "5.0.2")
 			);
 	}
-	
+
 	public static Option dotifyTasks() {
 		return composite(
 				dotifyApi(),
@@ -112,7 +112,7 @@ public abstract class ConfigurationOptions {
 				MavenRepo.CENTRAL.get("org.daisy.dotify", "dotify.task.impl", "4.7.0")
 			);
 	}
-	
+
 	public static Option streamlineEngine() {
 		return composite(
 				dotifyCommon(),
@@ -125,7 +125,7 @@ public abstract class ConfigurationOptions {
 		CENTRAL,
 		SONATYPE_STAGING,
 		LOCAL;
-		
+
 		Option get(String group, String artifact, String version) {
 			switch(this) {
 				case LOCAL:
@@ -136,26 +136,26 @@ public abstract class ConfigurationOptions {
 					return mavenBundle().groupId(group).artifactId(artifact).version(version);
 			}
 		}
-		
+
 		static Option sonatypeStaging(String group, String artifact, String version) {
 			String path = group.replaceAll("\\.", "/");
 			return bundle("https://oss.sonatype.org/content/groups/staging/"+path+
 					"/"+artifact+"/"+version+"/"+artifact+"-"+version+".jar");
 		}
-		
+
 		static File mavenLocal = null;
-		
+
 		static synchronized File getMavenLocal() {
 			if (mavenLocal==null) {
 				File home = new File(System.getProperty("user.home"));
 				mavenLocal = new File(new File(home, ".m2"), "repository");
 				if (!mavenLocal.isDirectory()) {
 					throw new RuntimeException("Cannot find maven local at " + mavenLocal);
-				}			
+				}
 			}
 			return mavenLocal;
 		}
-		
+
 		static Option local(String group, String artifact, String version) {
 			try {
 				String path = group.replaceAll("\\.", "/");

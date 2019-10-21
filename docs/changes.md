@@ -1,5 +1,21 @@
 [Table of Contents](toc.md)
 
+# 3.2.1
+## New in this version
+- Formatting
+  - Formatting process is faster and guaranteed to converge
+  - Volume breaking is more stable #50
+  - Fix interpretation of volume-keep-priority in and around nested blocks
+  - Fix break-before="page" when already at the beginning of a page, resulting in less empty pages in the result. #98
+  - Allow evaluation of $volume in volume transitions and in the normal flow #99
+  - Allow <evaluate expression="$page"/>`, where you previously had to say (round $page) or (format {0} $page) #99
+  - Be more strict about what is allowed in an expression #99
+  - Don't normalize space in evaluating expressions #99
+  - Call setResolver earlier to enable peeking to Evaluate or PageNumberReference segments #105
+  - Fix a mismatch between the behavior of ScenarioData and RowGroupDataSource that could result in an IllegalStateException, notably when a break-before="page" occurs when there are only empty blocks on the current page, some of which have markers. #98
+  - any-resumed does not reduce available space on page when not rendered
+  - Improved documentation #102
+
 # 3.2.0
 ## New in this version
 - User interface
@@ -202,10 +218,10 @@
   * Added option to re-run conversion upon change in source file
   * Added translator command
   * Improved volume breaking
-  * Improved pagination algorithm  
+  * Improved pagination algorithm
   * Added support for collapsing margins
   * Added additional variables in OBFL
-  
+
 # 2.3 #
   * Added support for footnotes and end of volume notes in API and formatter implementation
   * Added support for note/noteref to the dtbook conversion
