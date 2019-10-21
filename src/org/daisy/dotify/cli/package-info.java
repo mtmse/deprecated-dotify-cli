@@ -1,17 +1,7 @@
 /**
- * <p>
- * Provides a simple implementation for core functionality in the
- * org.daisy.braille packages.
- * </p>
- * <ul>
- * <li>EmbossPEF</li>
- * <li>PEFParser</li>
- * <li>TextParser</li>
- * <li>ValidatePEF</li>
- * <li>SplitPEF</li>
- * <li>MergePEF</li>
- * <li>GeneratePEF</li>
- * </ul>
+ * <p>Provides a CLI for functionality in the dotify API. This includes
+ * a braille translation system which can convert documents
+ * into braille or formatted text.</p>
  * 
  * @author Joel Håkansson
  */

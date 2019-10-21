@@ -13,7 +13,6 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.daisy.dotify.SystemProperties;
 import org.daisy.dotify.common.io.FileIO;
 import org.daisy.streamline.cli.Argument;
 import org.daisy.streamline.cli.CommandDetails;
@@ -26,8 +25,7 @@ import org.daisy.streamline.cli.SwitchArgument;
 import org.daisy.streamline.cli.SwitchMap;
 
 /**
- * Provides a basic command line UI for core functionality in
- * org.daisy.braille.
+ * Provides a CLI for functionality in the dotify API.
  * @author Joel Håkansson
  */
 public class DotifyCLI implements CommandDetails {

@@ -1,4 +1,4 @@
-package org.daisy.dotify;
+package org.daisy.dotify.cli;
 
 import org.daisy.dotify.common.java.ManifestRetriever;
 
